@@ -35,8 +35,8 @@ The file shared are:
 * **Get Yaml file of a deployment**
   * kubectl get deploy <deploymentName> -o yaml -n <namespace>
 *  **Delete all resource in a namespace and then delete the namespace**
-*  kubectl delete all --all -n <namespace>
-*  kubectl delete namespace <namespace>
+  *  kubectl delete all --all -n <namespace>
+  *  kubectl delete namespace <namespace>
 * **Disable use of swap**
   * sudo swapoff -a
 * **Enable use of swap**
