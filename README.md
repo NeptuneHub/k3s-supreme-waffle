@@ -17,6 +17,7 @@ The file shared are:
 * **wikijs-secret.yaml** - Contains secret for the configruation of MariaDB, you need to edit it to change different user and password;
 * **wikijs-pvc.yaml** - Contains the persistent volume claims;
 * **wikijs-service.yaml** - Contains the service;
+* **postgresql** - Is a working in progress (still not completed) to deploy wikijs on top of Postgresql instead of MariaDB.
 
 **References:**
 * **K3S install**: https://documentation.suse.com/trd/kubernetes/single-html/kubernetes_ri_k3s-slemicro/index.html
