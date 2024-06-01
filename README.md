@@ -22,10 +22,13 @@ The file shared are:
 * **restart-longhorn.sh** - Can be run in order to restart longhorn
 
 **Some Linux and Kubernetes useful commands::**
-* **Change the replica number of an already existing deployment** - kubectl -n <namespace> scale deployment/<deployment_name> --replicas=0
-* **Disable use of swap** - sudo swapoff -a
-* * **Enable use of swap** - sudo swapon -a
-* **Disable IPV6** -
+* **Change the replica number of an already existing deployment**
+  * kubectl -n <namespace> scale deployment/<deployment_name> --replicas=0
+* **Disable use of swap**
+  * sudo swapoff -a
+* **Enable use of swap**
+  * sudo swapon -a
+* **Disable IPV6**
   * net.ipv6.conf.all.disable_ipv6 = 1
   * net.ipv6.conf.default.disable_ipv6 = 1
   * net.ipv6.conf.lo.disable_ipv6 = 1  
