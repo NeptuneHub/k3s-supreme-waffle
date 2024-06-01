@@ -25,15 +25,18 @@ The file shared are:
 * **Change the replica number of an already existing deployment**
   * kubectl -n <namespace> scale deployment/<deployment_name> --replicas=0
 * **Edit external IPs of a service already deployed and check the changes**
-  * kubectl patch svc serviceName -n namespace -p '{"spec":{"externalIPs":["Put.here.the.ip"]}}'
-  * kubectl describe service serviceName -n namespace
+  * kubectl patch svc serviceName -n <namespace> -p '{"spec":{"externalIPs":["<Put.here.the.ip>"]}}'
+  * kubectl describe service serviceName -n <namespace>
 * **Get pod log**
-  * kubectl logs pod-specific-instance -n namespace 
-  * kubectl describe pod  pod-specific-instance -n namespace
+  * kubectl logs <pod-specific-instance> -n <namespace> 
+  * kubectl describe pod  <pod-specific-instance> -n <namespace>
 * **Apply a Yaml file**
   * kubectl apply -f file.yaml
 * **Get Yaml file of a deployment**
-  * kubectl get deploy deploymentName -o yaml -n namespace
+  * kubectl get deploy <deploymentName> -o yaml -n <namespace>
+*  **Delete all resource in a namespace and then delete the namespace**
+*  kubectl delete all --all -n <namespace>
+*  kubectl delete namespace <namespace>
 * **Disable use of swap**
   * sudo swapoff -a
 * **Enable use of swap**
@@ -61,6 +64,7 @@ The file shared are:
 * **Disable IPV6 on ubuntu**: https://intercom.help/privatevpn/en/articles/6440374-how-to-disable-ipv6-on-ubuntu-and-fedora-linux
 * **Micro OS easy ssh enrollment**: https://microos.opensuse.org/blog/2024-05-17-ssh-pairing/
 * **Micro OS change hostname**: https://www.simplified.guide/suse/change-hostname
+* **How to delete all resources from Kubernetesd**: https://stackoverflow.com/questions/47128586/how-to-delete-all-resources-from-kubernetes-one-time
 
 
 **Disclaimer:** some of this references wasn't used in the script but was useful for the learning purpose.
