@@ -29,7 +29,11 @@ The file shared are:
   * kubectl describe service serviceName -n namespace
 * **Get pod log**
   * kubectl logs pod-specific-instance -n namespace 
-  * kubectl describe pod  pod-specific-instance -n namespace 
+  * kubectl describe pod  pod-specific-instance -n namespace
+* **Apply a Yaml file**
+  * kubectl apply -f file.yaml
+* **Get Yaml file of a deployment**
+  * kubectl get deploy deploymentName -o yaml -n namespace
 * **Disable use of swap**
   * sudo swapoff -a
 * **Enable use of swap**
@@ -37,7 +41,9 @@ The file shared are:
 * **Disable IPV6**
   * net.ipv6.conf.all.disable_ipv6 = 1
   * net.ipv6.conf.default.disable_ipv6 = 1
-  * net.ipv6.conf.lo.disable_ipv6 = 1  
+  * net.ipv6.conf.lo.disable_ipv6 = 1
+* **check disk mounted to the machine**
+  * lsblk
 
 **References:**
 * **K3S install**: https://documentation.suse.com/trd/kubernetes/single-html/kubernetes_ri_k3s-slemicro/index.html
