@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-secret
+  namespace: wikijs
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: dbName
+  POSTGRES_USER: yourUser
+  POSTGRES_PASSWORD: yourPassword
