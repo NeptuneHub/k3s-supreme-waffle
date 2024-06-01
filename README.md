@@ -19,6 +19,7 @@ The file shared are:
 * **wikijs-pvc.yaml** - Contains the persistent volume claims;
 * **wikijs-service.yaml** - Contains the service;
 * **postgresql** - Is a working in progress (still not completed) to deploy wikijs on top of Postgresql instead of MariaDB.
+* **restart-longhorn.sh** - Can be run in order to restart longhorn
 
 **References:**
 * **K3S install**: https://documentation.suse.com/trd/kubernetes/single-html/kubernetes_ri_k3s-slemicro/index.html
