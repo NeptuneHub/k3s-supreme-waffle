@@ -25,7 +25,7 @@ Some Kubernetes useful commands:
 * **Change the replica number of an already existing deployment**
   * kubectl -n < namespace > scale deployment/< deployment_name > --replicas=0
 * **Edit external IPs of a service already deployed and check the changes**
-  * kubectl patch svc serviceName -n <namespace> -p '{"spec":{"externalIPs":["< Put.here.the.ip >"]}}'
+  * kubectl patch svc serviceName -n < namespace > -p '{"spec":{"externalIPs":["< Put.here.the.ip >"]}}'
   * kubectl describe service serviceName -n < namespace >
 * **Get pod log**
   * kubectl logs < pod-specific-instance > -n < namespace > 
