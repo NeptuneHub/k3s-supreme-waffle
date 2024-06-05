@@ -61,7 +61,7 @@ default   aws        neptune87       Available   2024-06-06 00:12:10 +0200 CEST 
 
 If after some second the Phase become from Unknow to Avaiable the conenction should be ok. if not, the pod maybe is not started or you have some connection configruation problem.
 
-From now some useful command are:
+Som useful command are:
 * **Create a full backup**:
   * velero backup create backup-full --default-volumes-to-fs-backup
 * **Get the list of backup**
