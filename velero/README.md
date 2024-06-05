@@ -5,10 +5,14 @@ Download it to the machine:
 wget https://github.com/vmware-tanzu/velero/releases/download/v1.13.2/velero-v1.13.2-linux-amd64.tar.gz
 
 Decompress the file
+```
 tar -xzvf velero-v1.13.2-linux-amd64.tar.gz
+```
 
 Copy the velero executable in the appropriate directory, tipically:
+```
 mv velero /usr/local/bin/
+```
 
 **Important:** 
 * CLI VERSION AND PLUGIN VERSION NEED TO BE COMPATIBLE
