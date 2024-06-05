@@ -1,3 +1,7 @@
+Velero is a software that you can use to make backup of the entire K3S (volume, deployment, service, and so on) and is composed by a CLI part and the POD part that run on the cluster.
+
+The backup is made on a Bucket, several are support (about this look the official references). We used it with AWS S3 Bucket AND with a local deployment of minio (that is also S3 compatible).
+
 First you need to **install che CLI part**, so check here the last version of velero:
 * https://github.com/vmware-tanzu/velero/releases/tag/v1.13.2
 
