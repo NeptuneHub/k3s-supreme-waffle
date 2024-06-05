@@ -16,7 +16,8 @@ The file shared are:
 * **wikijs-config.yaml** - Contains service and deployment of MariaDb;
 * **wikijs-deployment.yaml** - Contains the deployment of Wikijs;
 * **wikijs-secret.yaml** - Contains secret for the configruation of MariaDB, you need to edit it to change different user and password;
-* **wikijs-pvc.yaml** - Contains the persistent volume claims;
+* **wikijs-pvc.yaml** - Contains the persistent volume claims using longhorn;
+* **wikijs-pvc-local-path.yaml** - Alternative persistent volume claim using a local path on the node;
 * **wikijs-service.yaml** - Contains the service;
 * **postgresql** - Is a working in progress (still not completed) to deploy wikijs on top of Postgresql instead of MariaDB.
 * **restart-longhorn.sh** - Can be run in order to restart longhorn
