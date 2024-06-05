@@ -24,6 +24,7 @@ The file shared are:
 Option configuration are
 * **/postgresql** - Is a working in progress (still not completed) to deploy wikijs on top of Postgresql instead of MariaDB.
 * **/velero** - Is an application useful for schedule backup of the entire cluster on an external Bucket (AWS S3 or even a minio local server)
+* **/minio** - Is an application useful to create your own bucket on your local machine. Useful for development.
 
 Some Kubernetes useful commands:
 * **Change the replica number of an already existing deployment**
