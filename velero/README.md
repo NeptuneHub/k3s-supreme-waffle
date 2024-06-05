@@ -2,7 +2,9 @@ First you need to install che CLI part, so check here the last version of velero
 * https://github.com/vmware-tanzu/velero/releases/tag/v1.13.2
 
 Download it to the machine:
+```
 wget https://github.com/vmware-tanzu/velero/releases/download/v1.13.2/velero-v1.13.2-linux-amd64.tar.gz
+```
 
 Decompress the file
 ```
