@@ -24,7 +24,7 @@ Now running the command Velero you can proceed with install the Kubernetes part 
 
 For the server part first you need to create your S3 compatible bucket.  If you use AWS remember also to create a new user, assign to him the S3 Policy in order to work with the bucket and get his aws_access_key_id and aws_secret_access_key.
 
-With the credential create the credential file like this
+With the credential create the file **credentials-velero** like this (change xxxxxxx and yyyyyyyyyyy with you secret)
 ```
 [default]
 aws_access_key_id=xxxxxxx
@@ -33,9 +33,25 @@ aws_secret_access_key=yyyyyyyyyyy
 
 Now you can run the install, for example to install it on AWS the command could be like this
 ```
-velero install --provider aws --bucket volera-neptune87 --secret-file ./credentials-velero2 --backup-location-config region=eu-north-1 --snapshot-location-config region=eu-north-1 --plugins velero/velero-plugin-for-aws:v1.10.0-rc.1 --use-node-agent --default-volumes-to-fs-backup
+velero install --provider aws --bucket volera-neptune87 --secret-file ./credentials-velero --backup-location-config region=eu-north-1 --snapshot-location-config region=eu-north-1 --plugins velero/velero-plugin-for-aws:v1.10.0-rc.1 --use-node-agent --default-volumes-to-fs-backup
 ```
 
+Where the explanetion is:
+```
+--provider aws: Specifies the cloud provider. In this case, it's set to Amazon Web Services (AWS).
+
+--bucket volera-neptune87: Specifies the S3 bucket where Velero stores backup data. In this example, the bucket is named "volera-neptune87".
+
+--secret-file ./credentials-velero: Specifies the file containing AWS credentials. Velero needs these credentials to access the AWS resources for backup and restore operations.
+
+--backup-location-config region=eu-north-1: Specifies the region where Velero should store backups. In this case, it's set to "eu-north-1", which is an AWS region.
+
+--plugins velero/velero-plugin-for-aws:v1.10.0-rc.1: Specifies any plugins that Velero should use. In this case, it's specifying the version 1.10.0-rc.1 of the Velero plugin for AWS.
+
+--use-node-agent: Indicates that Velero should use the node agent for backups. This flag is used when you want Velero to perform backups directly from the nodes in your Kubernetes cluster.
+
+--default-volumes-to-fs-backup: Specifies that Velero should default to file system backups for volumes. This means that Velero will back up volumes using file system snapshots rather than block storage snapshots.
+```
 
 
 **Refrences:**
