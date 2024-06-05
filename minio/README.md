@@ -10,6 +10,7 @@ kubectl apply -f minio-dev.yaml
 Then you need to apply this service:
 * minio-svc.yaml - in order to reach the web console from your browser, remember to change you machine ip address;
 * minio-svc-interl.yaml - in order to look the APi address for the velero installation
+* minio-deployment.yaml - is needed because minio-dev.yaml didn't contain it
 
 After that the console can be view in an address like this:
 ```
@@ -22,3 +23,9 @@ In this case your velero installation on your K3S cluster will be like this (rem
 velero install --provider aws --plugins velero/velero-plugin-for-aws:v1.10.0-rc.1 --bucket neptune87 --secret-file ./credentials-velero-minio --use-volume-snapshots=false --backup-location-config region=minio,s3ForcePathStyle="true",s3Url=http://192.168.1.69:9000 --use-node-agent –default-volumes-to-fs-backup
 ```
 
+**IMPORTANT** this configuration is only for development
+
+**References:**
+* https://charts.min.io/
+* https://github.com/minio/minio
+* https://min.io/docs/minio/container/index.html
