@@ -5,6 +5,10 @@ k3s-supreme-waffle goals is track the progress of an K3S home study project: **i
 
 This repository contains script is to configure a **K3S cluster** in High Availability Embedded etcd with at least 3 server node. As O.S is used **Ubuntu 24.04 server AMD64**. All the nodes was deployed as virtual machine with Virtualbox. Suggested 3 node of 8gb ram each one.
 
+If you want to use minio for deploy your own bucket on K3S, you need to have it in an additional separated cluster. For testing purpose a single node cluster with O.S **Ubuntu 24.04 server AMD64** and 4Gb ram is sufficient.
+
+All of this was also tested on OpenSUSE Micro oS with some small difference like using transactional-update instead of apt-get and the need of reboot after installing new package (and for this reason .sh script doesn't work well).
+
 Additional application installed on the cluster are:
 * Longhorn for distribusted storage;
 * Wikijs and Mariadb in order to have a web application to test;
@@ -43,6 +47,14 @@ Some Kubernetes useful commands:
 *  **Delete all resource in a namespace and then delete the namespace**
   *  kubectl delete all --all -n < namespace >
   *  kubectl delete namespace < namespace >
+* **Delete a namspace locked on Terminating status**
+* (
+NAMESPACE=velero
+kubectl proxy &
+kubectl get namespace $NAMESPACE -o json |jq '.spec = {"finalizers":[]}' >temp.json
+curl -k -H "Content-Type: application/json" -X PUT --data-binary @temp.json 127.0.0.1:8001/api/v1/namespaces/$NAMESPACE/finalize
+)
+
 
 Some Linux useful commands:
 * **Disable use of swap**
