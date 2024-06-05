@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: minio-dev
+  labels:
+    name: minio-dev
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+  namespace: minio-dev
+  labels:
+    app: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+      - name: minio
+        image: quay.io/minio/minio:latest
+        command:
+        - /bin/sh
+        - -c
+        - minio server /data --console-address :9090
+        volumeMounts:
+        - mountPath: /data
+          name: localvolume
+      volumes:
+      - name: localvolume
+        hostPath:
+          path: /home/guido/data
+          type: DirectoryOrCreate
