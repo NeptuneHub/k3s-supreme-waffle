@@ -53,6 +53,23 @@ Where the explanetion is:
 --default-volumes-to-fs-backup: Specifies that Velero should default to file system backups for volumes. This means that Velero will back up volumes using file system snapshots rather than block storage snapshots.
 ```
 
+You can check that the installation went fine running this command:
+```
+NAME      PROVIDER   BUCKET/PREFIX   PHASE       LAST VALIDATED                   ACCESS MODE   DEFAULT
+default   aws        neptune87       Available   2024-06-06 00:12:10 +0200 CEST   ReadWrite     true
+```
+
+If after some second the Phase become from Unknow to Avaiable the conenction should be ok. if not, the pod maybe is not started or you have some connection configruation problem.
+
+From now some useful command are:
+* **Create a full backup**:
+  * velero backup create backup-full --default-volumes-to-fs-backup
+* **Get the list of backup**
+  * velero backup get
+* **Restore a backup**
+  * velero restore create --from-backup backup-full
+* **Schedule arecurrent backup every 6h with retention 24h** 
+  * velero schedule create backup-every-6h --schedule="0 */6 * * *" --ttl "24h" --include-namespaces="*" --default-volumes-to-fs-backup
 
 **Refrences:**
 * **Velero for oracle cloud** -  https://blogs.oracle.com/cloud-infrastructure/post/backing-up-your-oke-environment-with-velero
