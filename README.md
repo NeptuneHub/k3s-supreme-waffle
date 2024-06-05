@@ -19,8 +19,11 @@ The file shared are:
 * **wikijs-pvc.yaml** - Contains the persistent volume claims using longhorn;
 * **wikijs-pvc-local-path.yaml** - Alternative persistent volume claim using a local path on the node;
 * **wikijs-service.yaml** - Contains the service;
-* **postgresql** - Is a working in progress (still not completed) to deploy wikijs on top of Postgresql instead of MariaDB.
 * **restart-longhorn.sh** - Can be run in order to restart longhorn
+
+Option configuration are
+* **/postgresql** - Is a working in progress (still not completed) to deploy wikijs on top of Postgresql instead of MariaDB.
+* **/vlero** - Is an application useful for schedule backup of the entire cluster on an external Bucket (AWS S3 or even a minio local server)
 
 Some Kubernetes useful commands:
 * **Change the replica number of an already existing deployment**
