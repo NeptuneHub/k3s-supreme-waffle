@@ -17,22 +17,3 @@ Finally you can check it by this command:
 ```
 kubectl get ClusterIssuer -A
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-kubectl get ClusterIssuer -A
