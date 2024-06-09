@@ -92,7 +92,7 @@ spec:
   ingressClassName: traefik
 ```
 
-If you want to use a let's encrypt certificate using certmanager, first install certmanate (check the /cert-manager guide)
+If you want to use a let's encrypt certificate using certmanager, first install cert-manager (check the **/cert-manager guide**)
 
 Then edit another time the ingress
 ```
@@ -100,7 +100,8 @@ kubectl edit ingress nextcloud -n nextcloud
 ```
 
 and add this under annotation:
-``` 
+```
+annotations:
 cert-manager.io/cluster-issuer: letsencrypt-production
 ``` 
 
