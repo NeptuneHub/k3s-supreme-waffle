@@ -1,4 +1,4 @@
-In this document we will support you in the configuration of nextcloud on your K3S cluster.
+In this document we will support you in the configuration of nextcloud on your **K3S cluster**.
 
 First you need to create the namespace
 ```
@@ -72,6 +72,23 @@ To proceed with the installation use the command:
  helm install nextcloud nextcloud/nextcloud --namespace nextcloud -f values.yaml
 ``` 
 
+With this new values.yaml we simply asked to create an ingress using the tls certificate created. You can check the created ingress with this command:
+
+```
+kubectl get ingress -n nextcloud
+```
+
+In nextcloud values-yaml we put as ingress nginx BUT K3S use by defaul traefik, you can edit the created ingress with thiscommand
+```
+kubectl edit ingress nextcloud -n nextcloud
+``` 
+
+and set ingressClassName trafic like this
+
+``` 
+spec:
+  ingressClassName: traefik
+``` 
 
 Refrences
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
