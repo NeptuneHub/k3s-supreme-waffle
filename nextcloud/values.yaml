@@ -29,3 +29,7 @@ persistence:
   annotations: {}
   storageClass: "local-path"
   existingClaim: nextcloud-server-pvc
+
+phpClientHttpsFix:
+  enabled: true
+  protocol: https
