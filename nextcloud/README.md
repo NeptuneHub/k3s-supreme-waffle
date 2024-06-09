@@ -101,7 +101,7 @@ kubectl edit ingress nextcloud -n nextcloud
 
 and add this under annotation:
 ``` 
-cert-manager.io/cluster-issuer: letsencrypt-prod
+cert-manager.io/cluster-issuer: letsencrypt-production
 ``` 
 
 **Important** - Other step could be needed for the public certificate, I need to compelte this guide.
