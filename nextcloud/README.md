@@ -13,6 +13,9 @@ chmod 700 get_helm.sh
 ```
 
 you also need to create a PVC called nextcloud-server-pvc
+```
+kubectl apply -f nextcloud-server-pvc.yaml
+```
 
 
 Now you can run the install command remember to edit:
