@@ -1,0 +1,52 @@
+#This is a preconfigured values parameters for the installation of nextcloud with helm
+
+# Number of replicas to be deployed
+replicaCount: 1
+ingress:
+  enabled: true
+  className: nginx
+   tls:
+     - secretName: next-neptune87-cloud-tls
+       hosts:
+         - next.neptune87.cloud
+nextcloud:
+  host: next.neptune87.cloud
+  username: admin
+  password: changeme
+
+  configs: {}
+
+  # For example, to use S3 as primary storage
+  # ref: https://docs.nextcloud.com/server/13/admin_manual/configuration_files/primary_storage.html#simple-storage-service-s3
+  #
+  #  configs:
+  #    s3.config.php: |-
+  #      <?php
+  #      $CONFIG = array (
+  #        'objectstore' => array(
+  #          'class' => '\\OC\\Files\\ObjectStore\\S3',
+  #          'arguments' => array(
+  #            'bucket'     => 'my-bucket',
+  #            'autocreate' => true,
+  #            'key'        => 'xxx',
+  #            'secret'     => 'xxx',
+  #            'region'     => 'us-east-1',
+  #            'use_ssl'    => true
+  #          )
+  #        )
+  #      );
+
+
+nginx:
+  enabled: false
+  image:
+    repository: nginx
+    tag: alpine
+    pullPolicy: IfNotPresent
+  containerPort: 80
+
+persistence:
+  enabled: true
+  annotations: {}
+  storageClass: "local-path"
+  existingClaim: nextcloud-server-pvc
