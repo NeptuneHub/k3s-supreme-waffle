@@ -94,9 +94,12 @@ spec:
 
 # CONFIGURATION WITH TLS Let's Encrypt
 
-If you want to use a let's encrypt certificate using certmanager, first install cert-manager (check the **/cert-manager guide**)
+If you want to use a let's encrypt certificate using certmanager, first install cert-manager (check the **/cert-manager guide**). 
 
-Then edit another time the ingress
+You can sart the step with the self-signed certificate and this are additional step to complete it.
+
+
+You need to edit another time the ingress
 ```
 kubectl edit ingress nextcloud -n nextcloud
 ```
