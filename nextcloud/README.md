@@ -124,3 +124,4 @@ root@ubuntu:~/Documents/cert-manager#
 **Refrences**
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
 * **Nextcloud helm chart** - https://nextcloud.github.io/helm/
+* **Deploy nextcloud on kubernetes guide** - * https://greg.jeanmart.me/2020/04/13/deploy-nextcloud-on-kuberbetes--the-self-hos/
