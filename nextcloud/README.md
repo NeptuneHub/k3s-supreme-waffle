@@ -17,7 +17,6 @@ you also need to create a PVC called nextcloud-server-pvc
 kubectl apply -f nextcloud-server-pvc.yaml
 ```
 
-
 Now you can run the install command remember to edit:
 * **nextcloud.host** - put you domain if you have one, or add the ip of your machine.
 * **persistence.storageClass** - we used the local path storage, but if you had longhorn (or a different one) you can also use it
@@ -48,6 +47,30 @@ password: changeme
 ```
 
 After the first login you can change the password directly from the webapp.
+
+**CONFIGURATION WITH TLS**
+
+You need to follow all the step before the **helm install nextcloud** command. 
+
+First you need to create your certificate, in case of self-signed certificate you can follow this command
+```
+openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout next.neptune87.cloud.key -out next.neptune87.cloud.crt
+base64 -w 0 next.neptune87.cloud.crt > cert_base64.txt
+base64 -w 0 next.neptune87.cloud.key > key_base64.txt
+```
+
+you then need to put the output of the two file in **next-neptune87-cloud-tls-secret.yaml** and apply it
+```
+kubectl apply -f next-neptune87-cloud-tls-secret.yaml
+```
+Now because the parameter to pass become more, we will use the values.yaml file to proceed with the installation.
+
+**Important** - edit the file with your information before lunch the command.
+
+To proceed with the installation use the command:
+```
+ helm install nextcloud nextcloud/nextcloud --namespace nextcloud -f values.yaml
+``` 
 
 
 Refrences
