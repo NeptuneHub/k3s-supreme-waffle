@@ -125,6 +125,34 @@ next-neptune87-cloud-tls   True    next-neptune87-cloud-tls   letsencrypt-produc
 root@ubuntu:~/Documents/cert-manager#
 ``` 
 
+#Configure Nextcloud on S3 like bucket
+To configure a bucket S3 like to be used as primary storage you need to edit the config.php. If you configured nextcloud PVC as local-path you will find your pvc here:
+
+
+```
+cd /var/lib/rancher/k3s/storage/YOURPVCNAME/config/config.php
+
+```
+
+at this point you can add this (following the format of the file) this string:
+
+```
+  'objectstore' => [
+        'class' => '\\OC\\Files\\ObjectStore\\S3',
+        'arguments' => [
+                'bucket' => 'PUT BUCKET NAME',
+                'hostname' => 'PUT BUCKET URL',
+                'key' => 'PUT YOUR KEY',
+                'secret' => 'PUT YOUR SECRET',
+                'port' => 'PUT YOUR PORT',
+                // required for some non-Amazon S3 implementations
+                'use_path_style' => true, 
+        ],
+],
+```
+
+here you need to add the information of your bucket.
+
 
 **Refrences**
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
