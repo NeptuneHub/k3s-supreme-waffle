@@ -5,10 +5,10 @@ replicaCount: 1
 ingress:
   enabled: true
   className: nginx
-   tls:
-     - secretName: next-neptune87-cloud-tls
-       hosts:
-         - next.neptune87.cloud
+  tls:
+    - secretName: next-neptune87-cloud-tls
+      hosts:
+        - next.neptune87.cloud
 nextcloud:
   host: next.neptune87.cloud
   username: admin
