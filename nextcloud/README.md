@@ -125,7 +125,7 @@ next-neptune87-cloud-tls   True    next-neptune87-cloud-tls   letsencrypt-produc
 root@ubuntu:~/Documents/cert-manager#
 ``` 
 
-#Configure Nextcloud on S3 like bucket
+# Configure Nextcloud on S3 like bucket
 To configure a bucket S3 like to be used as primary storage you need to edit the config.php. If you configured nextcloud PVC as local-path you will find your pvc here:
 
 
