@@ -16,10 +16,12 @@ you also need to create a PVC called nextcloud-server-pvc
 ```
 kubectl apply -f nextcloud-server-pvc.yaml
 ```
+**Important** - if you want to configure nextcloud with TLS support skip this install command and go directly to **CONFIGURATION WITH TLS** chapter.
 
 Now you can run the install command remember to edit:
 * **nextcloud.host** - put you domain if you have one, or add the ip of your machine.
 * **persistence.storageClass** - we used the local path storage, but if you had longhorn (or a different one) you can also use it
+
 
 ```
 helm install nextcloud nextcloud/nextcloud \
@@ -50,7 +52,7 @@ After the first login you can change the password directly from the webapp.
 
 # CONFIGURATION WITH TLS
 
-You need to follow all the step before the **helm install nextcloud** command. 
+To avoid lower the probability of a man in the middle attack is strongly useful to use a TLS certifcate. To do that follow all the previous step, just skip the **helm install nextcloud** command and proceed with this other step.
 
 First you need to create your certificate, in case of self-signed certificate you can follow this command
 ```
@@ -95,7 +97,7 @@ If you have a valid DNS name you can register a public certificate with let's en
 ```
 sudo certbot certonly --standalone -d next.neptune87.cloud
 ```
-
+**Important** - Other step could be needed for the public certificate, I need to compelte this guide.
 
 **Refrences**
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
