@@ -14,6 +14,10 @@ Additional application installed on the cluster are:
 * Wikijs and Mariadb in order to have a web application to test;
 * Helm to install the application;
 * Velero and Minio for backup purpose;
+* Nextcloud for the purpose of file/photo storage;
+* cert-manager for use of TLS certification for encryption;
+
+If you follow only the guide in this root, you will be ablo to have a first touch with K3S. Use the additional application only if you need and/or you want to go deeper with the learning.
 
 The file shared are:
 * **K3S_first_UBUNTU.sh** - Run on the first server node, install K3S, Longhorn with all the dependencies, mariadb and wikijs by applying different yaml file. You need to edit it to change the ip of your machine in it;
@@ -29,7 +33,10 @@ The file shared are:
 Option configuration are
 * **/postgresql** - Is a working in progress (still not completed) to deploy wikijs on top of Postgresql instead of MariaDB.
 * **/velero** - Is an application useful for schedule backup of the entire cluster on an external Bucket (AWS S3 or even a minio local server)
-* **/minio** - Is an application useful to create your own bucket on your local machine. Useful for development.
+* **/minio** - Is an application useful to create your own bucket on your local machine. Useful for development
+* **/cert-manager** - In an application used to manager your TLS certificate. Useful for application that need encryption like nextcloud
+* **/nextcloud** - Is an application that can be used to storage file
+
 
 Some Kubernetes useful commands:
 * **Change the replica number of an already existing deployment**
