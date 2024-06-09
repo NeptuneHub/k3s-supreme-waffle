@@ -104,7 +104,21 @@ and add this under annotation:
 cert-manager.io/cluster-issuer: letsencrypt-production
 ``` 
 
-**Important** - Other step could be needed for the public certificate, I need to compelte this guide.
+Now you ken check that the certificate is issued correctly getting certificaterequest and certificate, you will receive a result like this:
+
+``` 
+root@ubuntu:~/Documents/cert-manager# kubectl get certificaterequest -n nextcloud -o wide
+NAME                         APPROVED   DENIED   READY   ISSUER                   REQUESTOR                                         STATUS                                         AGE
+next-neptune87-cloud-tls-1   True                True    letsencrypt-production   system:serviceaccount:cert-manager:cert-manager   Certificate fetched from issuer successfully   4s
+root@ubuntu:~/Documents/cert-manager# kubectl get certificaterequest -n nextcloud -o wide
+NAME                         APPROVED   DENIED   READY   ISSUER                   REQUESTOR                                         STATUS                                         AGE
+next-neptune87-cloud-tls-1   True                True    letsencrypt-production   system:serviceaccount:cert-manager:cert-manager   Certificate fetched from issuer successfully   7s
+root@ubuntu:~/Documents/cert-manager# kubectl get certificate -n nextcloud -o wide
+NAME                       READY   SECRET                     ISSUER                   STATUS                                          AGE
+next-neptune87-cloud-tls   True    next-neptune87-cloud-tls   letsencrypt-production   Certificate is up to date and has not expired   10m
+root@ubuntu:~/Documents/cert-manager#
+``` 
+
 
 **Refrences**
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
