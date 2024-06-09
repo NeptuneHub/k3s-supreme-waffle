@@ -50,7 +50,7 @@ password: changeme
 
 After the first login you can change the password directly from the webapp.
 
-# CONFIGURATION WITH TLS
+# CONFIGURATION WITH TLS SELF-SIGNED
 
 To avoid lower the probability of a man in the middle attack is strongly useful to use a TLS certifcate. To do that follow all the previous step, just skip the **helm install nextcloud** command and proceed with this other step.
 
@@ -91,6 +91,8 @@ and set ingressClassName trafic like this
 spec:
   ingressClassName: traefik
 ```
+
+# CONFIGURATION WITH TLS Let's Encrypt
 
 If you want to use a let's encrypt certificate using certmanager, first install cert-manager (check the **/cert-manager guide**)
 
