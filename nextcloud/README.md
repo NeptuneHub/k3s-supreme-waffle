@@ -1,4 +1,4 @@
-In this document we will support you in the configuration of nextcloud on your **K3S cluster**.
+In this document we will support you in the configuration of nextcloud on your **K3S cluster** with or without the use of TLS.
 
 First you need to create the namespace
 ```
@@ -48,7 +48,7 @@ password: changeme
 
 After the first login you can change the password directly from the webapp.
 
-**CONFIGURATION WITH TLS**
+# CONFIGURATION WITH TLS
 
 You need to follow all the step before the **helm install nextcloud** command. 
 
@@ -88,8 +88,15 @@ and set ingressClassName trafic like this
 ``` 
 spec:
   ingressClassName: traefik
-``` 
+```
 
-Refrences
+If you have a valid DNS name you can register a public certificate with let's encrypt by using this command:
+
+```
+sudo certbot certonly --standalone -d next.neptune87.cloud
+```
+
+
+**Refrences**
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
 * **Nextcloud helm chart** - https://nextcloud.github.io/helm/
