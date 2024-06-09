@@ -92,11 +92,18 @@ spec:
   ingressClassName: traefik
 ```
 
-If you have a valid DNS name you can register a public certificate with let's encrypt by using this command:
+If you want to use a let's encrypt certificate using certmanager, first install certmanate (check the /cert-manager guide)
 
+Then edit another time the ingress
 ```
-sudo certbot certonly --standalone -d next.neptune87.cloud
+kubectl edit ingress nextcloud -n nextcloud
 ```
+
+and add this under annotation:
+``` 
+cert-manager.io/cluster-issuer: letsencrypt-prod
+``` 
+
 **Important** - Other step could be needed for the public certificate, I need to compelte this guide.
 
 **Refrences**
