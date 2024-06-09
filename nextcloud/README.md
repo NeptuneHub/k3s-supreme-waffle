@@ -31,6 +31,23 @@ helm install nextcloud nextcloud/nextcloud \
 --namespace nextcloud
 ```
 
+After the installation, if you don't have specific networking configurartion, will be also useful assign to the nextcloud service the external ip of your node. In this way will be reachable from the extern.
+```
+kubectl patch svc nextcloud -n nextcloud -p '{"spec":{"externalIPs":["MACHINE-IP-HERE"]}}'
+```
+
+Now your nextcloud configuration will be visible at
+```
+next.neptune87.cloud:8080 or youipmachine:8080
+```
+
+default admin user will be
+```
+user: admin
+password: changeme
+```
+
+After the first login you can change the password directly from the webapp.
 
 
 Refrences
