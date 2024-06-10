@@ -24,6 +24,7 @@ Now you can run the install command remember to edit:
 
 
 ```
+helm repo add nextcloud https://nextcloud.github.io/helm/
 helm install nextcloud nextcloud/nextcloud \
 --set nextcloud.host=next.neptune87.cloud \
 --set persistence.enabled=true \
@@ -71,7 +72,8 @@ Now because the parameter to pass become more, we will use the values.yaml file 
 
 To proceed with the installation use the command:
 ```
- helm install nextcloud nextcloud/nextcloud --namespace nextcloud -f values.yaml
+helm repo add nextcloud https://nextcloud.github.io/helm/
+helm install nextcloud nextcloud/nextcloud --namespace nextcloud -f values.yaml
 ``` 
 
 With this new values.yaml we simply asked to create an ingress using the tls certificate created. You can check the created ingress with this command:
