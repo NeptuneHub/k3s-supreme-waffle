@@ -5,9 +5,9 @@ metadata:
   name: nextcloud-server-pvc
   namespace: nextcloud
 spec:
-  storageClassName: local-path
+  storageClassName: local-path #you can put longhorn if you have it
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce #if you have longhorn and more node in the K3S cluster ReadWriteMany can be preferred
   resources:
     requests:
       storage: 100Gi
