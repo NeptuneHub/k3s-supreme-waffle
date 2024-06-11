@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: longhorn-editor
-  namespace: nextcloud
+  namespace: put-you-namespace-here
 spec:
   containers:
   - name: editor
@@ -14,5 +14,5 @@ spec:
   volumes:
   - name: longhorn-volume
     persistentVolumeClaim:
-      claimName: nextcloud-server-pvc
+      claimName: put-your-pvc-name-here
 ~                                            
