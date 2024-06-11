@@ -30,6 +30,7 @@ The file shared are:
 * **wikijs-service.yaml** - Contains the service;
 * **restart-longhorn.sh** - Can be run in order to restart longhorn
 * **mount-longhorn.yaml** - is an utility pod that start with your longhorn pvc mounted, useful to edit file with the vi command on longhorn volume. You can access it with the command kubectl -n < namespace > exec -it longhorn-editor -- sh
+* **ingress.yaml** - ingress to expose longhorn frontend (or can be a template for other kind of front-end.
 
 Option configuration are
 * **/postgresql** - Is a working in progress (still not completed) to deploy wikijs on top of Postgresql instead of MariaDB.
