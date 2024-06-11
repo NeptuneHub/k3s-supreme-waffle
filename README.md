@@ -55,6 +55,8 @@ Some Kubernetes useful commands:
 *  **Delete all resource in a namespace and then delete the namespace**
   *  kubectl delete all --all -n < namespace >
   *  kubectl delete namespace < namespace >
+* **Delete a resource, like a PVC, stucked on terminating**
+  * kubectl delete pvc nextcloud-db-pvc -n <namespace > --force –grace-period=0
 * **Delete a namspace locked on Terminating status**
 * (
 NAMESPACE= < namespace >
@@ -75,6 +77,10 @@ Some Linux useful commands:
   * net.ipv6.conf.lo.disable_ipv6 = 1
 * **check disk mounted to the machine**
   * lsblk
+* **Check the open port and open one port**
+  * sudo ufw status
+  * sudo ufw allow 6443/tcp
+    
 
 **References:**
 * **K3S install**: https://documentation.suse.com/trd/kubernetes/single-html/kubernetes_ri_k3s-slemicro/index.html
