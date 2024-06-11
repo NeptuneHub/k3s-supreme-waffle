@@ -33,3 +33,9 @@ persistence:
 phpClientHttpsFix:
   enabled: true
   protocol: https
+
+#This should be added if using distributed storage like longhorn, to avoid timeout error non the inizialization of nextcloud pod
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 240
+  failureThreshold: 50
