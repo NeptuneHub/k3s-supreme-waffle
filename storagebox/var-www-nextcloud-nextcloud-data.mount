@@ -1,0 +1,14 @@
+[Unit]
+Description=Hetzner Storage Box sshfs port 23 systemd mount
+Requires=network-online.target
+After=network-online.service
+
+[Install]
+WantedBy=multi-user.target
+
+[Mount]
+What=uXXXXX@uXXXXX.your-storagebox.de:/home
+Where=/var/www/nextcloud/nextcloud/data
+Type=sshfs
+Options=_netdev,allow_other,x-systemd.automount,IdentityFile=/root/.ssh/id_ed25519_storage_box,reconnect,uid=900,gid=900,default_permissions,ssh_command=ssh -p 23
+EOF
