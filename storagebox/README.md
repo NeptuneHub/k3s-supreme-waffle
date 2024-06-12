@@ -44,6 +44,7 @@ and finally check the mounted store:
 mount | grep nextcloud; ls -lha /var/www/nextcloud/nextcloud/data
 ```
 
+Finally you can use it by usin for example PV and PVC in the example **pvc.yaml**
 
 **References:**
 * **Configuring storage box** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#installing-nextcloud-from-source-files
