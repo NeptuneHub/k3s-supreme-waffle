@@ -38,6 +38,7 @@ Option configuration are
 * **/minio** - Is an application useful to create your own bucket on your local machine. Useful for development
 * **/cert-manager** - In an application used to manager your TLS certificate. Useful for application that need encryption like nextcloud
 * **/nextcloud** - Is an application that can be used to storage file
+* **/storagebox** - How to configure and mount an SSH folder on K3S, for example the Storage Box offered by hetzner
 
 
 Some Kubernetes useful commands:
