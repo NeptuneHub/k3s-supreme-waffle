@@ -95,7 +95,9 @@ sudo apt install linux-modules-extra-azure
 ```
 
 # SMB mounted in Kubernetes
-We want to explain to mount an SMB directory directly in kubernetes by installing the ad hoc driver, creating the storageClass and the persistentVolumeClaim
+We want to explain to mount an SMB directory directly in kubernetes by installing the ad hoc driver, creating the storageClass and the persistentVolumeClaim.
+
+The other two didn't worked good with nextcloud, the SSH configruation due to permission error. The CFIS in the /etc/fstab the probe fail at the beginning but I didn't investigated more.
 
 First step install the driver:
 ```
@@ -111,7 +113,8 @@ kubectl apply -f secret.yaml
 after that you can deploy the storageClass and the perstistentVolumeClaim
 
 Remember to edit:
-* url of the smb, namespace and name of the perstistentVolumeClaim befor commit:
+* url of the smb,
+* namespace and name of the perstistentVolumeClaim befor commit:
 
 ```
 kubectl apply -f storageclass.yaml
