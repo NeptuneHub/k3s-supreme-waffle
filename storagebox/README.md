@@ -46,7 +46,7 @@ mount | grep nextcloud; ls -lha /var/www/nextcloud/nextcloud/data
 
 Finally you can use it by usin for example PV and PVC in the example **pvc.yaml**
 
-#Install Storagebox with Cfis
+# Install Storagebox with Cfis
 
 We look that with the above configuration we wasn't able to give the correct right to the folder. In this way when we tried to install nextcloud it doesnt work. For this reason we followd this other configuration.
 
