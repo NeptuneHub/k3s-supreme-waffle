@@ -94,8 +94,33 @@ sudo apt install linux-modules-extra-aws
 sudo apt install linux-modules-extra-azure
 ```
 
+# SMB mounted in Kubernetes
+We want to explain to mount an SMB directory directly in kubernetes by installing the ad hoc driver, creating the storageClass and the persistentVolumeClaim
+
+First step install the driver:
+```
+helm repo add csi-driver-smb https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
+helm install csi-driver-smb csi-driver-smb/csi-driver-smb --namespace kube-system --version v1.14.0
+```
+
+next you need to deploy the secret with your username and password
+```
+kubectl apply -f secret.yaml
+```
+
+after that you can deploy the storageClass and the perstistentVolumeClaim
+
+Remember to edit:
+* url of the smb, namespace and name of the perstistentVolumeClaim befor commit:
+
+```
+kubectl apply -f storageclass.yaml
+kubectl apply -f pvc-SMB.yaml
+```
 
 **References:**
 * **Configuring storage box** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#installing-nextcloud-from-source-files
 * **hetzner Cfis documentation** - https://docs.hetzner.com/robot/storage-box/access/access-samba-cifs/
 * **fix error with Cfis** - https://www.reddit.com/r/aws/comments/17m3lue/ubuntu_2204_upgraded_to_kernel_6201015aws_missing/
+* **CFSI kubernetes driver** - https://github.com/kubernetes-csi/csi-driver-smb/tree/master/charts
+* **CSI storage class** - https://github.com/kubernetes-csi/csi-driver-smb/blob/master/deploy/example/e2e_usage.md#option1-storage-class-usage
