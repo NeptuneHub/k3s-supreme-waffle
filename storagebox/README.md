@@ -46,9 +46,9 @@ mount | grep nextcloud; ls -lha /var/www/nextcloud/nextcloud/data
 
 Finally you can use it by usin for example PV and PVC in the example **pvc.yaml**
 
-# Install Storagebox with Cfis
+# Mount storage with Cfis
 
-We look that with the above configuration we wasn't able to give the correct right to the folder. In this way when we tried to install nextcloud it doesnt work. For this reason we followd this other configuration.
+We look that with the above configuration we wasn't able to give the correct rights to the folder. In this way when we tried to install nextcloud it doesnt work. For this reason we followd this other configuration.
 
 Install the cifs-utils:
 ```
@@ -98,3 +98,4 @@ sudo apt install linux-modules-extra-azure
 **References:**
 * **Configuring storage box** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#installing-nextcloud-from-source-files
 * **hetzner Cfis documentation** - https://docs.hetzner.com/robot/storage-box/access/access-samba-cifs/
+* **fix error with Cfis** - https://www.reddit.com/r/aws/comments/17m3lue/ubuntu_2204_upgraded_to_kernel_6201015aws_missing/
