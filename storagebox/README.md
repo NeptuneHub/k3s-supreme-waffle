@@ -121,6 +121,36 @@ kubectl apply -f storageclass.yaml
 kubectl apply -f pvc-SMB.yaml
 ```
 
+# mount the storage with webdav
+```
+sudo apt-get update
+sudo apt-get install davfs2
+sudo mkdir /mnt/webdav
+sudo nano /etc/fstab
+```
+
+In the fstab you need to add the new volume for the automatic mount by adding at the bottom (remember to replace your url)
+```
+https://uXXXXXX.your-storagebox.de /mnt/webdav davfs _netdev,user,rw,uid=0,gid=0,file_mode=0660,dir_mode=0770 0 0
+```
+
+now you need to add your username and password by:
+```
+sudo vim /etc/davfs2/secrets
+```
+
+and enter at the bottom user and password and url in this way:
+```
+https://uXXXXX.your-storagebox.de uXXXXX PASSWORDHERE
+```
+
+and finally
+```
+systemctl daemon-reload
+sudo mount -a
+```
+
+
 **References:**
 * **Configuring storage box** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#installing-nextcloud-from-source-files
 * **hetzner Cfis documentation** - https://docs.hetzner.com/robot/storage-box/access/access-samba-cifs/
