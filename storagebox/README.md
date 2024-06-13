@@ -46,5 +46,55 @@ mount | grep nextcloud; ls -lha /var/www/nextcloud/nextcloud/data
 
 Finally you can use it by usin for example PV and PVC in the example **pvc.yaml**
 
+#Install Storagebox with Cfis
+
+We look that with the above configuration we wasn't able to give the correct right to the folder. In this way when we tried to install nextcloud it doesnt work. For this reason we followd this other configuration.
+
+Install the cifs-utils:
+```
+sudo apt-get install cifs-utils
+```
+
+Then add the connection line in the fstab, change uXXXXX with your username
+
+```
+vim /etc/fstab
+//uXXXXX.your-storagebox.de/backup /mnt/backup-server cifs iocharset=utf8,rw,credentials=/etc/backup-credentials.txt,uid=0,gid=0,file_mode=0660,dir_mode=0770 0 0
+```
+
+Now create the file with the credentials:
+
+```
+vim /etc/backup-credentials.txt
+```
+
+it will be like this:
+```
+username=YOURUSARNAME
+password=YOURPASSWORD
+```
+
+Now create the folder for the mount:
+
+```
+mkdir /mnt/backup-server
+```
+
+Restart the daemon and mount it:
+```
+systemctl daemon-reload
+sudo mount -a
+```
+
+Now is completed.
+
+In Ubunbut 24.04 we encountered error when we run the mount command that he didn't found cfis. For solve it we just installed this library and re-run the mount command:
+```
+sudo apt install linux-modules-extra-aws 
+sudo apt install linux-modules-extra-azure
+```
+
+
 **References:**
 * **Configuring storage box** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#installing-nextcloud-from-source-files
+* **hetzner Cfis documentation** - https://docs.hetzner.com/robot/storage-box/access/access-samba-cifs/
