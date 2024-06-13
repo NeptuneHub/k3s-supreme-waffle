@@ -131,7 +131,7 @@ sudo nano /etc/fstab
 
 In the fstab you need to add the new volume for the automatic mount by adding at the bottom (remember to replace your url)
 ```
-https://uXXXXXX.your-storagebox.de /mnt/webdav davfs _netdev,user,rw,uid=0,gid=0,file_mode=0660,dir_mode=0770 0 0
+https://uXXXXXX.your-storagebox.de /mnt/webdav davfs _netdev,user,rw,uid=0,gid=0,file_mode=0777,dir_mode=0777 0 0
 ```
 
 now you need to add your username and password by:
