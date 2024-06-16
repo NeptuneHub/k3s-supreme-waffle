@@ -84,7 +84,7 @@ Some Linux useful commands:
   * sudo ufw allow 6443/tcp
 * **Check space used from a directory**
   * du -sh
-* **Check disk usage*
+* **Check disk usage**
   * df -h
 * **Check number of file in a directory and sub directory**
   * find . -type f | wc -l
