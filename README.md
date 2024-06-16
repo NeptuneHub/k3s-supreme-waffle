@@ -82,9 +82,9 @@ Some Linux useful commands:
 * **Check the open port and open one port**
   * sudo ufw status
   * sudo ufw allow 6443/tcp
-* **Check space used from a directory
+* **Check space used from a directory**
   * du -sh
-* **Check number of file in a directory and sub directory
+* **Check number of file in a directory and sub directory**
   * find . -type f | wc -l
     
 
