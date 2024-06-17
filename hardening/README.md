@@ -1,7 +1,7 @@
 Because by the end K3S work on top of an O.S we had to make some basic hardening to improve the security of the system.
 This was made based on Ubuntu 24.04 but most of them will probably works even for other Linux O.S.
 
-**disclaimer** Also remember that this is only some suggestions that I used on my own, they could be not sufficient. So make tour research.
+**disclaimer** Also remember that this is only some suggestions that I used on my own, they could be not sufficient. So make your research.
 
 # SSH
 
