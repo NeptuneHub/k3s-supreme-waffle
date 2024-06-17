@@ -3,7 +3,9 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 
 **disclaimer** Also remember that this is only some suggestions that I used on my own, they could be not sufficient. So make your research.
 
-# SSH
+* [SSH](#SSH)
+
+## SSH
 
 First make some SSH hardening, so start to edit the sshd_config but first note:
 
