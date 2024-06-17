@@ -124,5 +124,72 @@ systemctl restart unattended-upgrades.service
 systemctl status unattended-upgrades.service
 ```
 
+# Fail2ban
+
+This application is to ban failed attemp of login on the different systemn. For this you need to make a configuration file with the application in scope and a filter for each application. This because this applications works by pharsing the log file.
+
+
+First install it
+
+```
+apt install fail2ban
+```
+
+Then create the custom configuration file
+
+```
+sudo vim /etc/fail2ban/jail.d/99-custom.conf
+```
+
+use this value but remember to put the exact loghpat of nextcloud.log (in mine for example I puth the path including the pvc dicretory)
+
+```
+[nextcloud]
+backend = auto
+enabled = true
+port = 80,443
+protocol = tcp
+filter = nextcloud
+maxretry = 3
+bantime = 86400
+findtime = 43200
+logpath = /var/lib/rancher/k3s/storage/pvc-c7f870cc-06b6-4d27-af5f-c5489bb4c520_nextcloud_nextcloud-server-pvc/data/nextcloud.log
+
+[sshd]
+enabled = true
+port    = 2222
+filter  = sshd
+logpath = /var/log/auth.log
+maxretry = 5
+findtime = 10m
+bantime = 1h
+```
+
+then create the filter for nextcloud as described in nextcloud documentation:
+
+```
+vim /etc/fail2ban/filter.d/nextcloud.conf
+```
+
+and here the value
+ ```
+[Definition]
+_groupsre = (?:(?:,?\s*"\w+":(?:"[^"]+"|\w+))*)
+failregex = ^\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Login failed:
+            ^\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Trusted domain error.
+datepattern = ,?\s*"time"\s*:\s*"%%Y-%%m-%%d[T ]%%H:%%M:%%S(%%z)?"
+```
+
+For ssh the pharser already exist so you don't need to create.
+
+Now to enable the log2ban and check the status
+
+```
+systemctl enable fail2ban.service
+systemctl restart fail2ban.service
+systemctl status fail2ban.service
+```
+
 **References:**
-* https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
+* **Ubuntu hardening for kubernetes and nextcloud** https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
+* **Fail2ban configuration for nextcloud ** https://docs.nextcloud.com/server/19/admin_manual/installation/harden_server.html?highlight=fail2ban#setup-a-filter-and-a-jail-for-nextcloud
