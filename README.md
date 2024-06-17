@@ -1,25 +1,17 @@
 # k3s-supreme-waffle
 k3s-supreme-waffle goals is track the progress of an K3S home study project: **is not for a production envirorment**
 
-**Several guide was followed to create this script, at the end of this page you can find the full reference list.**
+**Several guide was followed to create this script, at the end of this page (and each sub directory page) you can find the full reference list.**
 
-This repository contains script is to configure a **K3S cluster** in High Availability Embedded etcd with at least 3 server node. As O.S is used **Ubuntu 24.04 server AMD64**. All the nodes was deployed as virtual machine with Virtualbox. Suggested 3 node of 8gb ram each one.
+This repository contains script is to configure a **K3S cluster** in High Availability Embedded etcd with at least 3 server node. As O.S is used **Ubuntu 24.04 server AMD64**. 
 
-If you want to use minio for deploy your own bucket on K3S, you need to have it in an additional separated cluster. For testing purpose a single node cluster with O.S **Ubuntu 24.04 server AMD64** and 4Gb ram is sufficient.
+This script was tested on a (old) laptop machine with Virtualbox on top, in this case is suggested 3 node with 1vcpu and 8gb ram each one.
 
-All of this was also tested on OpenSUSE Micro oS with some small difference like using transactional-update instead of apt-get and the need of reboot after installing new package (and for this reason .sh script doesn't work well).
+This script was also test on Hetzner cloud service, in this case 3 node with 2vcpu (intel) 4gb ram each one works fine too.
 
-Additional application installed on the cluster are:
-* Longhorn for distribusted storage;
-* Wikijs and Mariadb in order to have a web application to test;
-* Helm to install the application;
-* Velero and Minio for backup purpose;
-* Nextcloud for the purpose of file/photo storage;
-* cert-manager for use of TLS certification for encryption;
+In the root of this repository you can find several script for install K3S on main server node and additional node server, deploy longhorn and run a Wikijs/MariaDB web application for testing purpose.
 
-If you follow only the guide in this root, you will be ablo to have a first touch with K3S. Use the additional application only if you need and/or you want to go deeper with the learning.
-
-The file shared are:
+The file in this root folder are:
 * **K3S_first_UBUNTU.sh** - Run on the first server node, install K3S, Longhorn with all the dependencies, mariadb and wikijs by applying different yaml file. You need to edit it to change the ip of your machine in it;
 * **K3S_second_server_UBUNTU.sh** - Install the additionals servers node. You need to change the TOKEN of your cluster, you can found it in your first server node installation;
 * **wikijs-config.yaml** - Contains service and deployment of MariaDb;
@@ -32,13 +24,13 @@ The file shared are:
 * **mount-longhorn.yaml** - is an utility pod that start with your longhorn pvc mounted, useful to edit file with the vi command on longhorn volume. You can access it with the command kubectl -n < namespace > exec -it longhorn-editor -- sh
 * **ingress.yaml** - ingress to expose longhorn frontend (or can be a template for other kind of front-end.
 
-Option configuration are
-* **/postgresql** - Is a working in progress (still not completed) to deploy wikijs on top of Postgresql instead of MariaDB.
+If you want to continue your learning you can also follow this additional guide: 
 * **/velero** - Is an application useful for schedule backup of the entire cluster on an external Bucket (AWS S3 or even a minio local server)
-* **/minio** - Is an application useful to create your own bucket on your local machine. Useful for development
+* **/minio** - Is an application useful to create your own bucket on your local machine. For development purphose you can run two different cluster and one of them having minio for keeping the backup made by velero
 * **/cert-manager** - In an application used to manager your TLS certificate. Useful for application that need encryption like nextcloud
 * **/nextcloud** - Is an application that can be used to storage file
-* **/storagebox** - How to configure and mount an SSH folder on K3S, for example the Storage Box offered by hetzner
+* **/storagebox** - How to configure and mount an SSH folder on K3S, for example the Storage Box offered by hetzner. Is useful if you want to use an external storage for the data of nextcloud
+* **/hardening** - Same hardening suggestions if your "home lab" is on the cloud
 
 
 Some Kubernetes useful commands:
