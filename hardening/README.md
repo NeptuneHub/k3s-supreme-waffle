@@ -199,7 +199,7 @@ systemctl restart fail2ban.service
 systemctl status fail2ban.service
 ```
 
-#Aide
+# Aide
 Aide create a database of checksum of all the file in the system (or you can exclude some). Then running additional scan you can check what is changed in the system.
 
 To install it
