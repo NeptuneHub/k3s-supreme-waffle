@@ -56,15 +56,17 @@ sudo systemctl status ssh
 
 For firewall we configured ufw by running this command:
 ```
-sudo ufw allow 2222/tcp  
+sudo ufw limit 2222/tcp  
 sudo ufw enable
 sudo ufw default deny incoming 
 sudo ufw default deny forward 
-sudo ufw allow 80/tcp 
-sudo ufw allow 443/tcp 
+sudo ufw limit 80/tcp 
+sudo ufw limit 443/tcp 
 ```
 
-this configuration is for only one node. If you have multiple node you shoud also open this port:
+this configuration is for only one node. Using of limit instead of allow help to prevent ddos attack. 
+
+If you have multiple node you shoud also open this port:
 
 ```
 # Allow traffic on TCP port 6443 (Kubernetes API server)
