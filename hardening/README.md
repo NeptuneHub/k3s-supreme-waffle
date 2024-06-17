@@ -5,7 +5,7 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 
 * [SSH](#SSH)
 * [Firewall](#Firewall)
-* [Ubuntu unattended update](#Ubuntu unattended update)
+* [Ubuntu unattended update](#Ubuntu-unattended-update)
 
 ## SSH
 
@@ -107,7 +107,7 @@ sudo ufw allow from 192.168.1.0/24 to any port 10256 proto tcp
 If you are using  hetzner you can also configure their esternal firewall for free.
 
 
-## Ubuntu unattended update
+## Ubuntu-unattended-update
 This is for update the system and enalbe the automatic security update:
 
 ```
