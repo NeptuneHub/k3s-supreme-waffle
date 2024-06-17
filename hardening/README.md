@@ -4,8 +4,8 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 **disclaimer** Also remember that this is only some suggestions that I used on my own, they could be not sufficient. So make your research.
 
 * [SSH](#SSH)
-* [Firewall](Firewall)
-* [Ubuntu unattended update](Ubuntu unattended update)
+* [Firewall](#Firewall)
+* [Ubuntu unattended update](#Ubuntu unattended update)
 
 ## SSH
 
