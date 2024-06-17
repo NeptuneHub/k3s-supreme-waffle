@@ -92,3 +92,37 @@ sudo ufw allow from 192.168.1.0/24 to any port 10256 proto tcp
 ```
 
 If you are using  hetzner you can also configure their esternal firewall for free.
+
+
+# Ubuntu security update
+This is for update the system and enalbe the automatic security update:
+
+```
+apt update
+apt -y upgrade
+apt -y dist-upgrade
+apt -y install unattended-upgrades
+dpkg-reconfigure unattended-upgrades
+shutdown -r now
+```
+
+To enalbed the unattend update at 2:00 at night edit this file:
+```
+sudo vim /etc/apt/apt.conf.d/50unattended-upgrades
+```
+
+and check that the unattended update are uncommented:
+```
+Unattended-Upgrade::Automatic-Reboot "true";
+Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
+Unattended-Upgrade::Automatic-Reboot-Time "02:00";
+```
+
+then apply the change
+```
+systemctl restart unattended-upgrades.service
+systemctl status unattended-upgrades.service
+```
+
+**References:**
+* https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
