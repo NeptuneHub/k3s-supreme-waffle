@@ -4,6 +4,8 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 **disclaimer** Also remember that this is only some suggestions that I used on my own, they could be not sufficient. So make your research.
 
 * [SSH](#SSH)
+* [Firewall](Firewall)
+* [Ubuntu unattended update](Ubuntu unattended update)
 
 ## SSH
 
@@ -54,7 +56,7 @@ sudo systemctl restart ssh
 sudo systemctl status ssh
 ```
 
-# Firewall
+## Firewall
 
 For firewall we configured ufw by running this command:
 ```
@@ -105,7 +107,7 @@ sudo ufw allow from 192.168.1.0/24 to any port 10256 proto tcp
 If you are using  hetzner you can also configure their esternal firewall for free.
 
 
-# Ubuntu security update
+## Ubuntu unattended update
 This is for update the system and enalbe the automatic security update:
 
 ```
