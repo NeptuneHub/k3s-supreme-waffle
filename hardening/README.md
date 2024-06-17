@@ -244,13 +244,13 @@ sudo aide --update
 You should also schedule the aide check by running this command:
 
 ```
-sudo cronotab -e
+sudo crontab -e root
 ```
 
 and inser this line (remember to change root/aide with the folder which you want the output):
 
 ```
-0 6 * * * /usr/sbin/aide --check --config=/etc/aide/aide.conf > /root/aide/aide_$(date +\%Y\%m\%d_\%H\%M\%S).txt 2>&1
+0 6 * * * /usr/bin/aide --check --config=/etc/aide/aide.conf > /root/aide/aide_$(date +\%Y\%m\%d_\%H\%M\%S).txt 2>&1
 ```
 
 **References:**
