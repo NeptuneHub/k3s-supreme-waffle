@@ -199,7 +199,55 @@ systemctl restart fail2ban.service
 systemctl status fail2ban.service
 ```
 
+#Aide
+Aide create a database of checksum of all the file in the system (or you can exclude some). Then running additional scan you can check what is changed in the system.
+
+To install it
+```
+sudo apt-get install aide
+sudo aideinit 
+```
+
+wait several minutes (even 1 hours or more depeds from how many files did you have in the system) for finishing it.
+
+Now you need to move the new database created in this way
+
+
+```
+sudo mv /var/lib/aide/aide.db.new /var/lib/aide/aide.db
+```
+
+after that you can try to create a file or change something in the system and then you can run
+
+```
+sudo aide --check --config=/etc/aide/aide.conf > check.log 2>&1
+```
+
+
+The main folder of aide on an ubuntu system are:
+* /etc/aide - configuration file
+* /var/lib/aide - database create after an init command or an update
+* /var/log/aide/ - log
+
+after a scheduled updatet you need to update the database by running this command:
+```
+sudo aide --update
+```
+
+You should also schedule the aide check by running this command:
+
+```
+sudo cronotab -e
+```
+
+and inser this line (remember to change root/aide with the folder which you want the output):
+
+```
+0 6 * * * /usr/sbin/aide --check --config=/etc/aide/aide.conf > /root/aide/aide_$(date +\%Y\%m\%d_\%H\%M\%S).txt 2>&1
+```
+
 **References:**
 * **Ubuntu hardening for kubernetes and nextcloud** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
 * **Fail2ban configuration for nextcloud** - https://docs.nextcloud.com/server/19/admin_manual/installation/harden_server.html?highlight=fail2ban#setup-a-filter-and-a-jail-for-nextcloud
 * ** DISA STIgs for ubuntu** - https://public.cyber.mil/stigs/downloads/
+* ** Openscap for ubuntu 20.04** - https://static.open-scap.org/ssg-guides/ssg-ubuntu2204-guide-index.html
