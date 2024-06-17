@@ -6,6 +6,8 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 * [SSH](#SSH)
 * [Firewall](#Firewall)
 * [Ubuntu unattended update](#Ubuntu-unattended-update)
+* [Fail2ban](#Fail2ban)
+* [Aide](#Aide)
 
 ## SSH
 
@@ -137,7 +139,7 @@ systemctl restart unattended-upgrades.service
 systemctl status unattended-upgrades.service
 ```
 
-# Fail2ban
+## Fail2ban
 
 This application is to ban failed attemp of login on the different systemn. For this you need to make a configuration file with the application in scope and a filter for each application. This because this applications works by pharsing the log file.
 
@@ -203,7 +205,7 @@ systemctl restart fail2ban.service
 systemctl status fail2ban.service
 ```
 
-# Aide
+## Aide
 Aide create a database of checksum of all the file in the system (or you can exclude some). Then running additional scan you can check what is changed in the system.
 
 To install it
