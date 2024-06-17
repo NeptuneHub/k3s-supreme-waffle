@@ -256,5 +256,5 @@ and inser this line (remember to change root/aide with the folder which you want
 **References:**
 * **Ubuntu hardening for kubernetes and nextcloud** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
 * **Fail2ban configuration for nextcloud** - https://docs.nextcloud.com/server/19/admin_manual/installation/harden_server.html?highlight=fail2ban#setup-a-filter-and-a-jail-for-nextcloud
-* ** DISA STIgs for ubuntu** - https://public.cyber.mil/stigs/downloads/
-* ** Openscap for ubuntu 20.04** - https://static.open-scap.org/ssg-guides/ssg-ubuntu2204-guide-index.html
+* **DISA STIgs for ubuntu** - https://public.cyber.mil/stigs/downloads/
+* **Openscap for ubuntu 20.04** - https://static.open-scap.org/ssg-guides/ssg-ubuntu2204-guide-index.html
