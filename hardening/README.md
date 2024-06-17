@@ -5,11 +5,11 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 
 # SSH
 
-First make some SSH hardening, so start to edit the sshd_config:
+First make some SSH hardening, so start to edit the sshd_config but first note:
 
-**Important** here we are changing the SSH port from 22 to 2222 to avoid some basic automated attack. This means that in the next login you should specify the -p 2222 in your SSH command;
-**Important2** here we are disabling the access by password, before that I suggest to configure you SSH key to access to the server;
-**Important3** we are enabling the access by ssh only from root user. If it's not your case comments the string.
+* **Important** here we are changing the SSH port from 22 to 2222 to avoid some basic automated attack. This means that in the next login you should specify the -p 2222 in your SSH command;
+* **Important2** here we are disabling the access by password, before that I suggest to configure you SSH key to access to the server;
+* **Important3** we are enabling the access by ssh only from root user. If it's not your case comments the string.
 
 ```
 sudo vim /etc/ssh/sshd_config.d/99-custom.conf
