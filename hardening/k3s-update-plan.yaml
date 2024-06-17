@@ -9,7 +9,8 @@ metadata:
     k3s-upgrade: server
 spec:
   concurrency: 1 # Batch size (roughly maps to maximum number of unschedulable nodes)
-  version: v1.20.11+k3s1
+  #version: v1.20.11+k3s1
+  channel: https://update.k3s.io/v1-release/channels/stable #We want to update to the last stable version
   nodeSelector:
     matchExpressions:
       - {key: k3s-upgrade, operator: Exists}
@@ -30,7 +31,8 @@ metadata:
     k3s-upgrade: agent
 spec:
   concurrency: 2 # Batch size (roughly maps to maximum number of unschedulable nodes)
-  version: v1.20.11+k3s1
+  #version: v1.20.11+k3s1
+  channel: https://update.k3s.io/v1-release/channels/stable #We want to update to the last stable version
   nodeSelector:
     matchExpressions:
       - {key: k3s-upgrade, operator: Exists}
