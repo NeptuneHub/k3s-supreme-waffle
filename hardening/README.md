@@ -9,6 +9,7 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 * [Ubuntu unattended update](#Ubuntu-unattended-update)
 * [Fail2ban](#Fail2ban)
 * [Aide](#Aide)
+* [K3S-automated-update](#K3S-automated-update)
 
 ## SSH
 
@@ -253,8 +254,28 @@ and inser this line (remember to change root/aide with the folder which you want
 0 6 * * * /usr/bin/aide --check --config=/etc/aide/aide.conf > /root/aide/aide_$(date +\%Y\%m\%d_\%H\%M\%S).txt 2>&1
 ```
 
+## K3S-automated-update
+
+This is to enable the automated update of K3S to the last stable release version.
+
+First start installing it
+
+```
+kubectl create namspeace system-upgrade
+kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
+kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/crd.yaml
+```
+
+
+Now you need to apply
+* server-plan.yaml
+* agent-plan.yaml
+
+  and you can use the attached example. This file practicall desribe the plan for the update.
+
 **References:**
 * **Ubuntu hardening for kubernetes and nextcloud** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
 * **Fail2ban configuration for nextcloud** - https://docs.nextcloud.com/server/19/admin_manual/installation/harden_server.html?highlight=fail2ban#setup-a-filter-and-a-jail-for-nextcloud
 * **DISA STIgs for ubuntu** - https://public.cyber.mil/stigs/downloads/
 * **Openscap for ubuntu 20.04** - https://static.open-scap.org/ssg-guides/ssg-ubuntu2204-guide-index.html
+* **K3S automated upate**https://docs.k3s.io/upgrades/automated
