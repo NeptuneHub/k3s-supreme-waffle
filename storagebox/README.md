@@ -1,4 +1,6 @@
-This guide is useful to mount on linux an SSH folder in order to be used for persisten volume. This guide was executed using the **Storage Box offered by Hetzner**.
+This guide is useful to mount on linux an external storage with different method or directly mounting it in kubernetes. This guide was executed using the **Storage Box offered by Hetzner**.
+
+# Mounting the storage with sshs
 
 So first think you need to do is to create your SSH storage, if you use the Storage box by Hetzner remember to allow the SSH connetion from the control panel.
 
