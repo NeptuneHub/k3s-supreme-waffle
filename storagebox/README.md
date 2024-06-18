@@ -94,6 +94,10 @@ sudo apt install linux-modules-extra-aws
 sudo apt install linux-modules-extra-azure
 ```
 
+# Using a storage mountend on the OS
+
+If you mounted the storage on the OS then you can use it in a pod with using a normal PV and PVC. You can find an example in the file **pv-pvc.yaml**
+
 # SMB mounted in Kubernetes
 We want to explain to mount an SMB directory directly in kubernetes by installing the ad hoc driver, creating the storageClass and the persistentVolumeClaim.
 
