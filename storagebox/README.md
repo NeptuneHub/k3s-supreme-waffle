@@ -94,6 +94,35 @@ sudo apt install linux-modules-extra-aws
 sudo apt install linux-modules-extra-azure
 ```
 
+# mount the storage with webdav
+```
+sudo apt-get update
+sudo apt-get install davfs2
+sudo mkdir /mnt/webdav
+sudo nano /etc/fstab
+```
+
+In the fstab you need to add the new volume for the automatic mount by adding at the bottom (remember to replace your url)
+```
+https://uXXXXXX.your-storagebox.de /mnt/webdav davfs _netdev,user,rw,uid=0,gid=0,file_mode=0777,dir_mode=0777 0 0
+```
+
+now you need to add your username and password by:
+```
+sudo vim /etc/davfs2/secrets
+```
+
+and enter at the bottom user and password and url in this way:
+```
+https://uXXXXX.your-storagebox.de uXXXXX PASSWORDHERE
+```
+
+and finally
+```
+systemctl daemon-reload
+sudo mount -a
+```
+
 # Using a storage mountend on the OS
 
 If you mounted the storage on the OS then you can use it in a pod with using a normal PV and PVC. You can find an example in the file **pv-pvc.yaml**
@@ -123,35 +152,6 @@ Remember to edit:
 ```
 kubectl apply -f storageclass.yaml
 kubectl apply -f pvc-SMB.yaml
-```
-
-# mount the storage with webdav
-```
-sudo apt-get update
-sudo apt-get install davfs2
-sudo mkdir /mnt/webdav
-sudo nano /etc/fstab
-```
-
-In the fstab you need to add the new volume for the automatic mount by adding at the bottom (remember to replace your url)
-```
-https://uXXXXXX.your-storagebox.de /mnt/webdav davfs _netdev,user,rw,uid=0,gid=0,file_mode=0777,dir_mode=0777 0 0
-```
-
-now you need to add your username and password by:
-```
-sudo vim /etc/davfs2/secrets
-```
-
-and enter at the bottom user and password and url in this way:
-```
-https://uXXXXX.your-storagebox.de uXXXXX PASSWORDHERE
-```
-
-and finally
-```
-systemctl daemon-reload
-sudo mount -a
 ```
 
 
