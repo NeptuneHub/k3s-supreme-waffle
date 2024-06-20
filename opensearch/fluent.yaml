@@ -431,7 +431,7 @@ config:
     [OUTPUT]
         Name es
         Match *
-        Host opensearch
+        Host opensearch-cluster-master
         Port 9200
         Index fluentbit
         Type _doc
