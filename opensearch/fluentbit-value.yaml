@@ -346,25 +346,23 @@ extraPorts: []
 
 extraVolumes:
   - name: varlog
+    hostPath:
+      path: /var/log
+  - name: docker-containers
+    hostPath:
+      path: /var/lib/docker/containers
+  - name: runlogjournal
+    hostPath:
+      path: /run/log/journal
+
+extraVolumeMounts:
+  - name: varlog
     mountPath: /var/log
   - name: docker-containers
     mountPath: /var/lib/docker/containers
     readOnly: true
   - name: runlogjournal
     mountPath: /run/log/journal
-    readOnly: true
-
-extraVolumeMounts:
-  - name: varlog
-    hostPath:
-      path: /var/log
-  - name: docker-containers
-    hostPath:
-      path: /var/lib/docker/containers
-    readOnly: true
-  - name: runlogjournal
-    hostPath:
-      path: /run/log/journal
     readOnly: true
 
 updateStrategy: {}
