@@ -417,21 +417,13 @@ config:
         Use_Kubelet true
         Buffer_Size 0
 
-  ## https://docs.fluentbit.io/manual/pipeline/outputs
-  outputs: |
-    [OUTPUT]
-        Name es
-        Match kube.*
-        Host elasticsearch-master
-        Logstash_Format On
-        Retry_Limit False
 
   ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
     [OUTPUT]
         Name es
         Match *
-        Host opensearch-cluster-master
+        Host opensearch-cluster-master.opensearch.svc.cluster.local
         Port 9200
         Index fluentbit
         Type _doc
