@@ -365,6 +365,7 @@ extraVolumeMounts:
     mountPath: /run/log/journal
     readOnly: true
 
+
 updateStrategy: {}
 #   type: RollingUpdate
 #   rollingUpdate:
