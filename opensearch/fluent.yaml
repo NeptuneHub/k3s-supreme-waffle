@@ -399,12 +399,23 @@ config:
   ## https://docs.fluentbit.io/manual/pipeline/filters
   filters: |
     [FILTER]
+        Name multiline
+        Match kube.*
+        Multiline.Parser java
+        Multiline.Key_Content log
+        Buffer off
+    [FILTER]
         Name kubernetes
         Match kube.*
-        Merge_Log On
+        Kube_Tag_Prefix kube.var.log.containsers.
+        Marge_Log On
         Keep_Log Off
         K8S-Logging.Parser On
         K8S-Logging.Exclude On
+        Labels Off
+        Annotations Off
+        Use_Kubelet true
+        Buffer_Size 0
 
   ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
