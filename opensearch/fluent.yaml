@@ -501,7 +501,7 @@ args:
   - --workdir=/fluent-bit/etc
   - --config=/fluent-bit/etc/conf/fluent-bit.conf
 
-# This supports either a structured array or a templatable string
+# This supports either a structured array or a templatable string 
 initContainers: []
 
 # Array mode
