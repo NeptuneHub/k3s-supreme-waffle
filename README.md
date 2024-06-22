@@ -31,6 +31,7 @@ If you want to continue your learning you can also follow this additional guide:
 * **/nextcloud** - Is an application that can be used to storage file
 * **/storagebox** - How to configure and mount an SSH folder on K3S, for example the Storage Box offered by hetzner. Is useful if you want to use an external storage for the data of nextcloud
 * **/hardening** - Same hardening suggestions if your "home lab" is on the cloud
+* **prometheus-stack** - Prometheus stack, usefull to deploy a prometheus full stack with Grafana dashboard to monitor your K3S cluster
 
 
 Some Kubernetes useful commands:
