@@ -85,7 +85,9 @@ Some Linux useful commands:
 * **Check number of file in a directory and sub directory**
   * find . -type f | wc -l
 * **Check the space used by a directory and the number of file in it**
- * DIRECTORY="./"; echo "Total size: $(du -sh "$DIRECTORY" | awk '{print $1}')"; echo "Total number of files: $(find "$DIRECTORY" -type f | wc -l)"
+```
+DIRECTORY="./"; echo "Total size: $(du -sh "$DIRECTORY" | awk '{print $1}')"; echo "Total number of files: $(find "$DIRECTORY" -type f | wc -l)"
+```
     
 
 **References:**
