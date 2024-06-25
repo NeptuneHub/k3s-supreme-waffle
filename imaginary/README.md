@@ -36,8 +36,46 @@ where:
 * preview_imaginary_signature_key is the secret key to allow only authorized people to use it. This is the same that you need to configure in the deployment.yaml.
 
 
+# Preview generator
+This plugin work also good with image preview app (you can install it directly from the Nextcloud application store). Is an application that allow you to schedule the creation of the resized image (otherwise nextcloud create it only when the user access to nextcloud and navigate on a specific image).
+
+If you install nextcloud preview generator, you need to run this command at the beggining to create all the initial image (this command is tailored to be executed on Kubernetes deployment):
+```
+kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ preview:generate-all"
+```
+
+then create the cron job in order to keep to create the image preview for the new uploaded image each 10 minutes:
+
+```
+crontab -e
+```
+
+and put:
+```
+*/10 * * * * kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ preview:pre-generate"
+```
+
+If you want to reset che preview created, cancel all the content of this directory (remember to change the name of the pvc)
+
+```
+rm -r /var/lib/rancher/k3s/storage/pvc-c7f870cc-06b6-4d27-af5f-c5489bb4c520_nextcloud_nextcloud-server-pvc/data/appdata_ochh36t2kwgk/preview/
+```
+
+then run this command to reset the db of the image:
+
+```
+kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ files:scan-app-data"
+```
+
+And finally re-start the generation as a first installation
+
+```
+kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ preview:generate-all"
+```
+
 
 **References:**
 * **Deploy immaginary on kubernetes** - https://itnext.io/how-to-build-your-own-secure-image-processing-service-with-imaginary-and-kubernetes-cf124649047c
 * **Imaginary Github** - https://github.com/h2non/imaginary
 * **Nextcloud documentation** - https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html
+* **Preview generator** - https://github.com/nextcloud/previewgenerator
