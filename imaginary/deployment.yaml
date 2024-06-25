@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imaginary
+  namespace: imaginary
+spec:
+  selector:
+    matchLabels:
+      app: imaginary
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: imaginary
+    spec:
+      containers:
+      - name: imaginary
+        image: h2non/imaginary:latest
+        args:
+        - -enable-url-source=true
+        - -concurrency=10
+        - -url-signature-key=PUT-HERE-A-VERY-STRONG-SIGNATURE-LIKE-32-CHAR
+        - -enable-url-signature=false
+        ports:
+        - containerPort: 9000
+        resources:
+          requests:
+            memory: 100M
+            cpu: 10m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: imaginary
+  namespace: imaginary
+  labels:
+    app: imaginary
+spec:
+  ports:
+  - port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: imaginary
