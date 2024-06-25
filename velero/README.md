@@ -65,6 +65,13 @@ default   aws        neptune87       Available   2024-06-06 00:12:10 +0200 CEST 
 
 If after some second the Phase become from Unknow to Avaiable the conenction should be ok. if not, the pod maybe is not started or you have some connection configruation problem.
 
+Another example of installation for wasabi S3 bucket (or other not official bucket) is this:
+```
+velero install --provider aws --plugins velero/velero-plugin-for-aws:v1.10.0-rc.1 --bucket neptune87 --secret-file ./credentials-velero --use-volume-snapshots=false --backup-location-config region=eu-central-2,s3ForcePathStyle="true",s3Url=http://s3.eu-central-2.wasabisys.com --use-node-agent --default-volumes-to-fs-backup
+```
+
+where you need to remember to change as usual bucket name, region and s3url parameter.
+
 Som useful command are:
 * **Create a full backup**:
   * velero backup create backup-full --default-volumes-to-fs-backup
