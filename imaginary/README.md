@@ -1,4 +1,4 @@
-Imaginary is an application that can process an image genereting a preview just calling an url. This plugin is very useful with Nextcloud for the preview of JPG email.
+**Imaginary** is an application that can process an image genereting a preview just calling an url. This plugin is very useful with Nextcloud for the preview of JPG email.
 
 First things you need to deploy it, for this just downaload the deployment.yaml in this repository and apply it by
 
