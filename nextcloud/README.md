@@ -125,7 +125,17 @@ root@ubuntu:~/Documents/cert-manager# kubectl get certificate -n nextcloud -o wi
 NAME                       READY   SECRET                     ISSUER                   STATUS                                          AGE
 next-neptune87-cloud-tls   True    next-neptune87-cloud-tls   letsencrypt-production   Certificate is up to date and has not expired   10m
 root@ubuntu:~/Documents/cert-manager#
-``` 
+```
+
+After creating the certificate for nextcloud remember to export a backup in this way (change the name of the secret and the name of the namespace for your configuration):
+```
+kubectl get secret next-neptune87-cloud-tls -n nextcloud -o yaml > store-next-neptune87-cloud-tls.yaml
+```
+
+When you need to re-import the certificate you just need to run this command (before re-deploy the application)
+```
+kubectl apply -f store-next-neptune87-cloud-tls.yaml
+```
 
 # Configure Nextcloud on S3 like bucket
 To configure a bucket S3 like to be used as primary storage you need to edit the config.php. If you configured nextcloud PVC as local-path you will find your pvc here:
