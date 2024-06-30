@@ -54,6 +54,8 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 
 # Post-Install configuration - Static ip
+[THIS STATIC IP CONFIGURATION IS UNDER REVIEW. PELASE SKIP FOR NOW]
+
 Setting the static ip is also needed for a server. So first at all we configured the DHCP of the router to assing the same as a default, but to be more secure we also configured it in ubuntu by adding this file (you can find an exmaple on this repo):
 ```
 sudo vim /etc/netplan/99_config.yaml
@@ -73,3 +75,35 @@ The following guide was also applied and tested on raspberry pi with the followi
 * /prometheus-stack - worked fine
 * /imaginary - **this doesn't work** because  h2non/imaginary repo doesn't support ARM, to support arm you need to use as containers image nextcloud/aio-imaginary  (look ad imaginary-deployment-arm.yaml in this repo)
 * /nextcloud - this worked fine. The only difference that I saw is that the starting time of a container on Raspberry (SSD) was around 4 minutes (so like the double that on a cloud server with 4vcpu and 8gb ram)
+
+# Backup on external usb drive
+Because here we are on site, I added a backup of the image of nextcloud on an external USB disk.
+Edit your crontab
+```
+sudo crontab -e
+```
+
+and add this line for make a backup every hours
+```
+#backup on usb every hours at 20min
+25 * * * * /home/guido/bootstrap/5-backup/backup.sh >> /home/guido/bootstrap/5-backup/backup.log 2>&1
+```
+
+remember to mount your usb disk by
+```
+sudo vim /etc/fstab
+```
+
+add this line editing the UUID of your HD (you can get the UUID with the command **sudo blkid**)
+```
+UUID=7A4E56564E560B71 /mnt/usb ntfs-3g defaults 0 0
+```
+
+
+As backup sh script you can use your own or try to edit my **backup.sh** where you need to edit:
+
+* /mnt/usb should be your usb external hd
+* The script work supposing that nextcloud use a pvc on a local path and the file stored per user are in a path like this **/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/USERNAME/files**
+* line 31 and 32: instead of admin you ned to put your nextcloud uername, you can also duplicate this line for multiple user
+
+if you have a different configuration you will need to adapt this script.
