@@ -67,3 +67,7 @@ sudo netplan apply
 ip a
 ```
 
+# Ubuntu K3S configuration
+The following guide was also applied and tested on raspberry pi:
+* /hardening - just remember to check in the SSH configuration the correct user that you use, with the normal ubuntu installation you create a new user instead of root
+* 
