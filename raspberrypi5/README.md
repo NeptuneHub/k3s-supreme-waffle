@@ -25,8 +25,36 @@ ubuntu-24.04-preinstalled-server-arm64+raspi.img.xz
 We also keep Raspberry PI OS on the SD card for the initial installetion (also useful for future maintenance if any problem on SSD occur)
 
 # Install Configuration
+In short youn need to use Raspberry PI Imager to flash the OS from another computer, you can find it here
+```
+https://www.raspberrypi.com/software/
+```
 
-TBD
+The goals is to configure the arget OS (Ubuntu) on the NVME SSD, what we did is:
+* Flash an SD card with the Raspberry PI OS using the tools => this becasue by default the boot is from SD card;
+* Start the system with the SD and then roon another time the Imager directly on the raspberry to flash the SSD with Ubuntu AND to set SSD as a primary boot device.
+
+To set the SSD as a primary boot device, on a Raspberry PI OS terminal, first update the software
+
+```
+sudo rpi-eeprom-update
+sudo rpi-eeprom-update -a
+```
+
+After that update the configuration by running this file
+```
+sudo -E rpi-eeprom-config --edit
+```
+
+you need to add this
+```
+PCIE_PROBE=1
+BOOT_ORDER=0xf416
+```
+The boot order basically pass from 461 (USB-SDCARD-SSD) by default to 416 (USB-SSD-SDCARD) in order to boot first from the NVME and then from the SD card
+
+After flashing the SSD and edit this config you just need to restart to boot from the NVME.
+
 
 # Post-Install configuration - Keyboard layout fix
 If at the beggining **the keyboard layout** is not configured correctly, after boot in the system you can reconfigure it by running this command:
@@ -113,3 +141,7 @@ I also added an extra backup on a Storagebox on Hetzner. You can adapt the same 
 //uXXXXXXXXXX.your-storagebox.de/backup /mnt/backup-server cifs iocharset=utf8,rw,credentials=/etc/backup-credentials.txt,uid=1000,gid=1003,file_mode=0660,dir_mode=0770,x-systemd.requires=network-online.target,x-systemd.automount 0 0
 ```
 (more information in /storagebox)
+
+
+**References**
+* **Raspberry PI official documentation** - https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration
