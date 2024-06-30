@@ -28,19 +28,32 @@ We also keep Raspberry PI OS on the SD card for the initial installetion (also u
 
 TBD
 
-# Post-Install configuration
+# Post-Install configuration - Keyboard layout fix
 If at the beggining **the keyboard layout** is not configured correctly, after boot in the system you can reconfigure it by running this command:
 
 ```
 sudo dpkg-reconfigure keyboard-configuration
 ```
 
+# Post-Install configuration - SSH connection
 If at the beggining **SSH connection** is not enable, jut check and then enabled it by 
 ```
 systemctl status ssh
 systemctl enable ssh
 ```
 
+Also add your ssh public key on the raspberry by
+```
+ vim /home/guido/.ssh/authorized_keys
+```
+
+and just paster yours ssh key. If you don't have an SSH key on your client (not on raspberry server) just generate one by:
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+
+
+# Post-Install configuration - Static ip
 Setting the static ip is also needed for a server. So first at all we configured the DHCP of the router to assing the same as a default, but to be more secure we also configured it in ubuntu by adding this file (you can find an exmaple on this repo):
 ```
 sudo vim /etc/netplan/99_config.yaml
