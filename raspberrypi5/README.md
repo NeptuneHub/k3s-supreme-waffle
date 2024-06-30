@@ -69,6 +69,7 @@ ip a
 
 # Ubuntu and K3S configuration
 The following guide was also applied and tested on raspberry pi with the following comments:
-* /k3s-supreme-waffle/hardening - just remember to check in the SSH configuration the correct user that you use, with the normal ubuntu installation you create a new user instead of root
-* /k3s-supreme-waffle/prometheus-stack - worked fine
-* /k3s-supreme-waffle/imaginary - **this doesn't work** because  h2non/imaginary repo doesn't support ARM, to support arm you need to use as containers image nextcloud/aio-imaginary  (look ad imaginary-deployment-arm.yaml in this repo)
+* /hardening - just remember to check in the SSH configuration the correct user that you use, with the normal ubuntu installation you create a new user instead of root
+* /prometheus-stack - worked fine
+* /imaginary - **this doesn't work** because  h2non/imaginary repo doesn't support ARM, to support arm you need to use as containers image nextcloud/aio-imaginary  (look ad imaginary-deployment-arm.yaml in this repo)
+* /nextcloud - this worked fine. The only difference that I saw is that the starting time of a container on Raspberry (SSD) was around 4 minutes (so like the double that on a cloud server with 4vcpu and 8gb ram)
