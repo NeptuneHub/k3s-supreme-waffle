@@ -261,7 +261,7 @@ This is to enable the automated update of K3S to the last stable release version
 First start installing it
 
 ```
-kubectl create namspeace system-upgrade
+kubectl create namespace system-upgrade
 kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
 kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/crd.yaml
 ```
