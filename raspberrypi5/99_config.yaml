@@ -1,0 +1,18 @@
+#Static ip configuration for ubuntu
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: no
+#This is the static address
+      addresses:
+        - 192.168.3.120/24
+      routes:
+        - to: default
+#This is the ip of your router
+          via: 192.168.3.1
+      nameservers:
+#We also addedd google DNS as default
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
