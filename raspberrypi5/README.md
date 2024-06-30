@@ -47,7 +47,9 @@ sudo vim /etc/netplan/99_config.yaml
 ```
 
 then apply and check by
+
 ```
+sudo chmod 600 /etc/netplan/99_config.yaml
 sudo netplan apply
 ip a
 ```
