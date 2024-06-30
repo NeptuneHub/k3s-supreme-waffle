@@ -26,15 +26,29 @@ We also keep Raspberry PI OS on the SD card for the initial installetion (also u
 
 # Install Configuration
 
+TBD
+
 # Post-Install configuration
-If at the beggining the keyboard layout is not configured correctly, after boot in the system you can reconfigure it by running this command:
+If at the beggining **the keyboard layout** is not configured correctly, after boot in the system you can reconfigure it by running this command:
 
 ```
 sudo dpkg-reconfigure keyboard-configuration
 ```
 
-If at the beggining SSH connection is not enable, jut check and then enabled it by 
+If at the beggining **SSH connection** is not enable, jut check and then enabled it by 
 ```
 systemctl status ssh
 systemctl enable ssh
 ```
+
+Setting the static ip is also needed for a server. So first at all we configured the DHCP of the router to assing the same as a default, but to be more secure we also configured it in ubuntu by adding this file
+```
+sudo vim /etc/netplan/99_config.yaml
+```
+
+then apply and check by
+```
+sudo netplan apply
+ip a
+```
+
