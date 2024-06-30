@@ -165,6 +165,29 @@ at this point you can add this (following the format of the file) this string:
 
 here you need to add the information of your bucket.
 
+# Update the DB
+If you add file directly in the directory of nextcloud (so on the OS without passing from nextcloud), maybe because you restored a backup, you need to resync the index of nextcloud otherwise you will never see the new image.
+
+For do that you can run this command (supposing that you installed nextclod in the namespace nextcloud):
+```
+kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ files:scan --all"
+```
+
+If this command give error because of permission after the copy of the image, you can fix it inerithing the ownership and permission of the copied folder from the pre-existing father.
+I run this command for example for the user admin and emma.
+
+Before run it you need to change all the path of the folder changed. This also suppose that you install nextcloud on localpath:
+
+```
+# Fix permissions and ownership for admin directory
+sudo chmod -R --reference=/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/admin/files /var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/admin/files/admin
+sudo chown -R --reference=/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/admin/files /var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/admin/files/admin
+
+# Fix permissions and ownership for emma directory
+sudo chmod -R --reference=/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/emma/files /var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/emma/files/emma
+sudo chown -R --reference=/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/emma/files /var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/emma/files/emma
+```
+
 
 **Refrences**
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
