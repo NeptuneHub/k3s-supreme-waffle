@@ -11,7 +11,7 @@ As hardaware we used
 
 This configuration in Italy, on June 2024 costed around 270€
 
-As optional we also had an external 1TB usb to have it as external backup.
+As optional we also had an external 1TB usb (around 60€) to have it as external backup and a Hertzner 1TB Storage Box for an online backup (3,81€ per month when I wrote this on June 2024).
 
 # OS
 As final OS we want to install Ubuntu Server 24.04 for ARM on the SSD from here: 
