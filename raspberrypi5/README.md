@@ -41,7 +41,7 @@ systemctl status ssh
 systemctl enable ssh
 ```
 
-Setting the static ip is also needed for a server. So first at all we configured the DHCP of the router to assing the same as a default, but to be more secure we also configured it in ubuntu by adding this file
+Setting the static ip is also needed for a server. So first at all we configured the DHCP of the router to assing the same as a default, but to be more secure we also configured it in ubuntu by adding this file (you can find an exmaple on this repo):
 ```
 sudo vim /etc/netplan/99_config.yaml
 ```
