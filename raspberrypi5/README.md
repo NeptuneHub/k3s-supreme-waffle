@@ -145,3 +145,6 @@ I also added an extra backup on a Storagebox on Hetzner. You can adapt the same 
 
 **References**
 * **Raspberry PI official documentation** - https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration
+* **K3S configuration on Raspberry** - https://medium.com/@stevenhoang/step-by-step-guide-installing-k3s-on-a-raspberry-pi-4-cluster-8c12243800b9
+* **Install ubuntu on Raspberry overview** - https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview
+* **Ubuntu Server ARM for Raspberry** - https://cdimage.ubuntu.com/releases/24.04/release/
