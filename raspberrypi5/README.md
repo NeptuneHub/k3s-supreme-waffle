@@ -107,3 +107,9 @@ As backup sh script you can use your own or try to edit my **backup.sh** where y
 * line 31 and 32: instead of admin you ned to put your nextcloud uername, you can also duplicate this line for multiple user
 
 if you have a different configuration you will need to adapt this script.
+
+I also added an extra backup on a Storagebox on Hetzner. You can adapt the same script by mounting the storagebox in the fstab in this way (remember to correct the url and create the backup-credentials.txt files):
+```
+//uXXXXXXXXXX.your-storagebox.de/backup /mnt/backup-server cifs iocharset=utf8,rw,credentials=/etc/backup-credentials.txt,uid=1000,gid=1003,file_mode=0660,dir_mode=0770,x-systemd.requires=network-online.target,x-systemd.automount 0 0
+```
+(more information in /storagebox)
