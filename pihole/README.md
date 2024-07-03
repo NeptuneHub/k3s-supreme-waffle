@@ -40,5 +40,7 @@ kubectl patch svc pihole-dns-udp -n pihole -p '{"spec":{"externalIPs":["192.168.
 kubectl patch svc pihole-dhcp -n pihole -p '{"spec":{"externalIPs":["192.168.3.120"]}}'
 ```
 
-
+**References**
+* **Pihole Kubernetes github repo** - https://github.com/MoJo2600/pihole-kubernetes
+* **Pihole configuration**- https://greg.jeanmart.me/2020/04/13/self-host-pi-hole-on-kubernetes-and-block-ad/
 
