@@ -1,0 +1,21 @@
+dnsmasq:
+  customDnsEntries:
+    - address=/store2.silverycat.de/192.168.3.120
+
+adlists: []
+whitelist: []
+
+persistentVolumeClaim:
+  enabled: true
+  storageClass: local-path
+adminPassword: "<WRITE HERE THE ADMIN PASSWORD>"
+
+serviceTCP:
+  loadBalancerIP: <WRITE HERE YOU MACHINE IP>
+  annotations:
+    metallb.universe.tf/allow-shared-ip: pihole-svc
+
+serviceUDP:
+  loadBalancerIP: <WRITE HERE YOU MACHINE IP>
+  annotations:
+    metallb.universe.tf/allow-shared-ip: pihole-svc
