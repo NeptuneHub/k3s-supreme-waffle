@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: pihole
+  name: pihole-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: self-signed-cluster-issuer
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: pihole.192.168.3.120.nip.io  # Replace with your actual nip.io hostname
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pihole-web  # Name of your Service
+                port:
+                  number: 80  # Port number of the Service
+  tls:
+    - hosts:
+        - pihole.192.168.3.120.nip.io  # Replace with your actual nip.io hostname
+      secretName: pihole-tls-secret  # Name of your TLS secret
