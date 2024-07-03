@@ -7,6 +7,7 @@ helm repo update
 helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true 
 ```
 
+# Lets Encrypt cluster issuer for Production
 Now you need to create the ClusterIssuer, you can use cluster-issuer-production.yaml in this repo and apply it
 
 ```
@@ -17,6 +18,19 @@ Finally you can check it by this command:
 ```
 kubectl get ClusterIssuer -A
 ```
+
+# Self signed cluster issuer for Development
+You can create a self-signed Cluster Issuer by applying self-signed-cluster-issuer.yaml in this repo:
+
+```
+kubectl apply -f self-signed-cluster-issuer.yaml
+```
+
+Finally you can check it by this command:
+```
+kubectl get ClusterIssuer -A
+```
+
 
 **References**
 * **Cert Manager Documentation** - https://cert-manager.io/v1.6-docs/installation/helm/
