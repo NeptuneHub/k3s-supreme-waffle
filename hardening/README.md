@@ -158,7 +158,7 @@ Then create the custom configuration file
 sudo vim /etc/fail2ban/jail.d/99-custom.conf
 ```
 
-use this value but remember to put the exact loghpat of nextcloud.log (in mine for example I puth the path including the pvc dicretory)
+use this value if you have, in addition to SSH, also nextcloud and grafana (otherwise add/remove the service):
 
 ```
 [nextcloud]
@@ -167,10 +167,10 @@ enabled = true
 port = 80,443
 protocol = tcp
 filter = nextcloud
-maxretry = 3
-bantime = 86400
+maxretry = 5
+bantime = 600
 findtime = 43200
-logpath = /var/lib/rancher/k3s/storage/pvc-c7f870cc-06b6-4d27-af5f-c5489bb4c520_nextcloud_nextcloud-server-pvc/data/nextcloud.log
+logpath = /var/log/pods/nextcloud_nextcloud-*/nextcloud/*.log
 
 [sshd]
 enabled = true
@@ -179,10 +179,18 @@ filter  = sshd
 logpath = /var/log/auth.log
 maxretry = 5
 findtime = 10m
-bantime = 1h
+bantime = 600
+
+[grafana]
+enabled = true
+port = 80, 443
+filter = grafana
+logpath = /var/log/pods/dash_kube-prometheus-stack-grafana-*/grafana-sc-dashboard/*.log
+maxretry = 5
+bantime = 600
 ```
 
-then create the filter for nextcloud as described in nextcloud documentation:
+ssh and grafana filter already come with log2ban, instead for nextcloud you need to create the filter as described in nextcloud documentation:
 
 ```
 vim /etc/fail2ban/filter.d/nextcloud.conf
