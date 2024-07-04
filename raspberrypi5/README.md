@@ -137,12 +137,49 @@ As backup sh script you can use your own or try to edit my **backup.sh** where y
 
 if you have a different configuration you will need to adapt this script.
 
-I also added an extra backup on a Storagebox on Hetzner. You can adapt the same script by mounting the storagebox in the fstab in this way (remember to correct the url and create the backup-credentials.txt files):
+# Encrypted Backup on StorageBox with Restic(or other mounted internet file share folder)
+
+For backup file on StorageBox the best way is make a backup encrypted. For this purpose I also added an extra backup on a Storagebox on Hetzner. You can adapt the same script by mounting the storagebox in the fstab in this way (remember to correct the url and create the backup-credentials.txt files):
 ```
 //uXXXXXXXXXX.your-storagebox.de/backup /mnt/backup-server cifs iocharset=utf8,rw,credentials=/etc/backup-credentials.txt,uid=1000,gid=1003,file_mode=0660,dir_mode=0770,x-systemd.requires=network-online.target,x-systemd.automount 0 0
 ```
 (more information in /storagebox)
 
+The tools used for the encrypted backup is Restic, you can install it with:
+```
+apt-get install restic
+```
+
+You need first to inizialize the repo for the backup, with this command where you specify the path of your mounted fileshare:
+```
+restic init --repo /mnt/backup-server/encrypted-backup
+```
+
+Then the backup can be run with this command, supposing that you want to backup /mnt/usb in /mnt/backup-server/encrypted-backup:
+```
+restic backup /mnt/usb/ --repo /mnt/backup-server/encrypted-backup
+```
+
+You can also schedule it by crontab with this command where you need to create the file **/etc/restic-credentials.txt** with only your repo password in it:
+```
+20 2 * * * if ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt backup /mnt/usb/; fi
+```
+
+Other useful command of restic are:
+
+```
+List of snapshot
+restic -r /mnt/backup-server/encrypted-backup snapshots
+
+Navigate the snapshot with id b2564b3a
+restic -r /mnt/backup-server/encrypted-backup ls b2564b3a
+
+Restore a specifc file from the snapshot
+restic -r /mnt/backup-server/encrypted-backup restore b2564b3a --target /home/guido --include /mnt/usb/admin/Readme.md
+
+Restore latest backup:
+restic restore latest --target /home/guido/backup --repo /mnt/backup-server/encrypted-backup
+```
 
 **References**
 * **Raspberry PI official documentation** - https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration
