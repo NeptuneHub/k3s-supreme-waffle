@@ -137,7 +137,7 @@ As backup sh script you can use your own or try to edit my **backup.sh** where y
 
 if you have a different configuration you will need to adapt this script.
 
-# Encrypted Backup on StorageBox with Restic(or other mounted internet file share folder)
+# Encrypted Backup with Restic
 
 For backup file on StorageBox the best way is make a backup encrypted. For this purpose I also added an extra backup on a Storagebox on Hetzner. You can adapt the same script by mounting the storagebox in the fstab in this way (remember to correct the url and create the backup-credentials.txt files):
 ```
