@@ -15,3 +15,13 @@ Also change the permission
 ```
 sudo chmod +x ddns_multiple.sh
 ```
+
+Now edit the crontab
+```
+sudo crontab -e
+```
+
+and add this line to run the script each 10 minutes setting the exact path of the script
+```
+*/10 * * * * /bin/bash /root/ddns_multiple.sh
+```
