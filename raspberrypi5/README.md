@@ -179,6 +179,12 @@ restic -r /mnt/backup-server/encrypted-backup restore b2564b3a --target /home/gu
 
 Restore latest backup:
 restic restore latest --target /home/guido/backup --repo /mnt/backup-server/encrypted-backup
+
+Check running backup:
+if ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup snapshots; fi
+
+Check more detail for the running backup process number 1111111 (get the correct number from Check running backup)
+ps -p 1111111 -o pid,ppid,user,%cpu,%mem,etime,args
 ```
 
 **References**
