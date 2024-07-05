@@ -25,3 +25,6 @@ and add this line to run the script each 10 minutes setting the exact path of th
 ```
 */10 * * * * /bin/bash /root/ddns_multiple.sh
 ```
+
+References:
+* **Hetzner API token** - https://docs.hetzner.com/dns-console/dns/general/api-access-token/
