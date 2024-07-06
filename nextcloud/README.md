@@ -1,3 +1,4 @@
+# Install
 In this document we will support you in the configuration of nextcloud on your **K3S cluster** with or without the use of TLS.
 
 First you need to create the namespace
@@ -50,6 +51,48 @@ password: changeme
 ```
 
 After the first login you can change the password directly from the webapp.
+
+# config.php
+The file **config.php** will keep most useful configuration after your nextcloud install. It could be found in a path like this:
+```
+/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/config
+```
+
+**trusted_domains** specify the domains associated to your installation, only from this url you will be able to use nextcloud:
+```
+  'trusted_domains' =>
+  array (
+    0 => 'localhost',
+    1 => 'store2.silverycat.de',
+  ),
+```
+
+**trusted_proxies** are the trusted ip, the suggestion is to place it your ip to avoid the anti-ddos attack can accidenlty look your ip:
+```
+  'trusted_proxies' =>
+  array (
+    0 => '<YOUR IP>',
+  ),
+```
+
+If you followed the configuration of **/immaginary** on this repo yu will need to add this configuration:
+```
+  'enable_previews' => true,
+  'jpeg_quality' => '60',
+  'preview_max_x' => '1024',
+  'preview_max_y' => '1024',
+  'preview_max_scale_factor' => 1.5,
+  'enabledPreviewProviders' =>
+  array (
+    0 => 'OC\\Preview\\MP3',
+    1 => 'OC\\Preview\\TXT',
+    2 => 'OC\\Preview\\MarkDown',
+    3 => 'OC\\Preview\\OpenDocument',
+    4 => 'OC\\Preview\\Krita',
+    5 => 'OC\\Preview\\Imaginary',
+  ),
+  'preview_imaginary_url' => 'http://imaginary.imaginary.svc.cluster.local:9000',
+```
 
 # CONFIGURATION WITH TLS SELF-SIGNED
 
