@@ -162,7 +162,7 @@ restic backup /mnt/usb/ --repo /mnt/backup-server/encrypted-backup
 
 You can also schedule it by crontab with this command where you need to create the file **/etc/restic-credentials.txt** with only your repo password in it:
 ```
-#20 6 * * * restic backup /mnt/usb/ --repo /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt
+#Run the backup
 20 0 * * * if ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt backup /mnt/usb/; fi
 #Keep only the last 7 backup
 20 6 * * * if ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt forget --keep-last 7; fi
