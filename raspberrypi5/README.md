@@ -162,7 +162,14 @@ restic backup /mnt/usb/ --repo /mnt/backup-server/encrypted-backup
 
 You can also schedule it by crontab with this command where you need to create the file **/etc/restic-credentials.txt** with only your repo password in it:
 ```
-20 2 * * * if ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt backup /mnt/usb/; fi
+#20 6 * * * restic backup /mnt/usb/ --repo /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt
+20 0 * * * if ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt backup /mnt/usb/; fi
+#Keep only the last 7 backup
+20 6 * * * if ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt forget --keep-last 7; fi
+#Prune unreferenced file
+20 7 * * * if ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt prune; fi
+#clean cache
+20 8 * * * if ! pgrep -x "restic"; then restic cache --cleanup; fi
 ```
 
 Other useful command of restic are:
@@ -185,6 +192,9 @@ if ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup snaps
 
 Check more detail for the running backup process number 1111111 (get the correct number from Check running backup)
 ps -p 1111111 -o pid,ppid,user,%cpu,%mem,etime,args
+
+Unlock locked repo after an failed process
+restic -r /mnt/backup-server/encrypted-backup unlock
 ```
 
 **References**
