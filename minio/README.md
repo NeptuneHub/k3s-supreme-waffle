@@ -29,3 +29,4 @@ velero install --provider aws --plugins velero/velero-plugin-for-aws:v1.10.0-rc.
 * https://charts.min.io/
 * https://github.com/minio/minio
 * https://min.io/docs/minio/container/index.html
+* **Minio comunity helm chart** - https://github.com/minio/minio/tree/master/helm/minio
