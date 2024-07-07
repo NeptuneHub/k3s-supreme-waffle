@@ -37,5 +37,9 @@ phpClientHttpsFix:
 #This should be added if using distributed storage like longhorn, to avoid timeout error non the inizialization of nextcloud pod
 startupProbe:
   enabled: true
-  initialDelaySeconds: 240
+  initialDelaySeconds: 120
   failureThreshold: 50
+
+#This should be added if you want to enable the preview of video
+lifecycle:
+  postStartCommand: ["/bin/bash", "-c", "apt update -y && apt install ffmpeg -y"]
