@@ -105,17 +105,17 @@ The following guide was also applied and tested on raspberry pi with the followi
 * /nextcloud - this worked fine. The only difference that I saw is that the starting time of a container on Raspberry (SSD) was around 4 minutes (so like the double that on a cloud server with 4vcpu and 8gb ram)
 * /pihole - this worked fine.
 
-# Backup on external usb drive
+# Plain Backup on external usb drive with Rsync
 Because here we are on site, I added a backup of the image of nextcloud on an external USB disk.
 Edit your crontab
 ```
 sudo crontab -e
 ```
 
-and add this line for make a backup every hours
+and add this line for make a backup every hours. Also checking if another backup is still ruggning:
 ```
 #backup on usb every hours at 20min
-25 * * * * /home/guido/bootstrap/5-backup/backup.sh >> /home/guido/bootstrap/5-backup/backup.log 2>&1
+20 * * * * if ! pgrep -f "backup.sh"; then /home/guido/bootstrap/5-backup/backup.sh; fi
 ```
 
 remember to mount your usb disk by
@@ -196,6 +196,24 @@ ps -p 1111111 -o pid,ppid,user,%cpu,%mem,etime,args
 Unlock locked repo after an failed process
 restic -r /mnt/backup-server/encrypted-backup unlock
 ```
+
+# Both Local Rsync and Restic internet encrypted backup
+If you want to schedule both the local backup with Rsync AND the internet encrypted backup on Storagebox (or where you want), you can put in your crontab something similar to this:
+
+```
+# backup on usb every 3 hours at 50 minutes past the hour
+50 */3 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then /home/guido/bootstrap/5-backup/backup.sh; fi
+# Restic backup on StorageBox
+20 0 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt backup /mnt/usb/; fi
+# Keep only the last 7 backups
+20 6 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt forget --keep-last 7; fi
+# Prune unreferenced files
+20 7 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt prune; fi
+# Clean restic cache
+20 8 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic cache --cleanup; fi
+```
+
+In this way you will avoid that Rsync backup in backup.sh and Restic backup are running in parallel creating possible discrepancy. In my case I havem K3S storage TO  Local USB storage (with Rsync) and Local USBT Storage TO Internet Storagebox (with Restic). So is better to avoid running them in parallel.
 
 **References**
 * **Raspberry PI official documentation** - https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration
