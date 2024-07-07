@@ -268,8 +268,28 @@ tar -xvf ffmpeg-release-arm64-static.tar.xz
 
 And becuase you already edited the config.php is done. If it doesn't work try to cancel the cache of the browser and if it persist check the correct path. 
 
+**IN ALTERNATIVE** you can add this line in **values.yaml**:
+```
+lifecycle:
+  postStartCommand: ["/bin/bash", "-c", "apt update -y && apt install ffmpeg -y"]
+```
 
+and then update your insatallation with this command:
+```
+helm upgrade nextcloud nextcloud/nextcloud --namespace nextcloud -f values.yaml
+```
 
+In this way the path in yout **config.php** should be this:
+```
+'preview_ffmpeg_path' => '/usr/bin/ffmpeg',
+```
+
+you can verify by (remember to replace with the exact name of the pod):
+```
+kubectl exec -it nextcloud-7c9476bccc-4lgtq -n nextcloud -- /bin/bash
+ffmpeg -version
+which ffmpeg
+```
 
 # Update the DB
 If you add file directly in the directory of nextcloud (so on the OS without passing from nextcloud), maybe because you restored a backup, you need to resync the index of nextcloud otherwise you will never see the new image.
