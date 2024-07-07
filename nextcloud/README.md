@@ -208,6 +208,69 @@ at this point you can add this (following the format of the file) this string:
 
 here you need to add the information of your bucket.
 
+# Enalbe preview of different file
+You need to work with your **config.php** that will be in a path like this:
+
+```
+/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/config
+```
+Here you need to be sure to have this information to allow the preview of different document:
+```
+  array (
+    0 => 'OC\\Preview\\MP3',
+    1 => 'OC\\Preview\\TXT',
+    2 => 'OC\\Preview\\MarkDown',
+    3 => 'OC\\Preview\\OpenDocument',
+    4 => 'OC\\Preview\\Krita',
+    5 => 'OC\\Preview\\Imaginary',
+    6 => 'OC\\Preview\\PDF',
+    7 => 'OC\\Preview\\Movie',
+    8 => 'OC\\Preview\\MKV',
+    9 => 'OC\\Preview\\MP4',
+    10 => 'OC\\Preview\\AVI',
+    11 => 'OC\\Preview\\JPEG',
+    12 => 'OC\\Preview\\PNG',
+    13 => 'OC\\Preview\\GIF',
+    14 => 'OC\\Preview\\BMP',
+    15 => 'OC\\Preview\\XBitmap',
+    16 => 'OC\\Preview\\HEIC',
+    17 => 'OC\\Preview\\TIFF',
+    18 => 'OC\\Preview\\Image',
+    19 => 'OC\\Preview\\FFmpeg',
+  ),
+  'preview_ffmpeg_path' => '/var/www/html/custom_apps/lib/ffmpeg-7.0.1-arm64-static/ffmpeg',
+```
+
+For ffmpeg you should also go to install it in so go to this path:
+```
+var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/custom_apps/
+```
+And create the **lib** folder
+```
+sudo mkdir lib
+cd lib
+```
+
+In lib folder you need to download the static FFmpeg for you platform, for example for arm is this:
+```
+wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-arm64-static.tar.xz
+```
+
+Otherwise check the correct one for your platform here:
+```
+https://johnvansickle.com/ffmpeg/
+```
+
+now you just need to unpack it:
+```
+tar -xvf ffmpeg-release-arm64-static.tar.xz
+```
+
+And becuase you already edited the config.php is done. If it doesn't work try to cancel the cache of the browser and if it persist check the correct path. 
+
+
+
+
 # Update the DB
 If you add file directly in the directory of nextcloud (so on the OS without passing from nextcloud), maybe because you restored a backup, you need to resync the index of nextcloud otherwise you will never see the new image.
 
