@@ -268,7 +268,7 @@ tar -xvf ffmpeg-release-arm64-static.tar.xz
 
 And becuase you already edited the config.php is done. If it doesn't work try to cancel the cache of the browser and if it persist check the correct path. 
 
-**IN ALTERNATIVE** you can add this line in **values.yaml**:
+**IN ALTERNATIVE** you can install ffmpeg by adding this line in **values.yaml**:
 ```
 lifecycle:
   postStartCommand: ["/bin/bash", "-c", "apt update -y && apt install ffmpeg -y"]
