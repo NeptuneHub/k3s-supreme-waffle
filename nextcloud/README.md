@@ -208,7 +208,7 @@ at this point you can add this (following the format of the file) this string:
 
 here you need to add the information of your bucket.
 
-# Enalbe preview of different file
+# Enable preview of different file format
 You need to work with your **config.php** that will be in a path like this:
 
 ```
