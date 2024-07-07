@@ -215,7 +215,7 @@ If you want to schedule both the local backup with Rsync AND the internet encryp
 
 In this way you will avoid that Rsync backup in backup.sh and Restic backup are running in parallel creating possible discrepancy. In my case I havem K3S storage TO  Local USB storage (with Rsync) and Local USBT Storage TO Internet Storagebox (with Restic). So is better to avoid running them in parallel.
 
-**References**
+# References
 * **Raspberry PI official documentation** - https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration
 * **Raspberry Imager** - https://www.raspberrypi.com/software/
 * **K3S configuration on Raspberry** - https://medium.com/@stevenhoang/step-by-step-guide-installing-k3s-on-a-raspberry-pi-4-cluster-8c12243800b9
