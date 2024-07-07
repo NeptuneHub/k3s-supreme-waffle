@@ -128,6 +128,11 @@ add this line editing the UUID of your HD (you can get the UUID with the command
 UUID=7A4E56564E560B71 /mnt/usb ntfs-3g defaults 0 0
 ```
 
+you can also check the avaiable disk with:
+```
+lsblk
+```
+
 Restart the daemon and mount it:
 ```
 systemctl daemon-reload
