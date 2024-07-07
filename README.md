@@ -62,6 +62,17 @@ kubectl get namespace $NAMESPACE -o json |jq '.spec = {"finalizers":[]}' >temp.j
 curl -k -H "Content-Type: application/json" -X PUT --data-binary @temp.json 127.0.0.1:8001/api/v1/namespaces/$NAMESPACE/finalize
 )
 ```
+* **Some error checking error**
+```
+CRUL:
+kubectl exec -n nextcloud nextcloud-6cb95f8c6d-fz6qx -- curl -v http://imaginary.imaginary.svc.cluster.local:9000
+
+DNS CHECK:
+kubectl run -i --tty dnsutils --image=busybox --restart=Never --rm --namespace nextcloud -- /bin/sh -c "nslookup imaginary.imaginary.svc.cluster.local"
+
+ENTER IN THE POD AND NAVIGATE IT
+kubectl exec -it nextcloud-6cb95f8c6d-2dtj2 -n nextcloud -- /bin/bash
+```
 
 
 Some Linux useful commands:
