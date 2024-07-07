@@ -147,6 +147,12 @@ As backup sh script you can use your own or try to edit my **backup.sh** where y
 
 if you have a different configuration you will need to adapt this script.
 
+In my configuration with 2 different usb disk, I also mounted the second usb in **/mnt/usb-2** and I used the script **k3s-save.sh** in order to backup the folder **/var/lib/rancher/k3s** each months with this crontab entry:
+```
+# backup one time each 1st of the months on usb-2
+10 0 1 * * if ! pgrep -f "k3s-save.sh" && ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then /home/guido/bootstrap/5-backup/k3s-save.sh; fi
+```
+
 
 # Encrypted Backup with Restic
 
@@ -209,19 +215,21 @@ restic -r /mnt/backup-server/encrypted-backup unlock
 ```
 
 # Both Local Rsync and Restic internet encrypted backup
-If you want to schedule both the local backup with Rsync AND the internet encrypted backup on Storagebox (or where you want), you can put in your crontab something similar to this:
+If you want to schedule both the two local backup with Rsync AND the internet encrypted backup on Storagebox (or where you want), you can put in your crontab something similar to this:
 
 ```
+# backup one time each 1st of the months on usb-2
+10 0 1 * * if ! pgrep -f "k3s-save.sh" && ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then /home/guido/bootstrap/5-backup/k3s-save.sh; fi
 # backup on usb every 3 hours at 50 minutes past the hour
-50 */3 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then /home/guido/bootstrap/5-backup/backup.sh; fi
+50 */3 2-31 * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then /home/guido/bootstrap/5-backup/backup.sh; fi
 # Restic backup on StorageBox
-20 0 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt backup /mnt/usb/; fi
+20 0 2-31 * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt backup /mnt/usb/; fi
 # Keep only the last 7 backups
-20 6 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt forget --keep-last 7; fi
+20 6 2-31 * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt forget --keep-last 7; fi
 # Prune unreferenced files
-20 7 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt prune; fi
+20 7 2-31 * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt prune; fi
 # Clean restic cache
-20 8 * * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic cache --cleanup; fi
+20 8 2-31 * * if ! pgrep -f "backup.sh" && ! pgrep -x "restic"; then restic cache --cleanup; fi
 ```
 
 In this way you will avoid that Rsync backup in backup.sh and Restic backup are running in parallel creating possible discrepancy. In my case I havem K3S storage TO  Local USB storage (with Rsync) and Local USBT Storage TO Internet Storagebox (with Restic). So is better to avoid running them in parallel.
