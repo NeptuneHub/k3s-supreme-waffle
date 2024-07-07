@@ -112,7 +112,7 @@ Edit your crontab
 sudo crontab -e
 ```
 
-and add this line for make a backup every hours. Also checking if another backup is still ruggning:
+and add this line for make a backup. Also checking if another backup is still ruggning:
 ```
 #backup on usb every hours at 20min
 20 * * * * if ! pgrep -f "backup.sh"; then /home/guido/bootstrap/5-backup/backup.sh; fi
@@ -128,6 +128,11 @@ add this line editing the UUID of your HD (you can get the UUID with the command
 UUID=7A4E56564E560B71 /mnt/usb ntfs-3g defaults 0 0
 ```
 
+Restart the daemon and mount it:
+```
+systemctl daemon-reload
+sudo mount -a
+```
 
 As backup sh script you can use your own or try to edit my **backup.sh** where you need to edit:
 
@@ -136,6 +141,7 @@ As backup sh script you can use your own or try to edit my **backup.sh** where y
 * line 31 and 32: instead of admin you ned to put your nextcloud uername, you can also duplicate this line for multiple user
 
 if you have a different configuration you will need to adapt this script.
+
 
 # Encrypted Backup with Restic
 
