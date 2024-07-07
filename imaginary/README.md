@@ -27,6 +27,7 @@ In confing.php you can add this line:
 ],
 'preview_imaginary_url' => 'http://imaginary.imaginary.svc.cluster.local:9000',
 'preview_imaginary_signature_key' => 'YOUR-LONG-KEY-HERE-SAME-OF-DEPLOYMENT',
+'allow_local_remote_servers' => true,
 ```
 
 where:
