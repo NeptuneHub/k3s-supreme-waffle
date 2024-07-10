@@ -74,6 +74,11 @@ And finally re-start the generation as a first installation
 kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ preview:generate-all"
 ```
 
+During the generation of the file, you can move in the preview folder and run this command to check how much file was scanned and the space used:
+```
+DIRECTORY="./"; echo "Total size: $(du -sh "$DIRECTORY" | awk '{print $1}')"; echo "Total number of files: $(find "$DIRECTORY" -type f | wc -l)"
+```
+
 
 **References:**
 * **Deploy immaginary on kubernetes** - https://itnext.io/how-to-build-your-own-secure-image-processing-service-with-imaginary-and-kubernetes-cf124649047c
