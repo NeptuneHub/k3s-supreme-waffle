@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Echo the header with the timestamp
+echo "******************************************************************************************"
+echo "$TIMESTAMP"
+echo "******************************************************************************************"
+echo   # Add a blank line for clarity or further content
+
 # Define destination base directory
 dest_base="/mnt/usb"
 
