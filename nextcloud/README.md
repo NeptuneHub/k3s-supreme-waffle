@@ -314,6 +314,16 @@ sudo chmod -R --reference=/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-84
 sudo chown -R --reference=/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/emma/files /var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/emma/files/emma
 ```
 
+# Memories
+Memories is a custom app that you can install directly from nextcloud web browser. It useful to better organize the photo by data.
+
+After installing it you should only use this command the first time:
+
+```
+kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ memories:index"
+```
+
+This will create the initial memories index and all the other photo will be added automaticcally.
 
 **Refrences**
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
