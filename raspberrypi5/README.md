@@ -237,6 +237,48 @@ If you want to schedule both the two local backup with Rsync AND the internet en
 
 In this way you will avoid that Rsync backup in backup.sh and Restic backup are running in parallel creating possible discrepancy. In my case I havem K3S storage TO  Local USB storage (with Rsync) and Local USBT Storage TO Internet Storagebox (with Restic). So is better to avoid running them in parallel.
 
+
+
+An alternative to avoid if in the crontab (that seems that sometime failed) could be just to separate the backup in this way. Also we are creating log file to monitor for error:
+```
+# backup on usb every 3 hours at 50 minutes past the hour
+* */3 * * * /bin/bash /home/guido/bootstrap/5-backup/backup.sh >> /home/guido/bootstrap/5-backup/cron.log 2>&1
+
+# Restic backup on StorageBox
+15 1 * * 1 echo "Backup will start at: $(date)" >> /home/guido/bootstrap/5-backup/cron-restic.log
+20 1 * * 1 restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt backup /mnt/usb/ >> /home/guido/bootstrap/5-backup/cron-restic.log 2>&1
+# Keep only the last 7 backups
+15 1 * * 2 echo "Keep last 7 will start at: $(date)" >> /home/guido/bootstrap/5-backup/cron-restic.log
+20 6 * * 2 restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt forget --keep-last 7 >> /home/guido/bootstrap/5-backup/cron-restic.log 2>&1
+# Prune unreferenced files
+15 1 * * 2 echo "Prune will start at: $(date)" >> /home/guido/bootstrap/5-backup/cron-restic.log
+20 7 * * 3 restic -r /mnt/backup-server/encrypted-backup --password-file /etc/restic-credentials.txt prune >> /home/guido/bootstrap/5-backup/cron-restic.log 2>&1
+# Clean restic cache
+15 1 * * 2 echo "Cache clenup will start at: $(date)" >> /home/guido/bootstrap/5-backup/cron-restic.log
+20 8 * * 4 restic cache --cleanup >> /home/guido/bootstrap/5-backup/cron-restic.log 2>&1
+```
+
+And we can also add the logrotate rul in /etc/logrotate.d
+
+**usb backup log** (remember to change the correct path of the log)
+```
+/home/<your user>/bootstrap/5-backup/cron.log {
+    weekly
+    rotate 1
+    nocompress
+}
+```
+
+**restic offsite log** (remember to change the correct path of the log)
+```
+/home/<your user>/bootstrap/5-backup/cron-restic.log {
+    monthly
+    rotate 1
+    nocompress
+}
+```
+
+
 # References
 * **Raspberry PI official documentation** - https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration
 * **Raspberry Imager** - https://www.raspberrypi.com/software/
