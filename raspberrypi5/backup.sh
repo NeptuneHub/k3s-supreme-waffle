@@ -35,4 +35,4 @@ source_base="/var/lib/rancher/k3s/storage/$pvc_name/data"
 
 # Perform rsync for each source and destination pair
 echo "Rsync from $source_base/admin/files/ to $dest_base/admin"
-rsync -av --delete --ignore-existing "$source_base/admin/files/" "$dest_base/admin"
+rsync -av "$source_base/admin/files/" "$dest_base/admin"
