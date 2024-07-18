@@ -16,7 +16,7 @@ And also kibana, here you need to edit the ignress part to match your machine in
 helm install kibana elastic/kibana -n logging -f kibana-values.yaml
 ```
 
-Finally you can install filebeat using the values in this repo, here you need to edit your input in order to grab the log of your interest:
+Finally you can install filebeat using the **filebeat-values.yaml** in this repo, here you need to edit your input in order to grab the log of your interest:
 ```
 helm install filebeat elastic/filebeat -n logging -f filebeat-values.yaml
 ```
