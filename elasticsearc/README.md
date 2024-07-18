@@ -11,7 +11,7 @@ Now you can install elastichsearch ugin the **elasticsearch-values.yaml** file i
 helm install elasticsearch elastic/elasticsearch --namespace logging -f elasticsearch-values.yaml
 ```
 
-And also kibana, here you need to edit the ignress part to match your machine in the values file:
+And also kibana, here you need to edit the ignress part to match your machine in the **kibana-values.yaml** file:
 ```
 helm install kibana elastic/kibana -n logging -f kibana-values.yaml
 ```
