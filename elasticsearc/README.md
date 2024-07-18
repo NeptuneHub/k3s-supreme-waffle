@@ -6,7 +6,7 @@ helm repo add elastic https://helm.elastic.co
 helm repo update
 ```
 
-Now you can install elastichsearch ugin the values file in this repo. Remember to change the password:
+Now you can install elastichsearch ugin the **elasticsearch-values.yaml** file in this repo. Remember to change the password and the replica if you have more than one node in your cluster:
 ```
 helm install elasticsearch elastic/elasticsearch --namespace logging -f elasticsearch-values.yaml
 ```
