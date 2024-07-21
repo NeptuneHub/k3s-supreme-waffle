@@ -10,6 +10,7 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 * [Fail2ban](#Fail2ban)
 * [Aide](#Aide)
 * [K3S-automated-update](#K3S-automated-update)
+* [K3S-quota-limits](#K3S-quota-limit)
 
 ## SSH
 
@@ -281,6 +282,9 @@ kubectl apply -f k3s-update-plan.yaml
 ```
 
 You you can use the attached example. This file practicall desribe the plan for the update.
+
+## K3S-quota-limit
+Define resource quota (for the entire namespace) and limits (for the single deployment) could be a way to avodi that a single pod just keep all the resource and freeze the server.
 
 **References:**
 * **Ubuntu hardening for kubernetes and nextcloud** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
