@@ -285,6 +285,11 @@ You you can use the attached example. This file practicall desribe the plan for 
 
 ## K3S-quota-limit
 Define resource quota (for the entire namespace) and limits (for the single deployment) could be a way to avodi that a single pod just keep all the resource and freeze the server.
+In this reposiotry you can fine **resource-quota.yam**l that based on my home lab use define request and quota of CPU and RAM for pihole, nextcloud, cert-manager, prometheus-stack (dash) and immaginary. Feel free to edit them and apply with the command
+
+```
+kubectl apply -f resource-quota.yaml
+```
 
 **References:**
 * **Ubuntu hardening for kubernetes and nextcloud** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
