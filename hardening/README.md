@@ -11,6 +11,7 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 * [Aide](#Aide)
 * [K3S-automated-update](#K3S-automated-update)
 * [K3S-quota-limits](#K3S-quota-limit)
+* [K3S-Network-Policy](#K3S-Network-Policy)
 
 ## SSH
 
@@ -291,6 +292,19 @@ In this reposiotry you can fine **resource-quota.yam**l that based on my home la
 kubectl apply -f resource-quota.yaml
 ```
 
+## K3S-Network-Policy
+K3S directly work on IPTABLES configuration, this means that you can have incosisntence on the configuration that you apply on UFW firewall. In other word on UFW you close one port, but then on K3S you run the risk to re-open it.
+So to have the K3S network under controll is good to deploy NetworkPolicy that are policy that you can apply for each specific namespace in order to limit the traffic.
+
+In this repo you can find **network-policy.yaml** that in essence limit expose only the prometheus stack dashboard (namespace dash) and nextcloud on 443. Imaginary is also configured to be reached only from Nextcloud namespace. I suggest to review them to check if they can apply to your specific use case.
+
+To apply it you need to run this command:
+```
+# Label the namespace, needed for imaginary ad hoc comunication with nextcloud
+kubectl label namespace nextcloud name=nextcloud --overwrite
+kubectl apply -f network-policy.yaml
+```
+
 **References:**
 * **Ubuntu hardening for kubernetes and nextcloud** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
 * **Fail2ban configuration for nextcloud** - https://docs.nextcloud.com/server/19/admin_manual/installation/harden_server.html?highlight=fail2ban#setup-a-filter-and-a-jail-for-nextcloud
@@ -298,3 +312,4 @@ kubectl apply -f resource-quota.yaml
 * **Openscap for ubuntu 20.04** - https://static.open-scap.org/ssg-guides/ssg-ubuntu2204-guide-index.html
 * **K3S automated upate** - https://docs.k3s.io/upgrades/automated
 * **K3S update plan** - https://github.com/rancher/system-upgrade-controller/blob/master/examples/k3s-upgrade.yaml
+* **K3S Hardening** - https://docs.k3s.io/security/hardening-guide
