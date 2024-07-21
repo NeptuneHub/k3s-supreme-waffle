@@ -1,0 +1,96 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-https-only
+  namespace: nextcloud
+spec:
+  podSelector: {}  # Applies to all pods in the namespace
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 443
+    - from:
+        - ipBlock:
+            cidr: 0.0.0.0/0  # Allow traffic from any source IP
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0  # Allow outbound traffic to any destination IP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-internal-traffic
+  namespace: dash
+spec:
+  podSelector: {}  # Applies to all pods in the namespace
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector: {}  # Allow traffic from any namespace
+      ports:
+        - protocol: TCP
+          port: 9090  # Prometheus server
+        - protocol: TCP
+          port: 9093  # Alertmanager
+        - protocol: TCP
+          port: 3000  # Grafana
+        - protocol: TCP
+          port: 9100  # Node Exporter
+        - protocol: TCP
+          port: 9091  # Pushgateway
+
+  egress:
+    - to:
+        - namespaceSelector: {}  # Allow traffic to any namespace
+        - ipBlock:
+            cidr: 0.0.0.0/0  # Allow outbound traffic to any destination IP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-external-http-https
+  namespace: dash
+spec:
+  podSelector: {}  # Applies to all pods in the namespace
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - ipBlock:
+            cidr: 0.0.0.0/0  # Allow traffic from any source IP
+      ports:
+        - protocol: TCP
+          port: 443  # Allow HTTPS traffic
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-nextcloud-only
+  namespace: imaginary
+spec:
+  podSelector: {}  # Applies to all pods in the namespace
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: nextcloud
+      ports:
+        - protocol: TCP
+          port: 9000  # Allow ingress traffic on port 9000 from the nextcloud namespace
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: nextcloud
+      ports:
+        - protocol: TCP
+          port: 9000  # Allow egress traffic on port 9000 to the nextcloud namespace
