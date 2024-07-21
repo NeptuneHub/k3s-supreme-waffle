@@ -9,3 +9,51 @@ spec:
     requests.memory: "512Mi"
     limits.cpu: "1500m"
     limits.memory: "2Gi"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: imaginary-quota
+  namespace: imaginary
+spec:
+  hard:
+    requests.cpu: "500m"
+    requests.memory: "512Mi"
+    limits.cpu: "750m"
+    limits.memory: "2Gi"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: pihole-quota
+  namespace: pihole
+spec:
+  hard:
+    requests.cpu: "250m"
+    requests.memory: "512Mi"
+    limits.cpu: "500m"
+    limits.memory: "1Gi"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dash-quota
+  namespace: dash
+spec:
+  hard:
+    requests.cpu: "125m"
+    requests.memory: "512Mi"
+    limits.cpu: "250m"
+    limits.memory: "1Gi"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: cert-manager-quota
+  namespace: cert-manager
+spec:
+  hard:
+    requests.cpu: "62m"          # Reduced from 250m
+    requests.memory: "64Mi"      # Reduced from 256Mi
+    limits.cpu: "125m"           # Reduced from 500m
+    limits.memory: "128Mi"       # Reduced from 512Mi
