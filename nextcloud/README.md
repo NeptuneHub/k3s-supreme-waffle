@@ -352,3 +352,4 @@ This will create the initial memories index and all the other photo will be adde
 * **Nextcloud helm chart** - https://nextcloud.github.io/helm/
 * **Deploy nextcloud on kubernetes guide** - * https://greg.jeanmart.me/2020/04/13/deploy-nextcloud-on-kuberbetes--the-self-hos/
 * **Nexctloud S3 bucket** - https://docs.nextcloud.com/server/13/admin_manual/configuration_files/primary_storage.html#simple-storage-service-s3
+* **Nextcloud cron job configuration** - https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html
