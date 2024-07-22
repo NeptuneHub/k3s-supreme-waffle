@@ -314,6 +314,28 @@ sudo chmod -R --reference=/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-84
 sudo chown -R --reference=/var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/emma/files /var/lib/rancher/k3s/storage/pvc-7bcfa367-27ab-4ec3-8437-04aaf2b7131e_nextcloud_nextcloud-server-pvc/data/emma/files/emma
 ```
 
+# Preview generator and imaginary
+Without Preveiw generator Nextcloud try to create the preview of the file when the user navigate the space, this often crash the system due to CPU exaustion especially on slower system. To avoid this is better to create the preview in background. I suggest to configure the preview generation with immaginary and imagepreviw following the guide in **./imaginery** of this repo
+
+# Configure cronjob
+By documentation of nextcloud, it need to run some background task without the interaction of the user. The better way to do this is by a cronjob.
+
+First you need to configure the use of cron by going to **your nextcloud web page > Admin setting > Basic setting** and selecting cron (by default is selected Ajax).
+
+Then on the server where you deployed nextcloud you need to edit cron by run the command:
+```
+crontab -e
+```
+
+and add this as the last line (this command suppose that you deployed nextcloud in the namespace nextcloud and get automatically the nextcloud pod name):
+
+```
+# Run cron.php every 10 minutes, starting at minute 5, 15, 25, 35, 45, and 55
+5,15,25,35,45,55 * * * * kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php cron.php"
+```
+
+This will run the command by default each 5 minute.
+
 # Memories
 Memories is a custom app that you can install directly from nextcloud web browser. It useful to better organize the photo by data.
 
