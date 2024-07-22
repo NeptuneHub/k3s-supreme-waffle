@@ -53,7 +53,7 @@ crontab -e
 
 and put:
 ```
-*/10 * * * * kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ preview:pre-generate"
+0,10,20,30,40,50 * * * * kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ preview:pre-generate"
 ```
 
 If you want to reset che preview created, cancel all the content of this directory (remember to change the name of the pvc)
