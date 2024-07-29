@@ -278,6 +278,22 @@ And we can also add the logrotate rul in /etc/logrotate.d
 }
 ```
 
+# SSD issue fix
+
+In case of wrong restart, missing electricity or similar could happen to have reading error from the SSD. This instruction could be useful to fix this kind of error.
+
+The below commant work only on unmounted disk, so you will need to shutdown the raspberry and use an nvme to USB adapter to attach the disk on another computer or to the raspberry itself poweron the SD card (otherwise you can try using a OS receovery mode).
+After that you can identify the disk (without mouinting it) with this command:
+```
+lsblk
+```
+
+and then run this command (in our case the disk was sda, and the partition with data was sda2):
+```
+sudo fsck -f -y /dev/sda2sudo fsck -f /dev/sda2
+```
+
+To me this solve different error appeared just after one months of work (and different electriciy outage).
 
 # References
 * **Raspberry PI official documentation** - https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration
