@@ -278,7 +278,7 @@ And we can also add the logrotate rul in /etc/logrotate.d
 }
 ```
 
-# SSD issue fix
+# Disk I/O error fix
 
 In case of wrong restart, missing electricity or similar could happen to have reading error from the nvme SSD. This instruction could be useful to fix this kind of error.
 
