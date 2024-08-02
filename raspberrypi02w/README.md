@@ -25,7 +25,12 @@ You can also check the result wuith:
 kubectl get nodes --show-labels
 ```
 
-Then you can deploy pihole using the label "app=low" lby applying the deployment in this repo:
+Then you can deploy pihole using the label "app=low", before using the deployment in this repo remember to set this value:
+*  WEBPASSWORD - put the base64 of your admin user password
+* externalIPs: - 192.168.3.120 - put your machine ip, this will be the ip of your DNS
+* host: pihole.192.168.3.120.nip.io  - put your machine ip here, this will be the url of the web admin dashboard
+
+then you can apply it with:
 ```
 kubectl apply -f deployment.yaml
 ```
