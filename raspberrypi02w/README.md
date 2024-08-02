@@ -36,8 +36,8 @@ kubectl apply -f deployment.yaml
 ```
 
 # SAMBA
-
-Here we will configure samba directly on the host system, not using K3S.
+Here we will configure samba directly on the host system, not using K3S. By my test it worked very well, I connected to it with my Android phone, starting to looking at photo preview and RAM still remain on a max of 300mb, with also no much CPU usage.
+As a storage I used the internal SD card and I used the integrated wifi.
 
 
 First install samba on the machine:
