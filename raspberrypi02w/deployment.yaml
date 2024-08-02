@@ -1,0 +1,127 @@
+kind: Secret
+metadata:
+  name: pihole-secrets
+  namespace: pihole
+type: Opaque
+data:
+  WEBPASSWORD: <put-year-you-password-in-Base64> # Base64 encoded value
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pihole
+  namespace: pihole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pihole
+  template:
+    metadata:
+      labels:
+        app: pihole
+    spec:
+      nodeSelector:
+        app: low  # This ensures the pods are scheduled on nodes labeled app=low
+      containers:
+      - name: pihole
+        image: pihole/pihole:latest
+        imagePullPolicy: IfNotPresent #Always  # Always pull the latest image
+        env:
+        - name: TZ
+          value: "Europe/Rome"  # Italian timezone
+        - name: WEBPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pihole-secrets
+              key: WEBPASSWORD
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        - containerPort: 53
+          protocol: TCP
+        - containerPort: 53
+          protocol: UDP
+        volumeMounts:
+        - name: pihole-config
+          mountPath: /etc/pihole
+        - name: dnsmasq-config
+          mountPath: /etc/dnsmasq.d
+        - name: custom-dns-config
+         mountPath: /etc/dnsmasq.d/custom-dns.conf
+          subPath: custom-dns.conf
+      volumes:
+      - name: pihole-config
+        persistentVolumeClaim:
+          claimName: pihole-pvc
+      - name: dnsmasq-config
+        persistentVolumeClaim:
+          claimName: dnsmasq-pvc
+      - name: custom-dns-config
+        configMap:
+          name: pihole-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole-http-https
+  namespace: pihole
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+  selector:
+    app: pihole
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole-dns
+  namespace: pihole
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 53
+    targetPort: 53
+    protocol: TCP
+    name: dns-tcp
+  - port: 53
+    targetPort: 53
+    protocol: UDP
+    name: dns-udp
+  selector:
+    app: pihole
+  externalIPs:
+  - 192.168.3.130
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pihole-ingress
+  namespace: pihole
+  annotations:
+    cert-manager.io/cluster-issuer: self-signed-cluster-issuer
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: pihole.192.168.3.120.nip.io  # Replace with your actual nip.io hostname
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pihole-http-https
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - pihole.192.168.3.120.nip.io  # Replace with your actual nip.io hostname
+      secretName: pihole-tls-secret
+                                                                                    219,35        Bot 
