@@ -24,6 +24,7 @@ The file in this root folder are:
 * **mount-longhorn.yaml** - is an utility pod that start with your longhorn pvc mounted, useful to edit file with the vi command on longhorn volume. You can access it with the command kubectl -n < namespace > exec -it longhorn-editor -- sh
 * **ingress.yaml** - ingress to expose longhorn frontend (or can be a template for other kind of front-end.
 
+# Additional application for your server
 If you want to continue your learning you can also follow this additional guide: 
 * **/velero** - Is an application useful for schedule backup of the entire cluster on an external Bucket (AWS S3 or even a minio local server)
 * **/minio** - Is an application useful to create your own bucket on your local machine. For development purphose you can run two different cluster and one of them having minio for keeping the backup made by velero
@@ -39,7 +40,7 @@ If you want to continue your learning you can also follow this additional guide:
 * **/hetzner DDNS** - SH script that interact with hetzner DNS api for updating the ip of your DNS name
 
 
-Some Kubernetes useful commands:
+# Kubernetes useful commands
 * **Change the replica number of an already existing deployment**
   * kubectl -n < namespace > scale deployment/< deployment_name > --replicas=0
 * **Edit external IPs of a service already deployed and check the changes**
@@ -84,7 +85,7 @@ sudo fsck -f -y /dev/sda2sudo fsck -f /dev/sda2
 ```
 
 
-Some Linux useful commands:
+# Linux useful commands
 * **Disable use of swap**
   * sudo swapoff -a
 * **Enable use of swap**
