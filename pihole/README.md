@@ -1,4 +1,4 @@
-# Pihole configuration on K3S
+# Pihole configuration on K3S with mojo helm chart
 This guide is to commit PIHOLE on K3S. This product is born as network blocker but it's also useful to be used as an home-lab DNS.
 
 First thinks you need to configure cert-manager by following the instruction in ./cert-manager. We will use it with the self signed certificate because here our plan is to **commmit it visible only inside our home lab LAN**.
@@ -40,6 +40,20 @@ kubectl patch svc pihole-dns-tcp -n pihole -p '{"spec":{"externalIPs":["192.168.
 kubectl patch svc pihole-dns-udp -n pihole -p '{"spec":{"externalIPs":["192.168.3.120"]}}'
 kubectl patch svc pihole-dhcp -n pihole -p '{"spec":{"externalIPs":["192.168.3.120"]}}'
 ```
+
+# Pihole configuration on K3S with yaml file
+If you want to do a more detailed configuration you can use the deployment.yaml file in this repo and just edit it.
+
+It contain deployment, service, ingress and also the secret with the admin password. So you need to configure:
+* The ip of your machine where you find it (so in place of 192.168.3.120)
+* The name of the ingress putting also the ip of your machine (where you have http://pihole.192.168.3.120.nip.io/)
+* You webpassword, that is the admin password to login
+
+After editing it with your personal information, apply with the command:
+```
+kubectl apply -f deployment.yaml
+```
+
 
 # DNS on Router and K3S
 After installing and configuring pihole you need to enter in your router and assign to the primary DNS the ip address of your PIHOLE (in our cases is 192.168.3.120). A good idea is also to assign as a secondary DNS the one of google (like 8.8.8.8) so in case of Pihole go down you will automatically switch to google once.
