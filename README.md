@@ -77,6 +77,11 @@ kubectl run -i --tty dnsutils --image=busybox --restart=Never --rm --namespace n
 ENTER IN THE POD AND NAVIGATE IT
 kubectl exec -it nextcloud-6cb95f8c6d-2dtj2 -n nextcloud -- /bin/bash
 ```
+* **Storage FIX (need to be unmounted. maybe attached with an external USB adapter)**
+```
+lsblk
+sudo fsck -f -y /dev/sda2sudo fsck -f /dev/sda2
+```
 
 
 Some Linux useful commands:
