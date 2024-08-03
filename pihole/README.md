@@ -1,3 +1,4 @@
+# Pihole configuration on K3S
 This guide is to commit PIHOLE on K3S. This product is born as network blocker but it's also useful to be used as an home-lab DNS.
 
 First thinks you need to configure cert-manager by following the instruction in ./cert-manager. We will use it with the self signed certificate because here our plan is to **commmit it visible only inside our home lab LAN**.
@@ -39,6 +40,43 @@ kubectl patch svc pihole-dns-tcp -n pihole -p '{"spec":{"externalIPs":["192.168.
 kubectl patch svc pihole-dns-udp -n pihole -p '{"spec":{"externalIPs":["192.168.3.120"]}}'
 kubectl patch svc pihole-dhcp -n pihole -p '{"spec":{"externalIPs":["192.168.3.120"]}}'
 ```
+
+# DNS on Router and K3S
+After installing and configuring pihole you need to enter in your router and assign to the primary DNS the ip address of your PIHOLE (in our cases is 192.168.3.120). A good idea is also to assign as a secondary DNS the one of google (like 8.8.8.8) so in case of Pihole go down you will automatically switch to google once.
+
+On the server where K3S work is also important to check the DNS configuration. On Ubuntu 24.04, despite the router configuration, I got the problem that it got pihole as the only DNS server. The result was that when you re-deploy pihole (for whatever reason) you stay without DNS. To avoid this is better if the K3S server where you have Pihole don't use it.
+
+On ubuntu you use **systemd-networkd** by default so:
+```
+cd /etc/systemd/network
+vim 10-wlan0.network
+```
+
+and put
+```
+[Match]
+Name=wlan0  # Replace with your actual wireless interface name
+
+[Network]
+DNS=8.8.8.8 8.8.4.4
+```
+
+and then:
+```
+sudo systemctl restart systemd-networkd
+resolvectl status
+```
+
+if you still got problem when Pihole is down in DNS resolution (you can test if ping google.it work for example) try also this step:
+```
+sudo systemctl stop systemd-resolved 
+sudo rm /etc/resolv.conf 
+echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf
+sudo systemctl restart systemd-networkd
+sudo systemctl start systemd-resolved 
+```
+
+
 
 **References**
 * **Pihole Kubernetes github repo** - https://github.com/MoJo2600/pihole-kubernetes
