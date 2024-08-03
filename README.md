@@ -33,9 +33,10 @@ If you want to continue your learning you can also follow this additional guide:
 * **/hardening** - Same hardening suggestions if your "home lab" is on the cloud
 * **/prometheus-stack** - Prometheus stack, usefull to deploy a prometheus full stack with Grafana dashboard to monitor your K3S cluster
 * **/imaginary** - Image preview generator, useful to be used with Nextcloud
-* **/raspberrypi5** and **raspberrypi02w** are some test and configuration tested and work on Raspberry
-* **/elasticsearc** could be useful for aggregating and monitor the log of your cluster
-* **/pihole** is for configuring an easy DNS server (and AD blocker) on K3S. Useful also if you want to resolve internal domain on your lan
+* **/raspberrypi5** and **raspberrypi02w** - some test and configuration tested and work on Raspberry
+* **/elasticsearc** - aggregating and monitor the log of your cluster
+* **/pihole** - DNS server (and AD blocker) on K3S. Useful also if you want to resolve internal domain on your lan
+* **/hetzner DDNS** - SH script that interact with hetzner DNS api for updating the ip of your DNS name
 
 
 Some Kubernetes useful commands:
@@ -101,6 +102,31 @@ Some Linux useful commands:
 * **Check the space used by a directory and the number of file in it**
 ```
 DIRECTORY="./"; echo "Total size: $(du -sh "$DIRECTORY" | awk '{print $1}')"; echo "Total number of files: $(find "$DIRECTORY" -type f | wc -l)"
+```
+* **Different command to check log on linux (tested on ubuntu 24.04)**
+```
+Journalctl general LOG:
+sudo journalctl --since "2024-08-02 04:29" --until "2024-08-02 04:35"
+
+Journalctl LOG only for K3S:
+sudo journalctl -u k3s --since "2024-08-02 04:29" --until "2024-08-02 04:35"
+
+Journalctl LOG only for SSH:
+sudo journalctl -u ssh --since "2024-08-02 04:29" --until "2024-08-02 04:35"
+
+NETWORK LOG:
+sudo grep "wlan0" /var/log/syslog | awk '$0 ~ /2024-07-28T02:/'
+
+AUTH LOG:
+sudo grep "error\|fail\|critical" /var/log/auth.log | grep "2024-07-29T02:"
+
+ALL K3S container log:
+grep -i "error\|fail\|critical" /var/log/containers/*.log
+grep '2024-07-29T11:' /var/log/containers/*.log | grep -i 'error\|fail\|critical'
+
+CHECK NVME
+journalctl --since "2 days ago" | grep -i nvme
+sudo journalctl --since "7 days ago" | grep "controller is down"
 ```
     
 
