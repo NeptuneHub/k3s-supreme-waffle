@@ -46,36 +46,10 @@ Then you need to create the ingressroute for the outpost, this one is reusable e
 kubectl apply -f ingressroute.yaml
 ```
 
-At the moment you still have a configuration left about traefik on KRS that don't allow ingressroute in different namespace from the service.
-
-so go in:
+At the moment you still have a configuration left about traefik on KRS that don't allow ingressroute in different namespace from the service. You can use the traefik helm chart config in this repo and apply with:
 
 ```
-cd /var/lib/rancher/k3s/server/manifests/
-vim traefik-custom.yaml
-```
-
-where you need to put this:
-
-```
-apiVersion: helm.cattle.io/v1
-kind: HelmChartConfig
-metadata:
-  name: traefik
-  namespace: kube-system
-spec:
-  valuesContent: |-
-    image:
-      name: traefik
-      tag: 2.9.10
-    kubernetesCRD:
-      allowExternalNameServices: true
-      allowCrossNamespace: true
-```
-
-and finally apply with 
-```
-kubectl apply -f traefik-custom.yaml
+kubectl apply -f traefik-helmchartconfig.yaml
 ```
 
 
