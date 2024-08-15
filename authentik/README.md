@@ -55,15 +55,27 @@ kubectl apply -f traefik-helmchartconfig.yaml
 # Configure Oauth SSO (jellyfin in this example)
 
 In this exampple we want to integrate jellyfin with Authentik using Oauth SSO.
+First point you need to follow the "proxy" chapter but to expose Jellyfin so you will add a first application&provider as a proxy.
 
+Second you need to add a second couple of Application&Providere for Oauth in the web page of authentik. So first add the provider, in my case:
+```
+Type: Oauth2/Openid provider
+name: Jellyfin2 (becasue jellyfin already used for the proxy provider
+authorization flow: implicit
+client type: confidential
+redirect uri: https://jellyfin.192.168.3.120.nip.io/sso/OID/redirect/authentik
+```
 
-# References
-* **Authentik official DOC jellyfin integration** - https://docs.goauthentik.io/integrations/services/jellyfin/
-* **Jellyfin Oauth plugin** - https://github.com/9p4/jellyfin-plugin-sso
-* https://www.reddit.com/r/selfhosted/comments/x2vey3/authentik_to_jellyfin_plugin_sso_setup/
+Then create a new application
 
-
-
+```
+name: Jellyfin2
+provider: Jellyfin2 (created before)
+ui setting > launch url: https://jellyfin.192.168.3.120.nip.io/sso/OID/start/authentik
+```
 
 # References
 * **Authentik official documentation for installation** - https://docs.goauthentik.io/docs/installation/kubernetes
+* **Authentik official DOC jellyfin integration** - https://docs.goauthentik.io/integrations/services/jellyfin/
+* **Jellyfin Oauth plugin** - https://github.com/9p4/jellyfin-plugin-sso
+* https://www.reddit.com/r/selfhosted/comments/x2vey3/authentik_to_jellyfin_plugin_sso_setup/
