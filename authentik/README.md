@@ -57,7 +57,7 @@ kubectl apply -f traefik-helmchartconfig.yaml
 In this exampple we want to integrate jellyfin with Authentik using Oauth SSO.
 First point you need to follow the "proxy" chapter but to expose Jellyfin so you will add a first application&provider as a proxy.
 
-Second you need to add a second couple of Application&Providere for Oauth in the web page of authentik. So first add the provider, in my case:
+Second you need to add a second couple of Application&Providere for Oauth in the web page of authentik. So first add the provider (in my case the url of jellyfin is jellyfin.192.168.3.120.nip.io, you can edit it):
 ```
 Type: Oauth2/Openid provider
 name: Jellyfin2 (becasue jellyfin already used for the proxy provider
@@ -65,6 +65,7 @@ authorization flow: implicit
 client type: confidential
 redirect uri: https://jellyfin.192.168.3.120.nip.io/sso/OID/redirect/authentik
 ```
+Rember to write down **client id** and **client secret**.
 
 Then create a new application
 
@@ -73,6 +74,50 @@ name: Jellyfin2
 provider: Jellyfin2 (created before)
 ui setting > launch url: https://jellyfin.192.168.3.120.nip.io/sso/OID/start/authentik
 ```
+
+In this case you don't need to touch nothing in the outpost and now you can go on Jellyfin, where under menu > control panel > plugin > repository you need to add this:
+
+* https://raw.githubusercontent.com/9p4/jellyfin-plugin-sso/manifest-release/manifest.json
+
+then you need to install the new SSO-auth plugin. After the installation you need to confgiure it in this way:
+```
+name of oid provider: authentik
+oid endpoint: https://auth.silverycat.de/application/o/jellyfin/.well-known/openid-configuration
+openid cliend id/secret: the one that you created with the provider
+enabled: checked
+enabled authorization plugin: checked
+enabled all folder: checked (or decide what do you want to enable
+```
+
+The last step is to add the "sso button" in the login page of Jellyfin. To do that go in the menu General > branding and under login disclaimer add this:
+```
+<form action="https://jellyfin.192.168.3.120.nip.io/sso/OID/start/authentik">
+  <button class="raised block emby-button button-submit">
+    Sign in with SSO
+  </button>
+</form>
+```
+
+under css add this:
+```
+a.raised.emby-button {
+    padding:0.9em 1em;
+    color: inherit !important;
+}
+
+.disclaimerContainer{
+    display: block;
+}
+```
+
+**important**
+* In all this snippet remember to change https://jellyfin.192.168.3.120.nip.io => with the actual url.
+* Use HTTPS for jellyfin
+* Remember to have a valid certificate for Authentik (like one free that you can get with cert-manager + letsencrypt) otherwisw you will have error during the SSO proces
+* Remember that you can look the log about Jellyfin in the webapp > menu > logs. Some SSO error can be look there
+* Remember also that let's encrypt need the port 80 open for acquire a new TLS certificate. So even if your service is on 443, you need yo be reachable from port 80.
+
+
 
 # References
 * **Authentik official documentation for installation** - https://docs.goauthentik.io/docs/installation/kubernetes
