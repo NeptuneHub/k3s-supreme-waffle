@@ -1,0 +1,29 @@
+authentik:
+    log_level: debug
+    secret_key: "<replace-secure-password-1-here>"
+    # This sends anonymous usage-data, stack traces on errors and
+    # performance data to sentry.io, and is fully opt-in
+    error_reporting:
+        enabled: true
+    postgresql:
+        password: "<replace-secure-password-2-here>"
+
+server:
+    ingress:
+        # Specify kubernetes ingress controller class name
+        ingressClassName: traefik
+        enabled: true
+        hosts:
+            - auth.silverycat.de
+        annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-production
+        tls:
+            - secretName: auth-silverycat-de-tls
+              hosts:
+                - auth.silverycat.de
+postgresql:
+    enabled: true
+    auth:
+        password: "<replace-secure-password-2-here>"
+redis:
+    enabled: true
