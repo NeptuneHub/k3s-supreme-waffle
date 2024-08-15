@@ -38,6 +38,45 @@ First deploy the middleware and the ingressroute for readarr you can use middlew
 kubectl apply -f middleware.yaml
 ```
 
+In the above file all the middleware are re-usable for additional app. Instead you need to create a new ingressroute for each new service.
+
+
+Then you need to create the ingressroute for the outpost, this one is reusable even for new service:
+```
+kubectl apply -f ingressroute.yaml
+```
+
+At the moment you still have a configuration left about traefik on KRS that don't allow ingressroute in different namespace from the service.
+
+so go in:
+
+```
+cd /var/lib/rancher/k3s/server/manifests/
+vim traefik-custom.yaml
+```
+
+where you need to put this:
+
+```
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    image:
+      name: traefik
+      tag: 2.9.10
+    kubernetesCRD:
+      allowExternalNameServices: true
+      allowCrossNamespace: true
+```
+
+and finally apply with 
+```
+kubectl apply -f traefik-custom.yaml
+```
 
 
 
