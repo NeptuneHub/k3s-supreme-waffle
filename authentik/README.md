@@ -21,7 +21,7 @@ After that you need to finish the configuration going to this url:
 ```
 https://auth.silverycat.de/if/flow/initial-setup/
 ```
-
+# Add an application (readarr in this example)
 Now from the web interface you need to create your new APP that in our case is readarr so:
 * Login to the admin webpage, in our case https://auth.silverycat.de/if/admin/
 * Go in the menu applications > application > Create with wizard
