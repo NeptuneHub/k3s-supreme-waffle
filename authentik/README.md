@@ -33,9 +33,15 @@ Now from the web interface you need to create your new APP that in our case is r
 
 So now you configured the new application, but what is missing is creating middleware and ingress-route that need to made a forward-auth to authentik outpost. So this means that everytime you input the url, your are automatically forwarded to the auth page.
 
+First deploy the middleware and the ingressroute for readarr you can use middleware.yaml (in this example we assume readarr is deployed in namespace servarr):
+```
+kubectl apply -f middleware.yaml
+```
 
 
 
 
-References:
+
+
+# References
 * **Authentik official documentation for installation** - https://docs.goauthentik.io/docs/installation/kubernetes
