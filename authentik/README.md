@@ -21,7 +21,7 @@ After that you need to finish the configuration going to this url:
 ```
 https://auth.silverycat.de/if/flow/initial-setup/
 ```
-# Add an application (readarr in this example)
+# Add an application as a proxy (readarr in this example)
 Now from the web interface you need to create your new APP that in our case is readarr so:
 * Login to the admin webpage, in our case https://auth.silverycat.de/if/admin/
 * Go in the menu applications > application > Create with wizard
@@ -52,6 +52,15 @@ At the moment you still have a configuration left about traefik on KRS that don'
 kubectl apply -f traefik-helmchartconfig.yaml
 ```
 
+# Configure Oauth SSO (jellyfin in this example)
+
+In this exampple we want to integrate jellyfin with Authentik using Oauth SSO.
+
+
+# References
+* **Authentik official DOC jellyfin integration** - https://docs.goauthentik.io/integrations/services/jellyfin/
+* **Jellyfin Oauth plugin** - https://github.com/9p4/jellyfin-plugin-sso
+* https://www.reddit.com/r/selfhosted/comments/x2vey3/authentik_to_jellyfin_plugin_sso_setup/
 
 
 
