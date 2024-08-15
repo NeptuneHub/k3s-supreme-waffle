@@ -22,6 +22,19 @@ After that you need to finish the configuration going to this url:
 https://auth.silverycat.de/if/flow/initial-setup/
 ```
 
+Now from the web interface you need to create your new APP that in our case is readarr so:
+* Login to the admin webpage, in our case https://auth.silverycat.de/if/admin/
+* Go in the menu applications > application > Create with wizard
+* Input the name, in our case readarr then click next
+* For the provider select forward auth single application and then enxt
+* Select the default authorization flow AND input the URL of your service, in our case is http://radarr.192.168.3.120.nip.io
+* Now you need to go to applications > outposts and click edit on the authentik Embedded Outpost (that sould be automatically create)
+* Put readarr in the application selected and create update
+
+So now you configured the new application, but what is missing is creating middleware and ingress-route that need to made a forward-auth to authentik outpost. So this means that everytime you input the url, your are automatically forwarded to the auth page.
+
+
+
 
 
 References:
