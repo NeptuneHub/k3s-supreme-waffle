@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: authentik-ingressroute
+  namespace: authentik
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`readarr.192.168.3.120.nip.io`) && PathPrefix(`/outpost.goauthentik.io/`)
+    kind: Rule
+    services:
+    - name: ak-outpost-authentik-embedded-outpost
+      port: 9000
+    middlewares:
+    - name: cors
+      namespace: authentik
