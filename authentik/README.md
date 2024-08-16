@@ -117,10 +117,68 @@ a.raised.emby-button {
 * Remember that you can look the log about Jellyfin in the webapp > menu > logs. Some SSO error can be look there
 * Remember also that let's encrypt need the port 80 open for acquire a new TLS certificate. So even if your service is on 443, you need yo be reachable from port 80.
 
+# Configure LDAP integration (Jellyfin in this example)
 
+First you need to go to the authentik web page and create a bind usre:
+```
+Go to directory > user and click on create service account (remember to save the token created as a password and to create a group => in our case we named both user and group ldap
+```
+
+Now create the provider:
+```
+go to application > providers > creates > ldap
+Search Group: ldap
+Bind and Search Mode: Cached
+Base DN: DC=ldap,DC=silverycat,DC=de
+```
+
+Create an application to assign to the provided
+```
+go to application > application
+name: jellyfin-ldap
+Launch URL: http://jellyfin.192.168.3.120.nip.io
+```
+
+Create the LDAP outpost
+```
+Go to applications > outposts > create
+Type: LDAP
+Integration: <add docker or kubernetes if available>
+Application: jellyfin-ldap
+```
+
+Checking in namespace authentik you now should have the svc related to the outpost so **ak-outpost-ldap**
+
+Now go to jellyfin with you admin account and go to **menu > control panel > plugin** and install the plugin  **LDAP Authentication Plugin**.
+
+Then you need to configure it in this way:
+```
+ldap server: ak-outpost-ldap.authentik.svc.cluster.local
+ldap port: 636
+secure ldap: checked
+skip SSL/TLS verification: checked if you are using a self signed certificate
+LDAP Bind user password: put the token of the user LDAP that you created
+LDAP base DN for searches: dc=ldap,dc=silverycat,dc=de
+=> save an test ldap server setting should give you: Connect (Success); Bind (Success); Base Search (Found XX Entities)
+
+ldap search filter: (objectClass=user)
+ldap search attributes: uid, cn, mail, displayName
+LDAP Uid attribute: uid
+LDAP username attribute: cn
+LDAP Password attribute: userPassword
+(here we skipped the configuration of admin user)
+=> save and test LDAP filter settings should give you: Found X user(s), 0 admin(s)
+enalbe user creation: checked
+Lbrary access: checked.
+=> save
+```
+
+After this you can log-out and login with any user that you create under authentik.
+**IMPORTANT:** if you already have a user in jellyfin with the same name of an user on Authentik, this will create problem, so I suggest to start with only the admin user on jellyfin.
 
 # References
 * **Authentik official documentation for installation** - https://docs.goauthentik.io/docs/installation/kubernetes
 * **Authentik official DOC jellyfin integration** - https://docs.goauthentik.io/integrations/services/jellyfin/
 * **Jellyfin Oauth plugin** - https://github.com/9p4/jellyfin-plugin-sso
-* https://www.reddit.com/r/selfhosted/comments/x2vey3/authentik_to_jellyfin_plugin_sso_setup/
+* **Jellyfin Oauth plugin on reddit** -  https://www.reddit.com/r/selfhosted/comments/x2vey3/authentik_to_jellyfin_plugin_sso_setup/
+* **Jellyfin ldap plugin on reddit ** - https://www.reddit.com/r/selfhosted/comments/x3b74z/authentik_ldap_with_jellyfin_setup/?share_id=XBw8GWdG9an9o3AQPxZmN&utm_content=1&utm_medium=android_app&utm_name=androidcss&utm_source=share&utm_term=10
