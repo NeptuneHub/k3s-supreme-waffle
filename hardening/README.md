@@ -282,6 +282,12 @@ Now you need to apply the plan
 kubectl apply -f k3s-update-plan.yaml
 ```
 
+Also remember to apply the label to the node that you want to update, for example for the node called ubuntu1 thas is a server:
+
+```
+kubectl label node ubuntu1 k3s-upgrade=server
+```
+
 You you can use the attached example. This file practicall desribe the plan for the update.
 
 ## K3S-quota-limit
