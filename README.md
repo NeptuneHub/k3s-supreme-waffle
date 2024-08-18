@@ -38,6 +38,7 @@ If you want to continue your learning you can also follow this additional guide:
 * **/elasticsearc** - aggregating and monitor the log of your cluster
 * **/pihole** - DNS server (and AD blocker) on K3S. Useful also if you want to resolve internal domain on your lan
 * **/hetzner DDNS** - SH script that interact with hetzner DNS api for updating the ip of your DNS name
+* **/Authentik** - Identity provider that you can integrate with Traefik in K3S
 
 
 # Kubernetes useful commands
@@ -82,6 +83,16 @@ kubectl exec -it nextcloud-6cb95f8c6d-2dtj2 -n nextcloud -- /bin/bash
 ```
 lsblk
 sudo fsck -f -y /dev/sda2sudo fsck -f /dev/sda2
+```
+* **Assign label to a node**
+```
+kubectl label node ubuntu2 k3s-upgrade=server
+```
+* **Restore etcd snapshot**
+```
+/usr/local/bin/k3s server \
+--cluster-reset \
+--cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-ubuntu1-1723888802
 ```
 
 
