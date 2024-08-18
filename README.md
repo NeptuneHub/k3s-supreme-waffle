@@ -145,7 +145,16 @@ CHECK NVME
 journalctl --since "2 days ago" | grep -i nvme
 sudo journalctl --since "7 days ago" | grep "controller is down"
 ```
-    
+* **DNS setting (tested on ubuntu 24.04)**
+```
+sudo systemctl stop systemd-resolved 
+sudo systemctl disable systemd-resolved
+
+sudo rm /etc/resolv.conf 
+echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf
+
+sudo systemctl restart systemd-networkd
+```
 
 **References:**
 * **K3S install**: https://documentation.suse.com/trd/kubernetes/single-html/kubernetes_ri_k3s-slemicro/index.html
