@@ -157,6 +157,7 @@ ldap server: ak-outpost-ldap.authentik.svc.cluster.local
 ldap port: 636
 secure ldap: checked
 skip SSL/TLS verification: checked if you are using a self signed certificate
+LDAP Bind user:  cn=ldap,dc=ldap,dc=silverycat,dc=de
 LDAP Bind user password: put the token of the user LDAP that you created
 LDAP base DN for searches: dc=ldap,dc=silverycat,dc=de
 => save an test ldap server setting should give you: Connect (Success); Bind (Success); Base Search (Found XX Entities)
