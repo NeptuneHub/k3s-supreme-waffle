@@ -21,6 +21,27 @@ After that you need to finish the configuration going to this url:
 ```
 https://auth.silverycat.de/if/flow/initial-setup/
 ```
+
+After that go to the main page:
+```
+https://auth.silverycat.de/
+```
+
+And then ad the kubernetes integration:
+```
+System > Outpost integration > create > Kubernetes Service-Connection
+Put as a name "local"
+and also cut&pate your :~/.kube/config
+```
+
+Also add the outpost to use the new local one:
+```
+application > outpost > create
+as a name put: authentik-embedded-outpost
+as integration put: local
+```
+
+
 # Add an application as a proxy (readarr in this example)
 Now from the web interface you need to create your new APP that in our case is readarr so:
 * Login to the admin webpage, in our case https://auth.silverycat.de/if/admin/
