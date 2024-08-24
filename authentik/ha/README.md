@@ -18,4 +18,4 @@ helm upgrade --install redis oci://registry-1.docker.io/bitnamicharts/redis -f v
 ```
 
 # Install Authentik in HA
-helm upgrade --install authentik authentik/authentik -f values.yaml --namespace authentik-ha --create-namespace 
+helm upgrade --install authentik authentik/authentik -f auth-values.yaml --namespace authentik-ha 
