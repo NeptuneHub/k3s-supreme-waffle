@@ -21,4 +21,5 @@ helm upgrade --install redis oci://registry-1.docker.io/bitnamicharts/redis -f v
 ```
 helm upgrade --install authentik authentik/authentik -f auth-values.yaml --namespace authentik-ha
 kubectl apply -f ingress.yaml
+kubectl apply -f middleware.yaml
 ```
