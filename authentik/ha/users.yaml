@@ -1,0 +1,19 @@
+apiVersion: v1
+data:
+  password: <base64 password>
+  username: dXNlcg== #user
+kind: Secret
+metadata:
+  name: cluster-example-app-user
+  namespace: authentik-ha
+type: kubernetes.io/basic-auth
+---
+apiVersion: v1
+data:
+  password: <base64 password>
+  username: c3VwZXJ1c2Vy #superuser
+kind: Secret
+metadata:
+  name: cluster-example-superuser
+  namespace: authentik-ha
+type: kubernetes.io/basic-auth
