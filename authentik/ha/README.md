@@ -6,7 +6,7 @@ kubectl create namespace authentik-ha
 helm repo add cnpg https://cloudnative-pg.github.io/charts
 helm upgrade --install cnpg --namespace cnpg-system --create-namespace cnpg/cloudnative-pg
 kubectl apply -f users.yaml
-helm upgrade --install database --namespace authentik-ha --create-namespace --values values.yaml cnpg/cluster
+helm upgrade --install database --namespace authentik-ha --create-namespace --values db-values.yaml cnpg/cluster
 ```
 
 # Install redis in HA
