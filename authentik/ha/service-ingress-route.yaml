@@ -1,0 +1,21 @@
+#Example of one ingess route configuration for readarr
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: readarr-ingressroute
+  namespace: servarr
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`readarr.192.168.3.131.nip.io`)
+      kind: Rule
+      services:
+        - name: readarr
+          port: 8787
+      middlewares:
+        - name: cors
+          namespace: authentik
+        - name: authentik
+---
