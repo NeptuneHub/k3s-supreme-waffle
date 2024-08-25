@@ -1,3 +1,8 @@
+# Introduction
+Authentik itself is stateless so just put to 3 the replica of server and worker on 3 different node (on a K3S HA deployment) is enough for itself.
+
+Anyway Authentik use Redis cache and PostgresqlDB and the one embeded in the helmchart seems don't allow the HA itself. To do that we used zalando cluster for Postgresql AND Dragonfly instead of redis.
+
 # Install postgresql in HA with zalando
 
 First we need to install the zalando operator, this will help in creating the database
