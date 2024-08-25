@@ -5,7 +5,7 @@ metadata:
   namespace: authentik-ha
 spec:
   forwardAuth:
-    address: http://ak-outpost-authentik-embedded-outpost.authentik-ha.svc.cluster.local:9000/outpost.goauthentik.io/auth/traefik
+    address: http://ak-outpost-authentik-proxy-outpost.authentik-ha.svc.cluster.local:9000/outpost.goauthentik.io/auth/traefik #change this based on your outpost
     trustForwardHeader: true
     authResponseHeaders:
       - X-authentik-username
