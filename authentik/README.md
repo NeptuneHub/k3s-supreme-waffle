@@ -205,4 +205,4 @@ After this you can log-out and login with any user that you create under authent
 * **Authentik official DOC jellyfin integration** - https://docs.goauthentik.io/integrations/services/jellyfin/
 * **Jellyfin Oauth plugin** - https://github.com/9p4/jellyfin-plugin-sso
 * **Jellyfin Oauth plugin on reddit** -  https://www.reddit.com/r/selfhosted/comments/x2vey3/authentik_to_jellyfin_plugin_sso_setup/
-* **Jellyfin ldap plugin on reddit ** - https://www.reddit.com/r/selfhosted/comments/x3b74z/authentik_ldap_with_jellyfin_setup/?share_id=XBw8GWdG9an9o3AQPxZmN&utm_content=1&utm_medium=android_app&utm_name=androidcss&utm_source=share&utm_term=10
+* **Jellyfin ldap plugin on reddit** - https://www.reddit.com/r/selfhosted/comments/x3b74z/authentik_ldap_with_jellyfin_setup/?share_id=XBw8GWdG9an9o3AQPxZmN&utm_content=1&utm_medium=android_app&utm_name=androidcss&utm_source=share&utm_term=10
