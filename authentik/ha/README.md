@@ -61,3 +61,9 @@ And finally we can finalize the installation going here (edit the domain based o
 ```
 https://auth.silverycat.de/if/flow/initial-setup/
 ```
+# Refenrece
+* **Dragonfly k8s operator** - https://www.dragonflydb.io/docs/getting-started/kubernetes-operator#installation
+* **Dragonly HA** - https://www.dragonflydb.io/docs/managing-dragonfly/high-availability
+* **Zalando Postgre operator** - https://github.com/zalando/postgres-operator
+* **Zalando quick start** - https://github.com/zalando/postgres-operator/blob/master/docs/quickstart.md#deployment-options
+* **Zalnado cluster manifest reference** - https://github.com/zalando/postgres-operator/blob/master/docs/reference/cluster_manifest.md
