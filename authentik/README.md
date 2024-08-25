@@ -1,6 +1,8 @@
 # Introduction
 Authentik is an additional security layer that you can add to your K3S cluster that also work on ARM processor (Raspberry PI 5). It can be use for multiple use case but in this guide the final golas will be provide a centralized Authentication and Authorization page for all our app. This means that even application with no login page will be redirected here and all the user will be store in the Authentik DB.
 
+If you have K3S 3 node cluster in HA, you can follow the HA guide in this repo **./ha**
+
 
 # Deploy with helm chart
 
