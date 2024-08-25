@@ -28,7 +28,6 @@ kubectl get secret user.database.credentials.postgresql.acid.zalan.do -n authent
 
 Now you should have in the namespace authentik-ha 3 database pod and the **database-pooler** svc that will be the one to use as host for authentik.
 
-
 # Install Dragonfly in HA instead of redis
 
 Dragonfly is an alternative compatible with redis that work good.
@@ -38,14 +37,14 @@ First you can install the dragonfly operator with this command:
 kubectl apply -f https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/main/manifests/dragonfly-operator.yaml
 ```
 
-Then you can deploy dragonfly in HA with the  **dragonfly-deployment.yaml** in this repo
+Then you can deploy dragonfly in HA with the  **dragonfly-deployment.yaml** in this repo. Before deploy it remember to configure the password in the secret, it will be the one that you will need to configure in authentik.
 ```
 kubectl apply -f dragonfly-deployment.yaml
 ```
 
-# Install Authentik in HA
+Now you should have the 3 dragonfly node in atuhentik-ha namespace. Also you will have the **dragonfly** svc.
 
-**This part is still under construction, will be updated depending of the redis installatuion**
+# Install Authentik in HA
 
 To install Authentik in ha the main part that change are the **auth-values.yaml** the other are similar to the "not ha" configuration. Remember to edit the values to edit your password.
 ```
