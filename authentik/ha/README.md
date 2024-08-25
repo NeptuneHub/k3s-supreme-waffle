@@ -2,26 +2,45 @@
 
 # Install postgresql in HA with zalando
 
-To install postgresql in HA you can usew the beloww configuration. Befroe applying it you just need to remeber to edit the file **users.yaml** in order to set the base64 password
-
+First we need to install the zalando operator, this will help in creating the database
 ```
 kubectl create namespace authentik-ha
 helm repo add postgres-operator-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator
 helm install postgres-operator postgres-operator-charts/postgres-operator --namespace zalando-op --create-namespace --values zalando-op-values.yaml
 ```
 
+IF you want you can also deploy the graphical interface
 ```
 helm repo add postgres-operator-ui-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
 helm install postgres-operator-ui postgres-operator-ui-charts/postgres-operator-ui --namespace zalando-op --create-namespace
+kubectl apply -f zalando-ingress.yaml
+```
+
+Now you can create the database deployment from the operator ui or you can directly use the one attached here:
+```
 kubectl apply -f zalando-deplyment.yaml
 ```
 
-# Install redis in HA
-
-**This part is still under construction becase I'm checking if Authentik work with redis with sentinel or redis-cluster**
+And you can get the password of the user namer **user** with this command:
 ```
-helm upgrade --install redis oci://registry-1.docker.io/bitnamicharts/redis-cluster -f values.yaml  --namespace authentik-ha
-helm upgrade --install redis oci://registry-1.docker.io/bitnamicharts/redis -f values-standard.yaml  --namespace authentik-ha
+kubectl get secret user.database.credentials.postgresql.acid.zalan.do -n authentik-ha -o jsonpath="{.data.password}" | base64 --decode && echo
+```
+
+Now you should have in the namespace authentik-ha 3 database pod and the **database-pooler** svc that will be the one to use as host for authentik.
+
+
+# Install Dragonfly in HA instead of redis
+
+Dragonfly is an alternative compatible with redis that work good.
+
+First you can install the dragonfly operator with this command:
+```
+kubectl apply -f https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/main/manifests/dragonfly-operator.yaml
+```
+
+Then you can deploy dragonfly in HA with the  **dragonfly-deployment.yaml** in this repo
+```
+kubectl apply -f dragonfly-deployment.yaml
 ```
 
 # Install Authentik in HA
