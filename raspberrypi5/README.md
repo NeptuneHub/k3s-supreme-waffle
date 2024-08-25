@@ -295,6 +295,48 @@ sudo fsck -f -y /dev/sda2sudo fsck -f /dev/sda2
 
 To me this solve different error appeared just after one months of work (and different electriciy outage).
 
+# Disable USB power consumption sving
+
+If you have backup on usb drive, is better to disable the pwoer consumption sving to avoid the disk randomly disconnected.
+
+To check if it actvie do this:
+```
+cat /sys/module/usbcore/parameters/autosuspend
+```
+
+if you receive the value **2** is active, you can disable it with this command:
+```
+echo -1 > /sys/module/usbcore/parameters/autosuspend
+```
+
+If you want it permantely on raspabbery:
+```
+sudo vim /boot/firmware/cmdline.txt
+```
+
+adding at the end:
+```
+usbcore.autosuspend=-1
+```
+
+and the rebbot
+
+FOR INTEL:
+```
+vim /etc/default/grub
+```
+
+adding
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash usbcore.autosuspend=-1"
+```
+
+then
+```
+sudo update-grub
+```
+
+
 # References
 * **Raspberry PI official documentation** - https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration
 * **Raspberry Imager** - https://www.raspberrypi.com/software/
@@ -302,3 +344,5 @@ To me this solve different error appeared just after one months of work (and dif
 * **Install ubuntu on Raspberry overview** - https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview
 * **Ubuntu Server ARM for Raspberry** - https://cdimage.ubuntu.com/releases/24.04/release/
 * **Restic backup** - https://restic.net/
+* **Disable usb power consumption** - https://www.reddit.com/r/linux/comments/t7pxpk/are_all_of_your_usb_devices_disconnecting/
+* **Disable usb power consumption** - https://unix.stackexchange.com/questions/91027/how-to-disable-usb-autosuspend-on-kernel-3-7-10-or-above
