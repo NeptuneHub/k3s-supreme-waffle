@@ -9,10 +9,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - auth2.silverycat.de
-      secretName: authentik2-tls
+        - auth.silverycat.de
+      secretName: authentik-tls
   rules:
-    - host: auth2.silverycat.de
+    - host: auth.silverycat.de
       http:
         paths:
           - path: /
