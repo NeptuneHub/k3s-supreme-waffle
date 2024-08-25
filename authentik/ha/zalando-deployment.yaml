@@ -1,0 +1,34 @@
+kind: "postgresql"
+apiVersion: "acid.zalan.do/v1"
+
+metadata:
+  name: "database"
+  namespace: "authentik-ha"
+  labels:
+    team: acid
+
+spec:
+  teamId: "acid"
+  postgresql:
+    version: "16"
+  numberOfInstances: 3
+  enableMasterLoadBalancer: true
+  enableConnectionPooler: true
+  enableMasterPoolerLoadBalancer: true
+  maintenanceWindows:
+  volume:
+    size: "2Gi"
+    storageClass: "local-path"
+  users:
+    user: []
+  databases:
+    authentik: user
+  allowedSourceRanges:
+    # IP ranges to access your cluster go here
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
