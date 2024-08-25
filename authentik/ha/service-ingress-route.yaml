@@ -16,6 +16,7 @@ spec:
           port: 8787
       middlewares:
         - name: cors
-          namespace: authentik
+          namespace: authentik-ha
         - name: authentik
+          namespace: authentik-ha
 ---
