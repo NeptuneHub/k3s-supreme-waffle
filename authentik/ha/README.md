@@ -7,13 +7,13 @@ To install postgresql in HA you can usew the beloww configuration. Befroe applyi
 ```
 kubectl create namespace authentik-ha
 helm repo add postgres-operator-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator
-helm install postgres-operator postgres-operator-charts/postgres-operator --namespace zalando-op --create-namespace --values op-values.yaml
+helm install postgres-operator postgres-operator-charts/postgres-operator --namespace zalando-op --create-namespace --values zalando-op-values.yaml
 ```
 
 ```
 helm repo add postgres-operator-ui-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
 helm install postgres-operator-ui postgres-operator-ui-charts/postgres-operator-ui --namespace zalando-op --create-namespace
-kubectl apply -f deplyment
+kubectl apply -f zalando-deplyment.yaml
 ```
 
 # Install redis in HA
