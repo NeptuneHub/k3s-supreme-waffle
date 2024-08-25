@@ -6,30 +6,16 @@ authentik:
     error_reporting:
         enabled: true
     postgresql:
-        host: "database-cluster-rw.authentik-ha.svc.cluster.local"
+        host: "database-pooler.authentik-ha.svc.cluster.local"
         name: "authentik"
         user: "user"
         password: "<plain text password>"
         port: 5432
     redis:
-        host: "redis-redis-cluster.authentik-ha.svc.cluster.local"
+        host: "dragonfly-cluster.authentik-ha.svc.cluster.local"
         port: 6379
         password: "<plain text password>"  # Set this if Redis requires authentication
-      #db: 0
 
-server:
-    ingress:
-        # Specify kubernetes ingress controller class name
-        ingressClassName: traefik
-        enabled: true
-        hosts:
-            - auth2.silverycat.de
-        annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-production
-        tls:
-            - secretName: auth2-silverycat-de-tls
-              hosts:
-                - auth2.silverycat.de
 postgresql:
     enabled: false
 redis:
