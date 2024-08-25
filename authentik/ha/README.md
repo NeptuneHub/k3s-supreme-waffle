@@ -1,15 +1,19 @@
 # UNDER CONSTRUCTION
 
-# Install postgresql in HA with cloudnative-pg
+# Install postgresql in HA with zalando
 
 To install postgresql in HA you can usew the beloww configuration. Befroe applying it you just need to remeber to edit the file **users.yaml** in order to set the base64 password
 
 ```
-helm repo add cnpg https://cloudnative-pg.github.io/charts
-helm upgrade --install cnpg --namespace cnpg-system --create-namespace cnpg/cloudnative-pg
 kubectl create namespace authentik-ha
-kubectl apply -f users.yaml
-helm upgrade --install database --namespace authentik-ha --values db-values.yaml cnpg/cluster
+helm repo add postgres-operator-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+helm install postgres-operator postgres-operator-charts/postgres-operator --namespace zalando-op --create-namespace --values op-values.yaml
+```
+
+```
+helm repo add postgres-operator-ui-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
+helm install postgres-operator-ui postgres-operator-ui-charts/postgres-operator-ui --namespace zalando-op --create-namespace
+kubectl apply -f deplyment
 ```
 
 # Install redis in HA
