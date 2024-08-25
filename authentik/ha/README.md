@@ -1,5 +1,3 @@
-# UNDER CONSTRUCTION
-
 # Install postgresql in HA with zalando
 
 First we need to install the zalando operator, this will help in creating the database
@@ -52,4 +50,9 @@ helm upgrade --install authentik authentik/authentik -f auth-values.yaml --names
 kubectl apply -f ingress.yaml
 kubectl apply -f middleware.yaml
 kubectl apply -f service-ingress-route.yaml
+```
+
+And finally we can finalize the installation going here (edit the domain based on your ingress.yaml):
+```
+https://auth.silverycat.de/if/flow/initial-setup/
 ```
