@@ -89,11 +89,27 @@ sudo fsck -f -y /dev/sda2sudo fsck -f /dev/sda2
 ```
 kubectl label node ubuntu2 k3s-upgrade=server
 ```
-* **Restore etcd snapshot**
+* **Restore etcd snapshot on 1 node cluster**
 ```
 /usr/local/bin/k3s server \
 --cluster-reset \
 --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-ubuntu1-1723888802
+```
+* **Restore etcd snapshot on 3 node cluster**
+```
+on each node:
+systemctl stop k3s
+
+on first node (the one used to initializate the Cluster the first time):
+/usr/local/bin/k3s server \
+--cluster-reset \
+--cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-ubuntu1-1724752804
+
+systemctl start k3s
+
+on other nodes (not first)
+rm -rf /var/lib/rancher/k3s/server/db/
+systemctl start k3s
 ```
 
 
