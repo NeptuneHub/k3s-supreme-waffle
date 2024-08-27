@@ -81,7 +81,20 @@ you should have a responses like this:
 ii  jellyfin-ffmpeg6                     6.0.1-8-noble                           amd64        Tools for transcoding, streaming and playing of multimedia files
 ```
 
+# Deploy on k3S
+
+You can use the deployment.yaml in this repo to deploy PVC, Deployment, SVC and service route.
+
+In the PVC remember to correctly set the local path with the video to reproduce (in the example /mnt/servarr).
+
+In  the service route remember to put the correct url of your service.
+
+Then just use
+```
+kubectl apply -f deployment.yaml
+```
 
 # References
 * **Intel plugin k8s** - https://github.com/intel/intel-device-plugins-for-kubernetes
+* **Jellyfin image from linux server** - https://docs.linuxserver.io/images/docker-jellyfin/
   
