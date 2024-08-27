@@ -104,7 +104,6 @@ on first node (the one used to initializate the Cluster the first time):
 /usr/local/bin/k3s server \
 --cluster-reset \
 --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-ubuntu1-1724752804
-
 systemctl start k3s
 
 on other nodes (not first)
