@@ -171,6 +171,16 @@ echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf
 
 sudo systemctl restart systemd-networkd
 ```
+* **Check video configuration**
+```
+lshw -C display
+lspci -nn | grep -Ei "3d|display|vga"
+```
+* **TOP commmand but for gpu**
+```
+sudo apt install intel-gpu-tools
+intel_gpu_top
+```
 
 **References:**
 * **K3S install**: https://documentation.suse.com/trd/kubernetes/single-html/kubernetes_ri_k3s-slemicro/index.html
