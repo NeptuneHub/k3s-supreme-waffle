@@ -80,6 +80,38 @@ you should have a responses like this:
 ```
 ii  jellyfin-ffmpeg6                     6.0.1-8-noble                           amd64        Tools for transcoding, streaming and playing of multimedia files
 ```
+# Install intel gpu support for K3S
+This is needed to enable k3S to assign the intel GPU as a resource in the deployment. If you have different GPU you should skip this point / replace with the driver of your CPU 
+
+```
+helm repo add nfd https://kubernetes-sigs.github.io/node-feature-discovery/charts # for NFD
+helm repo add intel https://intel.github.io/helm-charts/ # for device-plugin-operator and plugins
+helm repo update
+helm install nfd nfd/node-feature-discovery --namespace node-feature-discovery --create-namespace
+helm install gpu intel/intel-device-plugins-gpu --namespace inteldeviceplugins-system --create-namespace --set nodeFeatureRule=true
+```
+
+Now supposing that the node with intel CPU is ubuntu 2, typing down this command:
+```
+kubectl describe node ubuntu2
+```
+
+you will have something like this:
+```
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource                       Requests      Limits
+  --------                       --------      ------
+  cpu                            3550m (59%)   6300m (105%)
+  memory                         7044Mi (22%)  18500Mi (58%)
+  ephemeral-storage              0 (0%)        0 (0%)
+  hugepages-1Gi                  0 (0%)        0 (0%)
+  hugepages-2Mi                  0 (0%)        0 (0%)
+  gpu.intel.com/i915             0             0
+  gpu.intel.com/i915_monitoring  0             0
+```
+
+so now you can assign the **gpu.intel.com/i915** to the resources of your deployment.
 
 # Deploy on k3S
 
