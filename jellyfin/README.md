@@ -126,6 +126,17 @@ Then just use
 kubectl apply -f deployment.yaml
 ```
 
+# Jellyfin configuration
+After installing it you need to login and activate HW acceleration, so click on profile > admin dashboard > reproduction (My interface is in a different langue, so the name can be a bit different) and then:
+
+```
+Hardware Acceleration: QSV
+Enable hardware decoding for: all selected
+Hardware encoding options: enable hardware encoding.
+```
+
+In this way a was able to reproduce a 4k video in HEVC with the UHD Graphics 630 intel integrated graphics card.
+
 # References
 * **Intel plugin k8s** - https://github.com/intel/intel-device-plugins-for-kubernetes
 * **Jellyfin image from linux server** - https://docs.linuxserver.io/images/docker-jellyfin/
