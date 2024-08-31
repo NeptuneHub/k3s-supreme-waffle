@@ -152,7 +152,8 @@ kubectl edit ingress nextcloud -n nextcloud
 and add this under annotation:
 ```
 annotations:
-cert-manager.io/cluster-issuer: letsencrypt-production
+ cert-manager.io/cluster-issuer: letsencrypt-production 
+ acme.cert-manager.io/http01-edit-in-place: "true"
 ``` 
 
 Now you ken check that the certificate is issued correctly getting certificaterequest and certificate, you will receive a result like this:
