@@ -35,7 +35,7 @@ kubectl get ClusterIssuer -A
 There is an issue in the renewal of certificate in traefik. Cert-Manager automatically create a new Ingress for the renewal in the same namespace of the ingress that use the certificate.
 This ingress is called acme-something and use the deprectated annotation to set the ingress class to traefik, intestat the spec.ingressClassName.
 
-The solutions is find the acme ingress automatically created and add this annotations:
+The solutions is to add in your ingress
 ```
 annotations:
     cert-manager.io/cluster-issuer: my-issuer
