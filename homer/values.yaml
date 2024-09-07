@@ -1,0 +1,106 @@
+image:
+  repository: b4bz/homer
+  tag: ""
+  pullPolicy: IfNotPresent
+
+env:
+  TZ: UTC
+
+service:
+  main:
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  main:
+    enabled: true
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: self-signed-cluster-issuer
+    tls:
+      - secretName: homer-tls
+        hosts:
+          - homer.192.168.3.132.nip.io
+    hosts:
+      - host: homer.192.168.3.132.nip.io
+        paths:
+          - path: /
+            pathType: Prefix
+
+securityContext:
+  runAsUser: 1000
+  runAsNonRoot: true
+  runAsGroup: 1000
+
+persistence:
+  config:
+    enabled: false
+    mountPath: /www/assets
+
+configmap:
+  config:
+    enabled: true
+    data:
+      config.yml: |
+        title: "Dashboard"
+        subtitle: "Raspberry Pi 5"
+        logo: "logo.png"
+        header: true
+        footer: false
+
+        theme: default
+
+          colors:
+          light:
+            highlight-primary: "#3367d6"
+            highlight-secondary: "#4285f4"
+            highlight-hover: "#5a95f5"
+            background: "#f5f5f5"
+            card-background: "#ffffff"
+            text: "#363636"
+            text-header: "#ffffff"
+            text-title: "#303030"
+            text-subtitle: "#424242"
+            card-shadow: rgba(0, 0, 0, 0.1)
+            link: "#3273dc"
+            link-hover: "#363636"
+          dark:
+            highlight-primary: "#3367d6"
+            highlight-secondary: "#4285f4"
+            highlight-hover: "#5a95f5"
+            background: "#131313"
+            card-background: "#2b2b2b"
+            text: "#eaeaea"
+            text-header: "#ffffff"
+            text-title: "#fafafa"
+            text-subtitle: "#f5f5f5"
+            card-shadow: rgba(0, 0, 0, 0.4)
+            link: "#3273dc"
+            link-hover: "#ffdd57"
+        services:
+          - name: "Cloud"
+            icon: "fas fa-cloud"
+            items:
+              - name: "Nextcloud"
+                logo: "https://xxxxxxxxxxxxxxxxxxxxxxxxxx"
+                subtitle: "Storage app"
+                url: "https://xxxxxxxxxxxxxxxxxxxxxxxxxx"
+                tag: "app"
+                target: "_blank"
+          - name: "Server"
+            icon: "fas fa-server"
+            items:
+              - name: "Pi-hole"
+                type: "PiHole"
+                logo: "https://xxxxxxxxxxxxxxxxxxxxxxxxxx"
+                subtitle: "Network-wide Ad Blocking"
+                url: "https://xxxxxxxxxxxxxxxxxxxxxxxxxx"
+                tag: "app"
+                target: "_blank"
+              - name: "Grafana"
+                logo: "https://xxxxxxxxxxxxxxxxxxxxxxxxxx"
+                subtitle: "Monitoring app"
+                url: "https://xxxxxxxxxxxxxxxxxxxxxxxxxx"
+                tag: "app"
+                target: "_blank"
