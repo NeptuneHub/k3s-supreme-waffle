@@ -1,0 +1,83 @@
+#This is just an example of config.php
+<?php
+$CONFIG = array (
+  'htaccess.RewriteBase' => '/',
+  'memcache.local' => '\\OC\\Memcache\\APCu',
+  'apps_paths' =>
+  array (
+    0 =>
+    array (
+      'path' => '/var/www/html/apps',
+      'url' => '/apps',
+      'writable' => false,
+    ),
+    1 =>
+    array (
+      'path' => '/var/www/html/custom_apps',
+      'url' => '/custom_apps',
+      'writable' => true,
+    ),
+  ),
+  'overwriteprotocol' => 'https',
+  'upgrade.disable-web' => true,
+  'passwordsalt' => 'xxx',
+  'secret' => 'xxx',
+  'trusted_proxies' =>
+  array (
+    0 => '192.168.3.11',
+  ),
+   'overwritehost' => 'store.silverycat.de',
+  'trusted_domains' =>
+  array (
+    0 => 'localhost',
+    1 => 'xxx.xxx.de',
+  ),
+  'datadirectory' => '/var/www/html/data',
+  'dbtype' => 'sqlite3',
+  'version' => '29.0.6.1',
+  'overwrite.cli.url' => 'https://localhost',
+  'dbname' => 'nextcloud',
+  'installed' => true,
+  'instanceid' => 'ockf9lw5c0q7',
+  'memories.db.triggers.fcu' => true,
+  'memories.exiftool' => '/var/www/html/custom_apps/memories/bin-ext/exiftool-aarch64-glibc',
+  'memories.vod.path' => '/var/www/html/custom_apps/memories/bin-ext/go-vod-aarch64',
+  'memories.vod.ffmpeg' => '/usr/bin/ffmpeg',
+  'memories.vod.ffprobe' => '/usr/bin/ffprobe',
+  'enable_previews' => true,
+  'jpeg_quality' => '60',
+  'preview_max_x' => '1024',
+  'preview_max_y' => '1024',
+  'preview_max_scale_factor' => 1.5,
+   'enabledPreviewProviders' =>
+  array (
+    0 => 'OC\\Preview\\MP3',
+    1 => 'OC\\Preview\\TXT',
+    2 => 'OC\\Preview\\MarkDown',
+    3 => 'OC\\Preview\\OpenDocument',
+    4 => 'OC\\Preview\\Krita',
+    5 => 'OC\\Preview\\Imaginary',
+    6 => 'OC\\Preview\\PDF',
+    7 => 'OC\\Preview\\Movie',
+    8 => 'OC\\Preview\\MKV',
+    9 => 'OC\\Preview\\MP4',
+    10 => 'OC\\Preview\\AVI',
+    11 => 'OC\\Preview\\JPEG',
+    12 => 'OC\\Preview\\PNG',
+    13 => 'OC\\Preview\\GIF',
+    14 => 'OC\\Preview\\BMP',
+    15 => 'OC\\Preview\\XBitmap',
+    16 => 'OC\\Preview\\HEIC',
+    17 => 'OC\\Preview\\TIFF',
+    18 => 'OC\\Preview\\Image',
+    19 => 'OC\\Preview\\FFmpeg',
+  ),
+  'preview_ffmpeg_path' => '/usr/bin/ffmpeg',
+  'preview_imaginary_url' => 'http://imaginary.imaginary.svc.cluster.local:9000',
+  'filelocking.enabled' => true,
+  'allow_local_remote_servers' => true,
+  'memories.ffmpeg_path' => '/usr/bin/ffmpeg',
+  'loglevel' => 0,
+  'filesystem_check_changes' => 0,
+  'maintenance' => false,
+);
