@@ -39,7 +39,8 @@ If you want to continue your learning you can also follow this additional guide:
 * **/pihole** - DNS server (and AD blocker) on K3S. Useful also if you want to resolve internal domain on your lan
 * **/hetzner DDNS** - SH script that interact with hetzner DNS api for updating the ip of your DNS name
 * **/Authentik** - Identity provider that you can integrate with Traefik in K3S
-* **/Metallb** - software loadbalancer, very useful in case of multiple node cluster.
+* **/Metallb** - software loadbalancer, very useful in case of multiple node cluster
+* **/homer** - static light home page for your homelab
 
 
 # Kubernetes useful commands
