@@ -37,8 +37,8 @@ PubkeyAuthentication yes
 Port 2222
 
 # We only login as root anyways (for convinience) so we might as well ban everyone else
-AllowUsers root
-AllowGroups root
+AllowUsers root guido
+AllowGroups root guido
 
 # Disconnect after 5 minutes of idle to reduce risk of hijacking terminals
 ClientAliveInterval 300
