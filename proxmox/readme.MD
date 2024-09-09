@@ -118,6 +118,13 @@ Important is thati n System you select OVMF (UEFI) because you're on arm machine
 
 Is also important that in network you select the bridge connection that you created so vmbr0
 
+# Adding DISK
+
+If you want to add an external USB Disk, without mounting it (just plugin in the host machine) go to proxmox1 > Disk, select the disk and first click **Wipe disk** then on Inizialize disk with GPT.
+Finally go on the sub menu **Direcotry** and click on **create directory** and select your new disk. 
+
+From now you can create VM, Backup and other by selecting the default disk (local) or your new created disk.
+
 # References
 * **Install proxmox on raspberry pi** - https://gist.github.com/enjikaka/52d62c9c5462748dbe35abe3c7e37f9a
 * **Install proxmox on raspberry pi** - https://www.html.it/articoli/proxmox-virtualizzazione-su-raspberry-pi/
