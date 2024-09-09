@@ -114,7 +114,7 @@ Finally you can create the VM by going to proxmox1 > button create VM.
 
 Here you can configure all the information like name of the machine, iso, CPU, RAM and so on.
 
-Important is thati n System you select OVMF (UEFI) because you're on arm machine and you need to use ARM iso.
+Important is that in System you select OVMF (UEFI) because you're on arm machine and you need to use ARM iso.
 
 Is also important that in network you select the bridge connection that you created so vmbr0
 
