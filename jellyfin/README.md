@@ -113,6 +113,31 @@ Allocated resources:
 
 so now you can assign the **gpu.intel.com/i915** to the resources of your deployment.
 
+If during the deployment of intel-device-plugins-gpu you have a problem related to "too many file open" you need to raise on the node os the inotify.max_usr value.
+
+This change the value at runtime:
+```
+sysctl -w fs.inotify.max_user_watches=100000 
+sysctl -w fs.inotify.max_user_instances=100000
+```
+
+to keep also after reboot
+
+```
+sudo vim /etc/sysctl.conf
+```
+
+and add this:
+```
+fs.inotify.max_user_watches=100000 
+fs.inotify.max_user_instances=100000
+```
+
+and apply the change with this command:
+```
+sudo sysctl -p
+```
+
 # Deploy on k3S
 
 You can use the deployment.yaml in this repo to deploy PVC, Deployment, SVC and service route.
