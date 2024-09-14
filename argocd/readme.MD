@@ -59,3 +59,8 @@ RESTORE:
 argocd admin import --namespace argocd  < backup.yaml
 ```
 
+# References
+* **ArgoCD install** - https://argo-cd.readthedocs.io/en/stable/getting_started/#port-forwarding
+* **ArgoCD ingress configuration** - https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts
+* **ArgoCD config param** - https://argo-cd.readthedocs.io/en/stable/operator-manual/server-commands/additional-configuration-method/
+
