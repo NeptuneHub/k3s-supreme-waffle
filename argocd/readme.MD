@@ -46,4 +46,16 @@ then in our example you can access to the dashboard with this url (where you sho
 https://argocd.192.168.3.125.nip.io
 ```
 
+# Backup and restore
+After you configure your repository and application, will be helpful to make a backup, you can do it with the cli by running this command:
+```
+BACKUP:
+argocd admin export --namespace argocd > backup.yaml
+```
+
+then for the restore you can use this:
+```
+RESTORE:
+argocd admin import --namespace argocd  < backup.yaml
+```
 
