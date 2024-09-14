@@ -33,4 +33,17 @@ Then you can deploy the **ingress.yaml** (before remember to edit it and inser t
 kubectl apply -f ingress.yaml
 ```
 
+# Dashboard login
+
+The default user is **admin** and to get the default password you can run this command in the host where you installed the argo cli:
+```
+argocd admin initial-password -n argocd
+```
+
+then in our example you can access to the dashboard with this url (where you should edit it with the ip of your server):
+
+```
+https://argocd.192.168.3.125.nip.io
+```
+
 
