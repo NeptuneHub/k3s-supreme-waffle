@@ -111,6 +111,8 @@ on other nodes (not first)
 rm -rf /var/lib/rancher/k3s/server/db/
 systemctl start k3s
 ```
+* **Delete image from a node to force the download (work even with pullpolicy:ifnotpresent**
+* sudo crictl rmi nextcloud:stable
 
 
 # Linux useful commands
