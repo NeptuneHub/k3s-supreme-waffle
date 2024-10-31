@@ -53,3 +53,22 @@ If you want to enable it without the reboot you can just run this command:
 autossh -M 0 -f -N -R 443:localhost:443 your-username@vm-ip
 autossh -M 0 -f -N -R 80:localhost:80 your-username@vm-ip
 ```
+# CHECK
+You can check if everything working on the public VM by looking at the open port with this command
+
+```
+root@ubuntu:~# sudo ss -tnlp | grep ':443'
+```
+
+It should show something like this for the port 443:
+```
+LISTEN 0      128          0.0.0.0:443       0.0.0.0:*    users:(("sshd",pid=885,fd=6))
+LISTEN 0      128             [::]:443          [::]:*    users:(("sshd",pid=885,fd=7))
+```
+
+Also on the home lab VM you can run this command (setting the correct host):
+```
+autossh -M 0 -N -R 443:localhost:443 your-username@vm-ip
+```
+
+and look if it return error.
