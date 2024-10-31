@@ -42,8 +42,8 @@ crontab -e
 and add this in the bootom:
 
 ```
-@reboot autossh -M 0 -f -N -R 443:localhost:443 your-username@vm-ip
-@reboot autossh -M 0 -f -N -R 80:localhost:80 your-username@vm-ip
+@reboot autossh -M 0 -f -N -R 8443:localhost:443 your-username@vm-ip
+@reboot autossh -M 0 -f -N -R 8080:localhost:80 your-username@vm-ip
 ```
 
 **Important**: here you can put instead of localhost the Public IP of the service related to Traefik
