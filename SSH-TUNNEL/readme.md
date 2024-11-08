@@ -121,3 +121,8 @@ autossh -M 0 -N -R 443:localhost:443 your-username@vm-ip
 ```
 
 and look if it return error.
+
+# References
+* **autossh** - https://github.com/Autossh/autossh
+* **Startup service** - https://stackoverflow.com/questions/77340424/about-auto-ssh-in-startup-script
+* **Startup service** - https://jeffreytse.net/computer/2021/06/17/restart-ssh-sessions-and-tunnels-automatically.html
