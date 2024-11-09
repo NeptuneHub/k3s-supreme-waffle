@@ -135,12 +135,24 @@ and check that the unattended update are uncommented:
 Unattended-Upgrade::Automatic-Reboot "true";
 Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
 Unattended-Upgrade::Automatic-Reboot-Time "02:00";
+Unattended-Upgrade::OnlyOnAC "false";
 ```
 
 then apply the change
 ```
 systemctl restart unattended-upgrades.service
 systemctl status unattended-upgrades.service
+```
+
+Because is a server you can also disable the battery status check (sometimes it block the unattended even if you're not using any battery):
+```
+sudo systemctl stop upower
+sudo systemctl disable upower
+```
+
+You can check that it work by run:
+```
+sudo unattended-upgrades -d
 ```
 
 ## Fail2ban
