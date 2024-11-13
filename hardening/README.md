@@ -12,6 +12,7 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 * [K3S-automated-update](#K3S-automated-update)
 * [K3S-quota-limits](#K3S-quota-limit)
 * [K3S-Network-Policy](#K3S-Network-Policy)
+* [Suspend-policy](#Suspend-policy)
 
 ## SSH
 
@@ -322,6 +323,36 @@ To apply it you need to run this command:
 kubectl label namespace nextcloud name=nextcloud --overwrite
 kubectl apply -f network-policy.yaml
 ```
+
+## Suspend-policy
+
+This configuration is to avoid unwanted suspension on your server.
+So edit this file:
+```
+sudo vim /etc/systemd/logind.conf
+```
+
+and remove the commnet from this line
+```
+HandleLidSwitch=ignore
+HandleLidSwitchDocked=ignore
+HandleSuspendKey=ignore
+HandleHibernateKey=ignore
+HandlePowerKey=ignore
+IdleAction=ignore
+```
+
+then apply this change by
+
+```
+sudo systemctl restart systemd-logind
+```
+
+You can also avoid that other process call the service for suspend or ibernate by masking the service with this command:
+```
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+```
+
 
 **References:**
 * **Ubuntu hardening for kubernetes and nextcloud** - https://www.blunix.com/blog/howto-install-nextcloud-on-ubuntu-2204-with-hetzner.html#selecting-and-renting-the-server-cloud
