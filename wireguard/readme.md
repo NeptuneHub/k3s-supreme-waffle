@@ -72,7 +72,7 @@ DNS = 8.8.8.8
 
 [Peer]
 PublicKey = zzzzzzzzz # Server public key
-AllowedIPs = 0.0.0.0/0
+AllowedIPs = 10.0.0.0/24 #you can use a subnet to use wireguard only for the subnet address, or use 0.0.0.0/0 for everything
 Endpoint = serverIP:51820
 PersistentKeepalive = 25
 ```
