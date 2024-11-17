@@ -60,7 +60,7 @@ you can create the Public and private key of the client by
 Click on Add Tunnel => Add Empty Tunnel.
 ```
 
-Now you can add the configuration file for your VPN
+In the empty tunnel you can now add the following information (PrivateKey should be laready created from the previous step):
 ```
 [Interface]
 PrivateKey = <client-private-key>
