@@ -49,3 +49,28 @@ sudo wg-quick down wg0
 sudo wg-quick up wg0
 ```
 
+# Install and configuration on client (windows/android)
+
+Download the client
+```
+https://www.wireguard.com/install/
+```
+you can create the Public and private key of the client by
+```
+Click on Add Tunnel => Add Empty Tunnel.
+```
+
+Now you can add the configuration file for your VPN
+```
+[Interface]
+PrivateKey = <client-private-key>
+Address = 10.0.0.2/32        # Client's VPN IP address
+DNS = 8.8.8.8               # Optional, DNS server for the client
+
+[Peer]
+PublicKey = <server-public-key>
+Endpoint = <server-ip>:51820 # Public IP of the server and port
+AllowedIPs = 0.0.0.0/0       # All traffic routed through the VPN
+PersistentKeepalive = 25     # Optional, helps keep the connection alive
+```
+
