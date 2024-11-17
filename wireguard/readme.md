@@ -14,8 +14,6 @@ sudo apt install wireguard -y
 Then you need to generate the key
 ```
 wg genkey | tee server_private.key | wg pubkey > server_public.key
-wg genkey | tee client1_private.key | wg pubkey > client1_public.key
-wg genkey | tee client2_private.key | wg pubkey > client2_public.key
 ```
 
 Then you can proceed in creating the configuration file
@@ -35,7 +33,11 @@ PrivateKey = xxxxxxx # Server private key
 
 [Peer]
 PublicKey = yyyyyyyy # Client1 pubblic key
-AllowedIPs = 10.0.0.2/32 # IP address for the client
+AllowedIPs = 10.0.0.2/32 # IP address for the client1
+
+[Peer]
+PublicKey = pppppppp # Client2 pubblic key
+AllowedIPs = 10.0.0.3/32 # IP address for the client2
 ```
 
 Finally start the the vpn opn the server
@@ -65,7 +67,7 @@ In the empty tunnel you can now add the following information (PrivateKey should
 ```
 [Interface]
 PrivateKey = kkkkkkk # Client1 private key
-Address = 10.0.0.2/32
+Address = 10.0.0.2/32 #in case of Client2 remeber .3
 DNS = 8.8.8.8
 
 [Peer]
