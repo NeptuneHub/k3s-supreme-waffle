@@ -27,17 +27,14 @@ With configuration like this
 
 ```
 [Interface]
-Address = 10.0.0.1/24
-ListenPort = 51820
-PrivateKey = <contenuto_di_server_private.key>
+PrivateKey = <server-private-key>
+Address = 10.0.0.1/24       # VPN subnet
+ListenPort = 51820          # Default WireGuard port
+SaveConfig = true
 
 [Peer]
-PublicKey = <contenuto_di_client1_public.key>
-AllowedIPs = 10.0.0.2/32
-
-[Peer]
-PublicKey = <contenuto_di_client2_public.key>
-AllowedIPs = 10.0.0.3/32
+PublicKey = <client-public-key>
+AllowedIPs = 10.0.0.2/32    # IP address for the client
 ```
 
 Finally start the the vpn opn the server
