@@ -28,14 +28,14 @@ With configuration like this
 
 ```
 [Interface]
-PrivateKey = <server-private-key>
-Address = 10.0.0.1/24       # VPN subnet
-ListenPort = 51820          # Default WireGuard port
+Address = 10.0.0.3/24
 SaveConfig = true
+ListenPort = 51820
+PrivateKey = xxxxxxx # Server private key
 
 [Peer]
-PublicKey = <client-public-key>
-AllowedIPs = 10.0.0.2/32    # IP address for the client
+PublicKey = yyyyyyyy # Client1 pubblic key
+AllowedIPs = 10.0.0.2/32 # IP address for the client
 ```
 
 Finally start the the vpn opn the server
@@ -64,14 +64,14 @@ Click on Add Tunnel => Add Empty Tunnel.
 In the empty tunnel you can now add the following information (PrivateKey should be laready created from the previous step):
 ```
 [Interface]
-PrivateKey = <client-private-key>
-Address = 10.0.0.2/32        # Client's VPN IP address
-DNS = 8.8.8.8               # Optional, DNS server for the client
+PrivateKey = kkkkkkk # Client1 private key
+Address = 10.0.0.2/32
+DNS = 8.8.8.8
 
 [Peer]
-PublicKey = <server-public-key>
-Endpoint = <server-ip>:51820 # Public IP of the server and port
-AllowedIPs = 0.0.0.0/0       # All traffic routed through the VPN
-PersistentKeepalive = 25     # Optional, helps keep the connection alive
+PublicKey = zzzzzzzzz # Server public key
+AllowedIPs = 0.0.0.0/0
+Endpoint = serverIP:51820
+PersistentKeepalive = 25
 ```
 
