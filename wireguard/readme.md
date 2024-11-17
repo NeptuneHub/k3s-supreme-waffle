@@ -81,3 +81,10 @@ On server side to check if the connection configure is up just use this command:
 ```
 sudo wg
 ```
+
+# Enable wireguard on startup server
+To enable wirguard at the startup on the server just run this command:
+```
+sudo systemctl enable wg-quick@wg0
+```
+
