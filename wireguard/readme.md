@@ -76,4 +76,8 @@ AllowedIPs = 10.0.0.0/24 #you can use a subnet to use wireguard only for the sub
 Endpoint = serverIP:51820
 PersistentKeepalive = 25
 ```
-
+# Check
+On server side to check if the connection configure is up just use this command:
+```
+sudo wg
+```
