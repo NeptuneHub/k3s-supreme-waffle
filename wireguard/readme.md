@@ -39,3 +39,10 @@ AllowedIPs = 10.0.0.2/32
 PublicKey = <contenuto_di_client2_public.key>
 AllowedIPs = 10.0.0.3/32
 ```
+
+Finally start the the vpn opn the server
+
+```
+sudo wg-quick up wg0
+```
+
