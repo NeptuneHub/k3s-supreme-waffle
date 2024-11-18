@@ -14,7 +14,10 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 sudo chown $(id -u):$(id -g) /etc/rancher/k3s/k3s.yaml
 ```
 
-Then I deployed it using the deployment.yaml fiel in this repo
+Then I deployed it using the deployment.yaml fiel where you just need to:
+* In the SVC replace <your-server-ip> with your server ip => this is due to the fact that we didn't install traefik on K3S
+
+Then just apply it
 ```
 kubectl apply -f deployment.yaml
 ```
