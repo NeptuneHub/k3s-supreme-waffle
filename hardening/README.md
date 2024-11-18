@@ -156,6 +156,15 @@ You can check that it work by run:
 sudo unattended-upgrades -d
 ```
 
+Because I look multiple reboot for multiple kind of upgrade, I also disable the **apt-daily.timer** and **apt-daily-upgrade.timer** by running this command:
+
+```
+sudo systemctl disable apt-daily.timer
+sudo systemctl disable apt-daily-upgrade.timer
+sudo systemctl stop apt-daily.timer
+sudo systemctl stop apt-daily-upgrade.timer
+```
+
 ## Fail2ban
 
 This application is to ban failed attemp of login on the different systemn. For this you need to make a configuration file with the application in scope and a filter for each application. This because this applications works by pharsing the log file.
