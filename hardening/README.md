@@ -163,6 +163,10 @@ sudo systemctl disable apt-daily.timer
 sudo systemctl disable apt-daily-upgrade.timer
 sudo systemctl stop apt-daily.timer
 sudo systemctl stop apt-daily-upgrade.timer
+sudo systemctl stop ua-timer.service
+sudo systemctl disable ua-timer.service
+sudo systemctl stop ua-timer.timer
+sudo systemctl disable ua-timer.timer
 ```
 
 ## Fail2ban
