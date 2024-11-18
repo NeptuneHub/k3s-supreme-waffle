@@ -141,6 +141,12 @@ DIRECTORY="./"; echo "Total size: $(du -sh "$DIRECTORY" | awk '{print $1}')"; ec
 ```
 * **Different command to check log on linux (tested on ubuntu 24.04)**
 ```
+List of reboot
+last reboot
+
+List of error in the last 2 days
+journalctl --since "2 days ago" -p 3
+
 Journalctl general LOG:
 sudo journalctl --since "2024-08-02 04:29" --until "2024-08-02 04:35"
 
