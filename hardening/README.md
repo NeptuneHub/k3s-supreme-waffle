@@ -64,6 +64,13 @@ sudo systemctl restart ssh
 sudo systemctl status ssh
 ```
 
+for openSuse
+```
+sudo systemctl restart sshd
+sudo systemctl status sshd
+```
+
+
 ## Firewall
 
 For firewall we configured ufw by running this command:
