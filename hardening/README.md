@@ -5,6 +5,7 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 
 **Index:**
 * [SSH](#SSH)
+* [SSH-openSUSE](#SSH-openSUSE)
 * [Firewall](#Firewall)
 * [Ubuntu unattended update](#Ubuntu-unattended-update)
 *  [openSuse Automatic Update](#openSUSE-automatic-update)
@@ -64,7 +65,50 @@ sudo systemctl restart ssh
 sudo systemctl status ssh
 ```
 
-for openSuse
+## SSH-openSUSE
+
+First make some SSH hardening, so start to edit the sshd_config but first note:
+
+* **Important** here we are changing the SSH port from 22 to 2222 to avoid some basic automated attack. This means that in the next login you should specify the -p 2222 in your SSH command;
+* **Important2** here we are disabling the access by password, before that I suggest to configure you SSH key to access to the server;
+* **Important3** we are enabling the access by ssh only from root user. If it's not your case comments the string.
+
+```
+sudo vim /etc/ssh/sshd_config.d/99-custom.conf
+```
+
+and be sure that this are present and not commented:
+```
+# Passwords are depricated in favor of SSH keypair authentication
+PasswordAuthentication no
+PermitEmptyPasswords no
+PermitUserEnvironment no 
+PubkeyAuthentication yes
+
+# Change default SSH port to get rid of 99% of automated attacks
+Port 2222
+
+# We only login as root anyways (for convinience) so we might as well ban everyone else
+AllowUsers root guido
+AllowGroups root users
+
+# Disconnect after 5 minutes of idle to reduce risk of hijacking terminals
+ClientAliveInterval 300
+ClientAliveCountMax 0
+
+# There are no xservers (graphical systems) on a nextcloud server
+X11Forwarding no
+
+# There are no xservers (graphical systems) on a nextcloud server
+X11Forwarding no
+```
+
+Check if well formatted, you should have 0 as a result:
+```
+sshd -t; echo $?
+```
+
+If all is well formated then apply and check the status of the service
 ```
 sudo systemctl restart sshd
 sudo systemctl status sshd
