@@ -401,3 +401,4 @@ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.ta
 * **K3S automated upate** - https://docs.k3s.io/upgrades/automated
 * **K3S update plan** - https://github.com/rancher/system-upgrade-controller/blob/master/examples/k3s-upgrade.yaml
 * **K3S Hardening** - https://docs.k3s.io/security/hardening-guide
+* **openSuse upgrade** - https://github.com/losuler/zypper-automatic
