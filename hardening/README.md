@@ -7,6 +7,7 @@ This was made based on Ubuntu 24.04 but most of them will probably works even fo
 * [SSH](#SSH)
 * [Firewall](#Firewall)
 * [Ubuntu unattended update](#Ubuntu-unattended-update)
+*  [openSuse Automatic Update](#openSUSE-automatic-update)
 * [Fail2ban](#Fail2ban)
 * [Aide](#Aide)
 * [K3S-automated-update](#K3S-automated-update)
@@ -126,6 +127,7 @@ dpkg-reconfigure unattended-upgrades
 shutdown -r now
 ```
 
+
 To enalbed the unattend update at 2:00 at night edit this file:
 ```
 sudo vim /etc/apt/apt.conf.d/50unattended-upgrades
@@ -167,6 +169,30 @@ sudo systemctl stop ua-timer.service
 sudo systemctl disable ua-timer.service
 sudo systemctl stop ua-timer.timer
 sudo systemctl disable ua-timer.timer
+```
+
+
+
+## openSUSE-automatic-update
+This is the equivalent of unatthend update of ubuntu. So first install it:
+
+```
+sudo zypper refresh
+sudo zypper update -y
+sudo zypper dist-upgrade -y
+sudo zypper install -y zypper-automatic
+sudo systemctl enable --now zypper-automatic.timer
+shutdown -r now
+```
+
+then edit the configuration
+```
+sudo vim /etc/zypp/automatic.conf
+```
+
+and add
+```
+AUTOMATIC_UPDATE="yes"
 ```
 
 ## Fail2ban
