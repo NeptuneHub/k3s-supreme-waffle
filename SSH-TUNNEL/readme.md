@@ -123,16 +123,13 @@ autossh -M 0 -N -R 443:localhost:443 your-username@vm-ip
 and look if it return error.
 
 # Automated check
-We deployed a static webpage that work as a simple healthcheck page, the page have exactly this htlm
+We deployed a static webpage that work as a simple healthcheck page on each of the 3 k3s node of our homelab.
 
-```
-<html>
-<head><title>Static Web Page</title></head>
-<body><h1>Hello World from Ubuntu3</h1></body>
-</html>
-```
+At this point you can run the script **SSH-TUNNEL/ssh_check.ssh** on your homelab (the server **without** the public ip) to have an HTTP Response code equal to 200. If not, restart the **autossh-tunnel.service** and also restart the VM with the public ip (we look that sometime the tunnel crash bad and is not possible to recreate it only restarting the tunnel on the homelab).
 
-At this point you can run the script **SSH-TUNNEL/ssh_check.ssh** on your homelab (the server **without** the public ip) to have an HTTP Response code equal to 200. If not, restart the **autossh-tunnel.service** and also restart the VM with the public ip (we look that sometime the tunnel crash bad and is not possible to recreate it only restarting the tunnel on the homelab)
+In the script remember to change:
+* <IP-OF-VM-WITH-PUBLIC-IP> => with the IP of the server with public ip (the VM in cloud)
+* urls array => use the url of the machine where you have the healthcheck page.
 
 You can also put this script in your crontab by run:
 ```
