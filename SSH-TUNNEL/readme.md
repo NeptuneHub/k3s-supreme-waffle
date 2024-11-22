@@ -132,7 +132,7 @@ We deployed a static webpage that work as a simple healthcheck page, the page ha
 </html>
 ```
 
-At this point you can run the script **SSH-TUNNEL/ssh_check.ssh** on your homelab (the server **without** the public ip) to exactly reach the page and you have those htlm. If not, restart the **autossh-tunnel.service**
+At this point you can run the script **SSH-TUNNEL/ssh_check.ssh** on your homelab (the server **without** the public ip) to have an HTTP Response code equal to 200. If not, restart the **autossh-tunnel.service** and also restart the VM with the public ip (we look that sometime the tunnel crash bad and is not possible to recreate it only restarting the tunnel on the homelab)
 
 You can also put this script in your crontab by run:
 ```
@@ -141,7 +141,7 @@ crontab -e
 
 and adding something like this (remebering to change the address of your script)
 ```
-*/10 * * * * /bin/bash  /home/guido/bootstrap/35-autossh/ssh_check.ssh >> /home/guido/bootstrap/35-autossh/autossh.log 2>&1
+*/10 * * * * /bin/bash  <your-pat>/ssh_check.ssh >> <your-pat>/autossh.log 2>&1
 ```
 
 # References
