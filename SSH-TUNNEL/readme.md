@@ -122,6 +122,28 @@ autossh -M 0 -N -R 443:localhost:443 your-username@vm-ip
 
 and look if it return error.
 
+# Automated check
+We deployed a static webpage that work as a simple healthcheck page, the page have exactly this htlm
+
+```
+<html>
+<head><title>Static Web Page</title></head>
+<body><h1>Hello World from Ubuntu3</h1></body>
+</html>
+```
+
+At this point you can run the script **SSH-TUNNEL/ssh_check.ssh** on your homelab (the server **without** the public ip) to exactly reach the page and you have those htlm. If not, restart the **autossh-tunnel.service**
+
+You can also put this script in your crontab by run:
+```
+crontab -e
+```
+
+and adding something like this (remebering to change the address of your script)
+```
+*/10 * * * * /bin/bash  /home/guido/bootstrap/35-autossh/ssh_check.ssh >> /home/guido/bootstrap/35-autossh/autossh.log 2>&1
+```
+
 # References
 * **autossh** - https://github.com/Autossh/autossh
 * **Startup service** - https://stackoverflow.com/questions/77340424/about-auto-ssh-in-startup-script
