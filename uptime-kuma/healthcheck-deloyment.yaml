@@ -1,0 +1,209 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kuma
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-web-ubuntu2
+  namespace: kuma
+  labels:
+    app: static-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: static-web
+      node: ubuntu2
+  template:
+    metadata:
+      labels:
+        app: static-web
+        node: ubuntu2
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: ubuntu2
+      containers:
+        - name: static-web
+          image: httpd:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: static-content
+              mountPath: /usr/local/apache2/htdocs
+      volumes:
+        - name: static-content
+          configMap:
+            name: static-web-ubuntu2
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: static-web-ubuntu2
+  namespace: kuma
+data:
+  index.html: |
+    <html>
+    <head><title>Static Web Page</title></head>
+    <body><h1>Hello World from Ubuntu2</h1></body>
+    </html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-web-ubuntu3
+  namespace: kuma
+  labels:
+    app: static-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: static-web
+      node: ubuntu3
+  template:
+    metadata:
+      labels:
+        app: static-web
+        node: ubuntu3
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: ubuntu3
+      containers:
+        - name: static-web
+          image: httpd:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: static-content
+              mountPath: /usr/local/apache2/htdocs
+      volumes:
+        - name: static-content
+          configMap:
+            name: static-web-ubuntu3
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: static-web-ubuntu3
+  namespace: kuma
+data:
+  index.html: |
+    <html>
+    <head><title>Static Web Page</title></head>
+    <body><h1>Hello World from Ubuntu3</h1></body>
+    </html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-web-ubuntu4
+  namespace: kuma
+  labels:
+    app: static-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: static-web
+      node: ubuntu4
+  template:
+    metadata:
+      labels:
+        app: static-web
+        node: ubuntu4
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: ubuntu4
+      containers:
+        - name: static-web
+          image: httpd:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: static-content
+              mountPath: /usr/local/apache2/htdocs
+      volumes:
+        - name: static-content
+          configMap:
+            name: static-web-ubuntu4
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: static-web-ubuntu4
+  namespace: kuma
+data:
+  index.html: |
+    <html>
+    <head><title>Static Web Page</title></head>
+    <body><h1>Hello World from Ubuntu4</h1></body>
+    </html>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-web-ubuntu2-service
+  namespace: kuma
+spec:
+  selector:
+    app: static-web
+    node: ubuntu2
+  ports:
+    - port: 80
+      targetPort: 80
+  clusterIP: None  # This ensures that we use headless service to connect directly to pods.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-web-ubuntu3-service
+  namespace: kuma
+spec:
+  selector:
+    app: static-web
+    node: ubuntu3
+  ports:
+    - port: 80
+      targetPort: 80
+  clusterIP: None  # This ensures that we use headless service to connect directly to pods.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-web-ubuntu4-service
+  namespace: kuma
+spec:
+  selector:
+    app: static-web
+    node: ubuntu4
+  ports:
+    - port: 80
+      targetPort: 80
+  clusterIP: None  # This ensures that we use headless service to connect directly to pods.
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: static-web-ingressroute
+  namespace: kuma
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`ubuntu2.silverycat.de`)
+      kind: Rule
+      services:
+        - name: static-web-ubuntu2-service
+          port: 80
+    - match: Host(`ubuntu3.silverycat.de`)
+      kind: Rule
+      services:
+        - name: static-web-ubuntu3-service
+          port: 80
+    - match: Host(`ubuntu4.silverycat.de`)
+      kind: Rule
+      services:
+        - name: static-web-ubuntu4-service
+          port: 80
