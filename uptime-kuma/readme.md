@@ -22,5 +22,13 @@ Then just apply it
 kubectl apply -f deployment.yaml
 ```
 
+# Healthcheck page
+
+In addition to check the single service, we also create some static webpage, one for each node, and we check them  (for example to check if only one service go down, on the entire node). To do this you can us as an example  **healthcheck-deloyment.yam** where:
+* deployment: one for each node where you need to edit the **node** field;
+* service: one for each node;
+* ingressroute: it work with treaefik, if you edit the service, also check the ingressroute
+* configmap: we create one for each node to have a different web page. Edit this accordingly to the number and name of node. 
+
 # References
 * **Uptime Kuma Github** - https://github.com/louislam/uptime-kuma
