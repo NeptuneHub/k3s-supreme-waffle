@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Expected response
+expected_content="<html>
+<head><title>Static Web Page</title></head>
+<body><h1>Hello World from Ubuntu3</h1></body>
+</html>"
+
+# URL to check
+url="http://ubuntu3.silverycat.de"
+
+# Fetch the response
+response=$(curl -s "$url")
+
+# Normalize strings: remove extra spaces, newlines, and carriage returns
+normalized_expected=$(echo -e "$expected_content" | tr -d '\r' | sed '/^[[:space:]]*$/d')
+normalized_response=$(echo "$response" | tr -d '\r' | sed '/^[[:space:]]*$/d')
+
+# Save normalized strings to files for debugging
+echo "$normalized_expected" > /tmp/expected_normalized.html
+echo "$normalized_response" > /tmp/response_normalized.html
+
+# Compare using diff
+if ! diff /tmp/expected_normalized.html /tmp/response_normalized.html > /tmp/diff_output.txt; then
+    echo "Content mismatch detected. Restarting autossh-tunnel.service..."
+    echo "Differences:"
+    cat /tmp/diff_output.txt
+    sudo systemctl stop autossh-tunnel.service
+    sleep 2
+    sudo systemctl start autossh-tunnel.service
+else
+    echo "Content matches. No action required."
+fi
+
+# Debugging: Clean up or retain files for further inspection
+rm -f /tmp/expected_normalized.html /tmp/response_normalized.html /tmp/diff_output.txt
