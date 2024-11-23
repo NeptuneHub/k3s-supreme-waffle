@@ -73,7 +73,9 @@ After=network-online.target ssh.service
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/startup_script.sh
-RemainAfterExit=yes
+Restart=always
+RestartSec=5
+RemainAfterExit=no
 
 [Install]
 WantedBy=multi-user.target
