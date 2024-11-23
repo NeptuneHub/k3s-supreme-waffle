@@ -162,6 +162,23 @@ Hardware encoding options: enable hardware encoding.
 
 In this way a was able to reproduce a 4k video in HEVC with the UHD Graphics 630 intel integrated graphics card.
 
+# Jellyfin backup
+Because we installed Jellyfin in a K3S node where only it is installed we just backup the entire **/var/lib/rancher/k3s/storage** directory. Otherwise you need tospecify the exact pvc name.
+
+Say that you can use the script **backup.sh** in this space, remembering to check:
+* **source_base**: in case you want to specify a specific PVC directory;
+* **dest_base**: you need put where you want you backup.
+
+Finally you can schedule it daily with crontab by:
+```
+sudo crontab -e
+```
+
+and adding this at the bottom something like this:
+```
+0 5 * * * /bin/bash <path-of-the-script>/backup.sh >> <path-of-the-log/cron.log 2>&1
+```
+
 # References
 * **Intel plugin k8s** - https://github.com/intel/intel-device-plugins-for-kubernetes
 * **Jellyfin image from linux server** - https://docs.linuxserver.io/images/docker-jellyfin/
