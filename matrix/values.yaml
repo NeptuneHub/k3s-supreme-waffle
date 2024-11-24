@@ -1,0 +1,33 @@
+homeserverConfig:
+  server_name: chat.yourserver.de
+  public_baseurl: https://chat.yourserver.de/
+  web_client_location: https://chat.yourserver.de/
+  enable_registration: false
+  enable_registration_without_verification: false
+  email:
+    app_name: Chat
+ingress:
+  enabled: true
+  className: traefik
+  ingressClassName: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    acme.cert-manager.io/http01-edit-in-place: "true"
+  hosts:
+    - chat.yourserver.de
+  tls:
+    - secretName: chat-yourserver-de-tls
+      hosts:
+        - chat.yourserver.de
+element:
+  config:
+    default_server_config:
+      m.homeserver:
+        base_url: https://chat.yourserver.de
+        server_name: Chat
+  ingress:
+    enabled: true
+    className: traefik
+      #annotations:
+      #cert-manager.io/cluster-issuer: letsencrypt-production
+    host: chat.yourserver.de
