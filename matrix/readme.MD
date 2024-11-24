@@ -15,7 +15,7 @@ kubectl create namespace chat
 helm install chat matrix/matrix --namespace chat -f values.yaml
 ```
 
-#Send message by cli
+# Send message by cli
 
 A message can be send by the command line with something like this:
 ```
