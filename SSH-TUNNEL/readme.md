@@ -140,6 +140,42 @@ and adding something like this (remebering to change the address of your script)
 ```
 */10 * * * * /bin/bash  <your-pat>/ssh_check.ssh >> <your-pat>/autossh.log 2>&1
 ```
+# Solve unstable tunnel
+In case of unstable tunnel you can change the  sh script **startup_script.sh** on client (the homelab machine):
+
+```
+sudo vim /usr/local/bin/startup_script.sh
+```
+
+in this way:
+```
+#!/bin/bash
+
+/usr/bin/autossh -M 20000 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -f -N -R 443:192.168.3.11:443 root@vm-ip
+/usr/bin/autossh -M 20001 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -f -N -R 80:192.168.3.11:80 root@vm-ip
+```
+
+This will enable the monitoring on port 20000 and 20001 enabling to autossh to faster check for error.
+
+Also on server side edit the sshd config:
+```
+vim /etc/ssh/sshd_config
+```
+
+and add this line on the bottom:
+```
+#Autossh configuration
+ClientAliveInterval 60
+TCPKeepAlive yes
+ClientAliveCountMax 10000
+```
+
+finally restart the service:
+```
+sudo service ssh restart
+```
+
+This shoul keep the tunnel active even if the connection is not good/fast thanks to the keeepalive also on server side.
 
 # References
 * **autossh** - https://github.com/Autossh/autossh
