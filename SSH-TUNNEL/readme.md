@@ -181,3 +181,4 @@ This shoul keep the tunnel active even if the connection is not good/fast thanks
 * **autossh** - https://github.com/Autossh/autossh
 * **Startup service** - https://stackoverflow.com/questions/77340424/about-auto-ssh-in-startup-script
 * **Startup service** - https://jeffreytse.net/computer/2021/06/17/restart-ssh-sessions-and-tunnels-automatically.html
+* **Avoid tunnel freezing** - https://unix.stackexchange.com/questions/200239/how-can-i-keep-my-ssh-sessions-from-freezing
