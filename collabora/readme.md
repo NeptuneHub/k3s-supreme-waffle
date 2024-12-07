@@ -21,3 +21,6 @@ Now you need to install and enable in nextcloud admin web page the apps:
 * Collabora Online - Built-in CODE Server
 
 This is the connectors for collavbora online. Than in you admin page will appear the new link "office" where you need to select "use your server" and input your server url like https://collabora.silverycat.de.
+
+# References
+* **Collabora Online k8s documentation** - https://sdk.collaboraonline.com/docs/installation/Kubernetes.html#deploying-collabora-online-in-kubernetes
