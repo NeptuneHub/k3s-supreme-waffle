@@ -6,9 +6,9 @@ ingress:
    annotations:
        cert-manager.io/cluster-issuer: letsencrypt-production
        acme.cert-manager.io/http01-edit-in-place: "true"
-       traefik.ingress.kubernetes.io/redirect-entry-point: https
-       traefik.ingress.kubernetes.io/router.entrypoints: websecure
-       traefik.ingress.kubernetes.io/router.tls: "true"
+       #traefik.ingress.kubernetes.io/redirect-entry-point: https
+       #traefik.ingress.kubernetes.io/router.entrypoints: websecure
+       #traefik.ingress.kubernetes.io/router.tls: "true"
        traefik.ingress.kubernetes.io/service.sticky: "true"
        traefik.ingress.kubernetes.io/service.sticky.cookie: "WOPI-SESSION"
        traefik.ingress.kubernetes.io/service.sticky.cookie.secure: "true"
