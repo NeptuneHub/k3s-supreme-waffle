@@ -64,7 +64,7 @@ Add the following line:
 
 On ubuntu3, edit /etc/exports:
 ```
-sudo nano /etc/exports
+sudo vim /etc/exports
 ```
 
 Add the following line:
@@ -74,7 +74,7 @@ Add the following line:
 
 On ubuntu4, edit /etc/exports:
 ```
-sudo nano /etc/exports
+sudo vim /etc/exports
 ```
 
 Add the following line:
@@ -121,7 +121,7 @@ To automatically mount the NFS shares at boot time, edit the /etc/fstab file on 
 On ubuntu2, edit /etc/fstab:
 
 ```
-sudo nano /etc/fstab
+sudo vim /etc/fstab
 ```
 
 Add the following lines:
@@ -133,7 +133,7 @@ Add the following lines:
 
 On ubuntu3, edit /etc/fstab:
 ```
-sudo nano /etc/fstab
+sudo vim /etc/fstab
 ```
 
 Add the following lines:
@@ -144,7 +144,7 @@ Add the following lines:
 
 On ubuntu4, edit /etc/fstab:
 ```
-sudo nano /etc/fstab
+sudo vim /etc/fstab
 ```
 
 Add the following lines:
