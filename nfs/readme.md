@@ -8,6 +8,9 @@ On all three nodes (ubuntu2, ubuntu3, and ubuntu4), install both the NFS server 
 ```
 sudo apt update
 sudo apt install nfs-kernel-server nfs-common
+sudo systemctl enable nfs-kernel-server
+sudo systemctl start nfs-kernel-server
+
 ```
 
 Create the directory to share. Each server will share a directory:
