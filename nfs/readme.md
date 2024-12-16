@@ -62,7 +62,7 @@ sudo vim /etc/exports
 
 Add the following line:
 ```
-/srv/nfs/ubuntu2 192.168.3.0/24(rw,sync,no_subtree_check)
+/srv/nfs/ubuntu2 192.168.3.0/24(rw,sync,no_subtree_check,fsid=0,crossmnt)
 ```
 
 On ubuntu3, edit /etc/exports:
@@ -72,7 +72,7 @@ sudo vim /etc/exports
 
 Add the following line:
 ```
-/srv/nfs/ubuntu3 192.168.3.0/24(rw,sync,no_subtree_check)
+/srv/nfs/ubuntu3 192.168.3.0/24(rw,sync,no_subtree_check,fsid=0,crossmnt)
 ```
 
 On ubuntu4, edit /etc/exports:
@@ -82,7 +82,7 @@ sudo vim /etc/exports
 
 Add the following line:
 ```
-/srv/nfs/ubuntu4 192.168.3.0/24(rw,sync,no_subtree_check)
+/srv/nfs/ubuntu4 192.168.3.0/24(rw,sync,no_subtree_check,fsid=0,crossmnt)
 ```
 
 After editing the /etc/exports file, apply the changes by re-exporting the shares:
