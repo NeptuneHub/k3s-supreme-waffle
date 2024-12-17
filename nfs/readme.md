@@ -78,3 +78,23 @@ helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/
 helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --namespace nfs --create-namespace --set nfs.server=192.168.3.134 --set nfs.path=/mnt/NFS1
 ```
 
+Now you can create a PVC in this way:
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+  namespace: your-namespace
+spec:
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1000Mi
+```
+
+
+# References
+* **NFS SUBDIR GITHUB** - https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
+* **Reddit references** - https://www.reddit.com/r/kubernetes/comments/1hfu73f/nfs_storage/
