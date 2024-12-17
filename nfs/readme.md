@@ -1,6 +1,6 @@
 # Introduction
-In this guide we suppose to have 3 node (ubuntu2, ubuntu3 and ubuntu4) and to install NFS server on each of them. Then each one can mount the shared folder of the other.
-In our configuration all the machine are on the network 192.168.3.0/24 ad are .131 .132 and .133 so in apply the configuration change it accordingly to your network
+here we are configuring the NFS Server and then mount it on the client side in different way (directly on the host system or mounting it as StorageClass on K3S).
+We are configuring the NFS server on the ip 192.168.3.134, if you have a different ip just change it accordingly.
 
 # 1 - Install and configure NFS SERVER on each nodes
 First you need to install the NFS server on the server side
@@ -68,3 +68,13 @@ You can verify that the NFS shares have been mounted correctly by running:
 ```
 df -h
 ```
+
+# Mount it with a storage class
+
+To mount it as a storage class yoy need to run this command
+
+```
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --namespace nfs --create-namespace --set nfs.server=192.168.3.134 --set nfs.path=/mnt/NFS1
+```
+
