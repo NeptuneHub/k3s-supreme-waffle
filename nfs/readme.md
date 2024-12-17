@@ -43,6 +43,7 @@ sudo systemctl restart nfs-kernel-server
 ```
 
 # Direct mount the folder on the host client
+
 Create the mount points where the NFS shares will be mounted:
 ```
 sudo mkdir -p /mnt/NFS1
