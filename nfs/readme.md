@@ -16,8 +16,6 @@ Create the directory to share and give the permissions.
 sudo mkdir -p /mnt/NFS1
 sudo chmod 777  /mnt/NFS1
 ```
-hmod 777  /mnt/NFS1
-```
 
 Now you need to Configure /etc/exports for NFS Shares:
 
@@ -48,19 +46,9 @@ Create the mount points where the NFS shares will be mounted:
 ```
 sudo mkdir -p /mnt/NFS1
 ```
+
 To automatically mount the NFS shares at boot time, edit the /etc/fstab:
 
-```
-sudo vim /etc/fstab
-```
-
-Add the following lines:
-
-```
-192.168.3.134:/srv/nfs/ubuntu3 /mnt/ubuntu3 nfs defaults 0 0
-```
-
-On ubuntu3, edit /etc/fstab:
 ```
 sudo vim /etc/fstab
 ```
