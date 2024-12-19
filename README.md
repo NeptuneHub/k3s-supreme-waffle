@@ -112,7 +112,10 @@ rm -rf /var/lib/rancher/k3s/server/db/
 systemctl start k3s
 ```
 * **Delete image from a node to force the download (work even with pullpolicy:ifnotpresent**
-* sudo crictl rmi nextcloud:stable
+```
+sudo crictl rmi nextcloud:stable
+sudo ctr -n k8s.io images rm docker.io/library/nextcloud:stable
+```
 
 
 # Linux useful commands
