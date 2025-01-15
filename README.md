@@ -116,6 +116,11 @@ systemctl start k3s
 sudo crictl rmi nextcloud:stable
 sudo ctr -n k8s.io images rm docker.io/library/nextcloud:stable
 ```
+* **Delete a cert-manager certificate to force the re-issuing**
+```
+kubectl delete challenge -n <namespace> <certificate-challenge>
+kubectl delete certificate -n <namespace> <certificate-name>
+```
 
 
 # Linux useful commands
