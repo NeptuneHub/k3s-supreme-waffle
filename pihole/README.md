@@ -90,6 +90,17 @@ sudo systemctl restart systemd-networkd
 sudo systemctl start systemd-resolved 
 ```
 
+#Update
+Before an update be sure to backup all the configuration. Then you can run this command to force K3S to remove the actual image and force a redeployment of the pod with the new one:
+```
+sudo crictl rmi pihole/pihole:latest
+kubectl rollout restart deployment -n pihole
+```
+
+If the password for login is re-setted you can set a new one (like a blank one) with a command like this (remember to put correct namespace and pod name):
+```
+kubectl exec -it -n pihole pihole-d5c85f7c7-xkl5b -- pihole setpassword ''
+```
 
 
 **References**
