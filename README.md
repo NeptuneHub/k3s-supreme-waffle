@@ -121,6 +121,14 @@ sudo ctr -n k8s.io images rm docker.io/library/nextcloud:stable
 kubectl delete challenge -n <namespace> <certificate-challenge>
 kubectl delete certificate -n <namespace> <certificate-name>
 ```
+* **Lis all the image already downloaded in K3S**
+```
+sudo crictl images | grep collabora
+```
+* **Delete collabora to force the re-downloading last version**
+```
+sudo ctr -n k8s.io images rm docker.io/collabora/code:latest
+```
 
 
 # Linux useful commands
