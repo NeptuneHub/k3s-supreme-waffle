@@ -129,7 +129,11 @@ sudo crictl images | grep collabora
 ```
 sudo ctr -n k8s.io images rm docker.io/collabora/code:latest
 ```
-
+* **Delete one node from K3S cluster, for example ubuntu4**
+```
+kubectl delete node ubuntu4
+kubectl get pods --all-namespaces --field-selector spec.nodeName=ubuntu4 -o json | jq -r '.items[].metadata | "kubectl delete pod \(.name) -n \(.namespace) --force --grace-period=0"' | sh
+```
 
 # Linux useful commands
 * **Disable use of swap**
