@@ -348,6 +348,22 @@ kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonp
 
 This will create the initial memories index and all the other photo will be added automaticcally.
 
+# Update app
+
+Could be that after an update nextcloud switch automatically in maintenance mode and to come back working need an update of the app installed on it.
+
+To update you can run this command (assuming that you nextcloud istance is in namespace nextcloud):
+
+```
+kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ upgrade"
+```
+
+and then finally disable it:
+```
+kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ maintenance:mode --off"
+```
+
+
 **Refrences**
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
 * **Nextcloud helm chart** - https://nextcloud.github.io/helm/
