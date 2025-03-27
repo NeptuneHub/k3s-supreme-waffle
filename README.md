@@ -134,6 +134,10 @@ sudo ctr -n k8s.io images rm docker.io/collabora/code:latest
 kubectl delete node ubuntu4
 kubectl get pods --all-namespaces --field-selector spec.nodeName=ubuntu4 -o json | jq -r '.items[].metadata | "kubectl delete pod \(.name) -n \(.namespace) --force --grace-period=0"' | sh
 ```
+* **Install/Update Traefik CRDs**
+```
+kubectl apply -f https://raw.githubusercontent.com/traefik/traefik/v3.2/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+```
 
 # Linux useful commands
 * **Disable use of swap**
