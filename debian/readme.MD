@@ -39,7 +39,7 @@ if has('mouse')
 endif
 ```
 
-# Remove DVD from apt refenrece list
+# Remove DVD from apt source list
 
 If after the installation you still have issue with apt-get update that try to search info from the DVD you can just comment it by:
 ```
