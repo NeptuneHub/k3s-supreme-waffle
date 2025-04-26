@@ -39,6 +39,18 @@ if has('mouse')
 endif
 ```
 
+# Remove DVD from apt refenrece list
+
+If after the installation you still have issue with apt-get update that try to search info from the DVD you can just comment it by:
+```
+sudo vim /etc/apt/sources.list
+```
+
+and then comment or remove this line:
+```
+#deb cdrom:[Debian GNU/Linux 12.10.0 _Bookworm_ - Official amd64 DVD Binary-1 with firmware 20250315-10:10]/ bookworm contrib main non-free-firmware
+```
+
 # References
 * **sudoers** - https://unix.stackexchange.com/questions/292562/adding-a-sudoer-in-debian
 * **Cut&paste in vim** - https://www.cyberciti.biz/faq/enable-vim-mouse-copy-paste-in-ubuntu-debian-linux-unix/
