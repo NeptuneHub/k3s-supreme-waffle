@@ -25,5 +25,20 @@ guido   ALL=(ALL) ALL
 
 # Enable mouse cut&paste in vim terminal
 
+Edit the configuration file or create one if needed:
+```
+vim /etc/vim/vimrc.local 
+```
+
+and add this:
+```
+source $VIMRUNTIME/defaults.vim
+let skip_defaults_vim = 1
+if has('mouse')
+  set mouse=r
+endif
+```
+
 # References
 * **sudoers** - https://unix.stackexchange.com/questions/292562/adding-a-sudoer-in-debian
+* **Cut&paste in vim** - https://www.cyberciti.biz/faq/enable-vim-mouse-copy-paste-in-ubuntu-debian-linux-unix/
