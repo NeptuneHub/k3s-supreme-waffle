@@ -92,3 +92,28 @@ spec:
   type: LoadBalancer # Exposes the registry via an external IP (requires LoadBalancer provider like MetalLB)
   # Uncomment if you want to assign a a specific IP from your MetalLB pool:
   # loadBalancerIP: 192.168.3.16
+```
+
+## Use the registry
+
+On the local machine where you have docker installed and you want to build and push the container you need to:
+
+```
+sudo vim /etc/docker/daemon.json
+```
+
+and add this (change ip and port with your registry):
+```
+{
+  "insecure-registries": [
+    "192.168.3.16:5000"
+  ]
+}
+```
+
+Now that you have your registry you can build and push a container image in your localhost with this command:
+```
+docker build -t 192.168.3.16:5000/audiomuse-ai:local .
+docker push 192.168.3.16:5000/audiomuse-ai:local
+```
+Just edit name and tag of your container.
