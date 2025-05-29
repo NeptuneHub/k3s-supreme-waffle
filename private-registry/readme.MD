@@ -1,52 +1,36 @@
 # K3s Insecure Private Container Registry Setup
+This is to deploy a private container registry on your local k3s cluster for development. In this setup we will not use password or other protection (like https) supposing it will run only on you lan.
 
-This README outlines the configuration steps for deploying an **insecure** private Docker container registry within a K3s cluster. This setup is **NOT suitable for production environments** due to the lack of authentication and HTTPS, making it vulnerable to unauthorized access and data interception. It is intended for isolated development and testing purposes only.
+## Allow K3S node to use insecure registry
 
----
+To use insecure registry on K£S you need to edit or create this on each node:
 
-## Table of Contents
+```
+vim /etc/rancher/k3s/registries.yaml on each node
+```
 
-1.  [Security Warning](#1-security-warning)
-2.  [Private Registry Deployment on K3s](#2-private-registry-deployment-on-k3s)
-    * [Registry Deployment YAML (`registry-deployment.yaml`)](#registry-deployment-yaml-registry-deploymentyaml)
-    * [Deployment Steps](#deployment-steps)
-3.  [K3s Node Configuration (for Image Pulls)](#3-k3s-node-configuration-for-image-pulls)
-    * [Configuration File (`/etc/rancher/k3s/registries.yaml`)](#configuration-file-etcrancherk3sregistriesyaml)
-    * [Restart K3s Service](#restart-k3s-service)
-4.  [Local Docker Client Configuration (for Pushing/Pulling)](#4-local-docker-client-configuration-for-pushingpulling)
-    * [Configuration File (`/etc/docker/daemon.json`)](#configuration-file-etcdockerdaemonjson)
-    * [Restart Docker Daemon](#restart-docker-daemon-1)
-5.  [Image Management Workflow](#5-image-management-workflow)
-    * [Build Docker Image](#build-docker-image)
-    * [Push Image to Private Registry](#push-image-to-private-registry)
-    * [Verify Image in Registry](#verify-image-in-registry)
-6.  [Deploying an Application on K3s using the Private Registry](#6-deploying-an-application-on-k3s-using-the-private-registry)
-    * [Application Deployment YAML (`my-app-deployment.yaml`)](#application-deployment-yaml-my-app-deploymentyaml)
-    * [Deployment Steps](#deployment-steps-1)
-    * [Accessing the Application](#accessing-the-application)
+and add this, remembering to use your registry ip and port:
+```
+# /etc/rancher/k3s/registries.yaml
+mirrors:
+  "192.168.3.16:5000": # The name of your registry
+    endpoint:
+      - "http://192.168.3.16:5000" # Explicitly use HTTP
+configs:
+  "192.168.3.16:5000":
+    tls:
+      insecure_skip_verify: true # Crucial for insecure HTTP registries
+```
 
----
+after that you need to restart k3s on the node, if it's a server node:
 
-## 1. Security Warning
+```
+sudo systemctl restart k3s
+```
 
-**THIS SETUP IS INSECURE!**
+## Deploy the registry
 
-* **No Authentication:** Anyone who can reach your registry's IP and port (e.g., `192.168.3.16:5000`) can push, pull, or delete any image without credentials.
-* **No HTTPS/TLS:** All communication with the registry is unencrypted (HTTP). This means image data and any future credentials (if added) could be intercepted.
-
-**Only use this configuration for isolated development or testing environments where security is not a concern.** For production, implement HTTPS with valid certificates and robust authentication.
-
----
-
-## 2. Private Registry Deployment on K3s
-
-This section describes the Kubernetes manifests to deploy the `registry:2` container.
-
-**Registry IP and Port:** `192.168.3.16:5000` (Assumed LoadBalancer IP and default registry port)
-**Node for HostPath:** `unbutu3` (Pod will be scheduled on this node)
-**Namespace:** `registry`
-
-### Registry Deployment YAML (`registry-deployment.yaml`)
+To deploy the registry you can simply deploy this yaml:
 
 ```yaml
 apiVersion: v1
