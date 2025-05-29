@@ -1,5 +1,6 @@
 # K3s Insecure Private Container Registry Setup
-This is to deploy a private container registry on your local k3s cluster for development. In this setup we will not use password or other protection (like https) supposing it will run only on you lan.
+This is to deploy a private container registry on your local k3s cluster for development. In this setup we will not use password or other protection (like https) supposing it will run only on you lan for development purpose.
+Potentially you can configure a password but then need to be used for both pull and push.
 
 ## Allow K3S node to use insecure registry
 
