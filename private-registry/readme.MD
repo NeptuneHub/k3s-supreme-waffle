@@ -117,3 +117,14 @@ docker build -t 192.168.3.16:5000/audiomuse-ai:local .
 docker push 192.168.3.16:5000/audiomuse-ai:local
 ```
 Just edit name and tag of your container.
+
+You will find your registry catalog here:
+* http://192.168.3.16:5000/v2/_catalog
+
+and the tag list here:
+* http://192.168.3.16:5000/v2/audiomuse-ai/tags/list
+
+Finaly to deploy your container you should put in your deployment something like this:
+```
+image: 192.168.3.16:5000/audiomuse-ai:local
+```
