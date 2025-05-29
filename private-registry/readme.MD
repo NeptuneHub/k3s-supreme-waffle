@@ -30,7 +30,7 @@ sudo systemctl restart k3s
 
 ## Deploy the registry
 
-To deploy the registry you can simply deploy this yaml:
+To deploy the registry you can simply deploy this yaml, but remember to change namespace, node selector, port and eventually ip:
 
 ```yaml
 apiVersion: v1
