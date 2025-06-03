@@ -60,7 +60,7 @@ spec:
                 exit 1
               fi
               echo "Attempting to pull model: hermes3:3b-llama3.2-q4_K_M"
-              ollama pull hermes3:3b-llama3.2-q4_K_M
+              ollama pull mistral:7b
               echo "Model pull command completed."
               echo "Killing Ollama server with PID $OLLAMA_PID"
               kill $OLLAMA_PID
