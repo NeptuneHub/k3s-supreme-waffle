@@ -1,0 +1,211 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ollama
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ollama-pvc
+  namespace: ollama
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollama
+  namespace: ollama
+  labels:
+    app: ollama
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ollama
+  template:
+    metadata:
+      labels:
+        app: ollama
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: ubuntu3
+      initContainers:
+        - name: model-downloader
+          image: ollama/ollama:latest
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              set -euxo pipefail
+              apt-get update && apt-get install -y curl
+              ollama serve &
+              OLLAMA_PID=$!
+              echo "Ollama server started with PID $OLLAMA_PID"
+              for i in $(seq 1 10); do
+                if curl -s http://localhost:11434/api/version; then
+                  echo "Ollama server is ready."
+                  break
+                fi
+                echo "Waiting for Ollama server... ($i/10)"
+                sleep 2
+              done
+              if ! curl -s http://localhost:11434/api/version; then
+                echo "Ollama server did not become ready after multiple attempts. Aborting model pull."
+                kill $OLLAMA_PID || true
+                exit 1
+              fi
+              echo "Attempting to pull model: hermes3:3b-llama3.2-q4_K_M"
+              ollama pull hermes3:3b-llama3.2-q4_K_M
+              echo "Model pull command completed."
+              echo "Killing Ollama server with PID $OLLAMA_PID"
+              kill $OLLAMA_PID
+              sleep 2
+              if ps -p $OLLAMA_PID > /dev/null; then
+                echo "Warning: Ollama server (PID $OLLAMA_PID) still running, forcing kill -9."
+                kill -9 $OLLAMA_PID || true
+              fi
+              echo "Ollama server terminated. Init container successfully completed."
+              exit 0
+          env:
+            - name: OLLAMA_HOST
+              value: "0.0.0.0"
+            - name: OLLAMA_ORIGINS
+              value: "*"
+          volumeMounts:
+            - name: ollama-data
+              mountPath: /root/.ollama
+      containers:
+        - name: ollama
+          image: ollama/ollama:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              gpu.intel.com/i915: 1
+            requests:
+              gpu.intel.com/i915: 1
+          ports:
+            - containerPort: 11434
+              name: http-ollama
+          env:
+            - name: OLLAMA_HOST
+              value: "0.0.0.0"
+            - name: OLLAMA_ORIGINS
+              value: "*"
+            - name: ZES_ENABLE_SYSMAN
+              value: "1"
+            - name: SYCL_DEVICE_FILTER
+              value: "opencl:gpu:0"
+            - name: OLLAMA_NUM_GPU
+              value: "999"
+            - name: OLLAMA_INTEL_GPU
+              value: "true"
+          volumeMounts:
+            - name: dri
+              mountPath: /dev/dri
+            - name: ollama-data
+              mountPath: /root/.ollama
+      volumes:
+        - name: dri
+          hostPath:
+            path: /dev/dri
+        - name: ollama-data
+          persistentVolumeClaim:
+            claimName: ollama-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ollama-service
+  namespace: ollama
+spec:
+  selector:
+    app: ollama
+  ports:
+    - protocol: TCP
+      port: 11434
+      targetPort: http-ollama
+  type: LoadBalancer
+  loadBalancerIP: 192.168.3.15
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: openwebui-secrets
+  namespace: ollama
+type: Opaque
+stringData:
+  webui-secret-key: "YOUR-SECRET-KEY"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openwebui-pvc
+  namespace: ollama
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openwebui
+  namespace: ollama
+  labels:
+    app: openwebui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openwebui
+  template:
+    metadata:
+      labels:
+        app: openwebui
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: ubuntu3
+      containers:
+        - name: openwebui
+          image: ghcr.io/open-webui/open-webui:main
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http-webui
+          env:
+            - name: OLLAMA_BASE_URL
+              value: "http://ollama-service.ollama.svc.cluster.local:11434"
+            - name: WEBUI_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openwebui-secrets
+                  key: webui-secret-key
+          volumeMounts:
+            - name: openwebui-data
+              mountPath: /app/backend/data
+      volumes:
+        - name: openwebui-data
+          persistentVolumeClaim:
+            claimName: openwebui-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openwebui-service
+  namespace: ollama
+spec:
+  selector:
+    app: openwebui
+  ports:
+    - protocol: TCP
+      port: 8088
+      targetPort: http-webui
+  type: LoadBalancer
+  loadBalancerIP: 192.168.3.16
