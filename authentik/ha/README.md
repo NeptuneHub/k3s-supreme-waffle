@@ -61,6 +61,28 @@ And finally we can finalize the installation going here (edit the domain based o
 ```
 https://auth.silverycat.de/if/flow/initial-setup/
 ```
+
+# FIX no database leader issue
+
+If for any reason you have an issue (like delete a node) could happen that you get stuck with no DB leader. You can find this by this command (adapt for you namespace and database pod name):
+
+```
+kubectl exec -it database-0 -n authentik-ha -- patronictl list
++ Cluster: database (7407195840650309691) ----+-----+-----------+
+| Member     | Host       | Role    | State   |  TL | Lag in MB |
++------------+------------+---------+---------+-----+-----------+
+| database-0 | 10.42.1.31 | Replica | running | 439 |     67569 |
++------------+------------+---------+---------+-----+-----------+
+```
+as you can see you have only one node and is replica of nothing without any leader.
+
+In my case remove endpoint and pod solve it after the restart of the node:
+
+```
+kubectl delete endpoints database -n authentik-ha
+kubectl delete pod database-0 -n authentik-ha
+```
+
 # Refenrece
 * **Dragonfly k8s operator** - https://www.dragonflydb.io/docs/getting-started/kubernetes-operator#installation
 * **Dragonly HA** - https://www.dragonflydb.io/docs/managing-dragonfly/high-availability
