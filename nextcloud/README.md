@@ -363,6 +363,33 @@ and then finally disable it:
 kubectl exec --stdin --tty -n nextcloud $(kubectl get pods -n nextcloud -o jsonpath="{.items[*].metadata.name}" | grep nextcloud) -- su -s /bin/sh www-data -c "php occ maintenance:mode --off"
 ```
 
+# FULL BACKUP RESTORE
+
+Did you backup the entire PVC of nextcloud and now you need to fix ownership and permission? here the command for **ownership fix**:
+```
+# Navigate to the Nextcloud installation directory (if not already there)
+cd /var/www/html
+
+# Change ownership of the entire Nextcloud installation (including config and apps)
+chown -R www-data:www-data .
+
+# Change ownership of the data directory (if it's separate or within the main folder)
+# Assuming your data directory is /var/www/html/data
+chown -R www-data:www-data data/
+```
+
+here the command for **permission fix**:
+```
+# Set directory permissions to 750 (rwx for owner, rx for group, no access for others)
+find . -type d -exec chmod 750 {} \;
+
+# Set file permissions to 640 (rw for owner, r for group, no access for others)
+find . -type f -exec chmod 640 {} \;
+
+# Special permissions for the data directory (more restrictive)
+# If your data directory is separate, run this on that path.
+chmod 700 data/
+```
 
 **Refrences**
 * **Nextcloud github** - https://github.com/nextcloud/helm/tree/main/charts/nextcloud
