@@ -378,7 +378,7 @@ chown -R www-data:www-data .
 chown -R www-data:www-data data/
 ```
 
-here the command for **permission fix**:
+here the command for **permission fix** run the command in /varr/www/html:
 ```
 # Set directory permissions to 750 (rwx for owner, rx for group, no access for others)
 find . -type d -exec chmod 750 {} \;
@@ -389,6 +389,12 @@ find . -type f -exec chmod 640 {} \;
 # Special permissions for the data directory (more restrictive)
 # If your data directory is separate, run this on that path.
 chmod 700 data/
+```
+
+or run this if you want to run from everywhere:
+```
+find /var/www/html -type d -exec chmod 750 {} \;
+find /var/www/html -type f -exec chmod 640 {} \;
 ```
 
 **Refrences**
