@@ -138,6 +138,19 @@ kubectl get pods --all-namespaces --field-selector spec.nodeName=ubuntu4 -o json
 ```
 kubectl apply -f https://raw.githubusercontent.com/traefik/traefik/v3.2/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
 ```
+* **Fix ETCD that show a node as already present when is not true**
+```
+curl -LO https://github.com/etcd-io/etcd/releases/download/v3.5.15/etcd-v3.6.1-linux-arm64.tar.gz
+tar -zxvf etcd-v3.6.1-linux-amd64.tar.gz -C ./
+cd etcd-v3.6.1-linux-amd64
+
+sudo etcdctl version \
+  --cacert=/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt \
+  --cert=/var/lib/rancher/k3s/server/tls/etcd/client.crt \
+  --key=/var/lib/rancher/k3s/server/tls/etcd/client.key
+
+  sudo ./etcdctl member remove 5f3b9d6a7c34d1a   --cacert=/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt   --cert=/var/lib/rancher/k3s/server/tls/etcd/client.crt   --key=/var/lib/rancher/k3s/server/tls/etcd/client.key
+```
 
 # Linux useful commands
 * **Disable use of swap**
