@@ -114,8 +114,8 @@ and add this (change ip and port with your registry):
 
 Now that you have your registry you can build and push a container image in your localhost with this command:
 ```
-docker build -t 192.168.3.16:5000/audiomuse-ai:local .
-docker push 192.168.3.16:5000/audiomuse-ai:local
+docker build -t 192.168.3.99:5000/audiomuse-ai:local .
+docker push 192.168.3.99:5000/audiomuse-ai:local
 ```
 Just edit name and tag of your container.
 
