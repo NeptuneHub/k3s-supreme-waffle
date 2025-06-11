@@ -107,7 +107,7 @@ and add this (change ip and port with your registry):
 ```
 {
   "insecure-registries": [
-    "192.168.3.16:5000"
+    "192.168.3.99:5000"
   ]
 }
 ```
