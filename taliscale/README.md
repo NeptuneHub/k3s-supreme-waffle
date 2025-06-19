@@ -35,7 +35,7 @@ tailscale ip -4
 
 Expected output:
 ```
-100.91.228.11   ubuntu2              yourname@domain.com linux   -
+100.91.xxx.xx   ubuntu2              yourname@domain.com linux   -
 ```
 
 ## Step 3: Create Tailscale IngressRoute
@@ -46,7 +46,7 @@ Create a new IngressRoute specifically for Tailscale access:
 nano jellyfin-tailscale-ingressroute.yaml
 ```
 
-Replace `100.91.228.11` with your actual Tailscale IP from Step 2:
+Replace `100.91.xxx.xx` with your actual Tailscale IP from Step 2:
 
 ```yaml
 apiVersion: traefik.io/v1alpha1
@@ -59,7 +59,7 @@ spec:
   - taliscaleweb  # Replace with your entrypoint
   routes:
   - kind: Rule
-    match: Host(`100.91.228.11`)  # Your Tailscale IP
+    match: Host(`100.91.xxx.xx`)  # Your Tailscale IP
     services:
     - name: jellyfin  # Your Jellyfin service name
       port: 80
@@ -102,7 +102,7 @@ Test that everything works from the K3s node:
 curl -I http://localhost:8086
 
 # Test via Tailscale IP
-curl -I http://100.91.228.11:8086
+curl -I http://100.91.xxx.xx:8086
 ```
 
 You should receive HTTP 200 or 302 responses (not connection refused).
@@ -161,10 +161,10 @@ Authenticate each device with your Tailscale account.
 From any device connected to your Tailscale network, access Jellyfin using:
 
 ```
-http://100.91.228.11:8086
+http://100.91.xxx.xx:8086
 ```
 
-Replace `100.91.228.11` with your actual Tailscale IP.
+Replace `100.91.xxx.xx` with your actual Tailscale IP.
 
 ## Step 9: Test Reboot Persistence
 
@@ -180,7 +180,7 @@ sudo tailscale serve status
 sudo systemctl status tailscale-jellyfin.service
 
 # Test access again
-curl -I http://100.91.228.11:8086
+curl -I http://100.91.xxx.xx:8086
 ```
 
 ## Troubleshooting
