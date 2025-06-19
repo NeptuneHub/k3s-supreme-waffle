@@ -56,7 +56,7 @@ metadata:
   namespace: servarr  # Replace with your namespace
 spec:
   entryPoints:
-  - customweb  # Replace with your entrypoint
+  - taliscaleweb  # Replace with your entrypoint
   routes:
   - kind: Rule
     match: Host(`100.91.228.11`)  # Your Tailscale IP
@@ -82,10 +82,10 @@ kubectl get ingressroute -n servarr
 
 ## Step 4: Configure Tailscale Serve
 
-Expose port 8087 (or your custom entrypoint port) via Tailscale:
+Expose port 8086 (or your custom entrypoint port) via Tailscale:
 
 ```bash
-sudo tailscale serve --bg 8087
+sudo tailscale serve --bg 8086
 ```
 
 Verify the serve configuration:
@@ -99,10 +99,10 @@ Test that everything works from the K3s node:
 
 ```bash
 # Test local access
-curl -I http://localhost:8087
+curl -I http://localhost:8086
 
 # Test via Tailscale IP
-curl -I http://100.91.228.11:8087
+curl -I http://100.91.228.11:8086
 ```
 
 You should receive HTTP 200 or 302 responses (not connection refused).
@@ -125,7 +125,7 @@ Wants=tailscaled.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/tailscale serve --bg 8087
+ExecStart=/usr/bin/tailscale serve --bg 8086
 RemainAfterExit=yes
 User=root
 
@@ -161,7 +161,7 @@ Authenticate each device with your Tailscale account.
 From any device connected to your Tailscale network, access Jellyfin using:
 
 ```
-http://100.91.228.11:8087
+http://100.91.228.11:8086
 ```
 
 Replace `100.91.228.11` with your actual Tailscale IP.
@@ -180,7 +180,7 @@ sudo tailscale serve status
 sudo systemctl status tailscale-jellyfin.service
 
 # Test access again
-curl -I http://100.91.228.11:8087
+curl -I http://100.91.228.11:8086
 ```
 
 ## Troubleshooting
@@ -205,7 +205,7 @@ sudo journalctl -u tailscale-jellyfin.service -f
 
 ### Check Port Listening
 ```bash
-sudo netstat -tlnp | grep :8087
+sudo netstat -tlnp | grep :8086
 ```
 
 ### Check Traefik Logs
