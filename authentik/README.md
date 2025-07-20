@@ -185,7 +185,7 @@ LDAP Bind user password: put the token of the user LDAP that you created
 LDAP base DN for searches: dc=ldap,dc=silverycat,dc=de
 => save an test ldap server setting should give you: Connect (Success); Bind (Success); Base Search (Found XX Entities)
 
-ldap search filter: (objectClass=user)
+ldap search filter: (objectClass=user)  => **IMPORTANT** if this doesn't work use (&(objectClass=*)(uid=*))
 ldap search attributes: uid, cn, mail, displayName
 LDAP Uid attribute: uid
 LDAP username attribute: cn
