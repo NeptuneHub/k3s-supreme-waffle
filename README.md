@@ -227,6 +227,21 @@ lspci -nn | grep -Ei "3d|display|vga"
 sudo apt install intel-gpu-tools
 intel_gpu_top
 ```
+* **iNotify error fix**
+```
+sudo vim /etc/sysctl.conf
+```
+
+Set this value
+```
+fs.inotify.max_user_instances=32768
+fs.inotify.max_user_watches=2097152
+```
+
+then run this
+```
+sudo sysctl -p
+```
 
 **References:**
 * **K3S install**: https://documentation.suse.com/trd/kubernetes/single-html/kubernetes_ri_k3s-slemicro/index.html
