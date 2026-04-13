@@ -243,6 +243,24 @@ then run this
 sudo sysctl -p
 ```
 
+OR
+```
+sudo vim /etc/sysctl.d/99-inotify.conf
+```
+
+Put:
+
+```
+fs.inotify.max_user_instances=32768
+fs.inotify.max_user_watches=2097152
+```
+
+Then run:
+```
+sudo sysctl --system
+```
+
+
 **References:**
 * **K3S install**: https://documentation.suse.com/trd/kubernetes/single-html/kubernetes_ri_k3s-slemicro/index.html
 * **WIKI.JS install**:  https://computingforgeeks.com/install-and-configure-wikijs-on-kubernetes-cluster/
