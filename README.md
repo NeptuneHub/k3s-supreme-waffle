@@ -176,6 +176,37 @@ sudo etcdctl version \
 ```
 DIRECTORY="./"; echo "Total size: $(du -sh "$DIRECTORY" | awk '{print $1}')"; echo "Total number of files: $(find "$DIRECTORY" -type f | wc -l)"
 ```
+* **Install Docker with nvidia driver**
+```
+# Install NVIDIA driver + utils explicitly
+sudo apt update
+sudo apt install -y nvidia-driver-535 nvidia-utils-535
+sudo reboot
+
+# Verify
+nvidia-smi
+
+# Install Docker
+sudo apt install -y docker.io
+sudo systemctl enable --now docker
+
+# Install NVIDIA Container Toolkit
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit.gpg
+curl -fsSL https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+| sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit.gpg] https://#g' \
+| sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+sudo apt update
+sudo apt install -y nvidia-container-toolkit
+
+# Configure Docker
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+
+
+# Test
+docker run --rm --gpus all nvidia/cuda:12.3.2-base-ubuntu22.04 nvidia-smi
+```
+
 * **Different command to check log on linux (tested on ubuntu 24.04)**
 ```
 List of reboot
