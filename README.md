@@ -290,6 +290,13 @@ Then run:
 ```
 sudo sysctl --system
 ```
+* **Update Nvidia Driver when needed after kernel update**:
+```
+sudo apt update
+sudo apt install linux-headers-$(uname -r)
+sudo ubuntu-drivers autoinstall
+nvidia-smi
+```
 
 
 **References:**
